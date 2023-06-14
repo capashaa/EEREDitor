@@ -904,13 +904,13 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
                     if (MainForm.debug)
                     {
                         MainForm.debug = false;
-                        MainForm.Text = "EEditor " + MainForm.ProductVersion;
+                        MainForm.Text = "EERditor " + MainForm.ProductVersion;
                         MainForm.rebuildGUI(false);
 
                     }
                     else
                     {
-                        MainForm.Text = "EEditor " + MainForm.ProductVersion + " - Using Debug";
+                        MainForm.Text = "EERditor " + MainForm.ProductVersion + " - Using Debug";
                         MainForm.debug = true;
                         MainForm.rebuildGUI(false);
 
