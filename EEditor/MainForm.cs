@@ -1780,7 +1780,7 @@ namespace EEditor
             AddToolStrip(miscBMD, 1, new int[] { 550 }, null, false, "Effects", 1, 2, true);
             if (ihavethese.ContainsKey("goldmember") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 12, 13 }, new uint[] { 0x281C00, 0xBA983B }, false, "Gold Membership", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 12, 13 }, new uint[] { 0x281C00, 0xBA983B }, false, "Gold Membership", 1, 2, false); }
             AddToolStrip(miscBMD, 1, new int[] { 251 }, new uint[] { 0x409EB1 }, false, "Ice", 1, 2, true);
-            if (MainForm.userdata.username != "guest" && ihavethese.Any(x => x.Key.StartsWith("npc")) || debug) AddToolStrip(miscBMD, 1, new int[] { 433 }, null, false, "NPC", 1, 2, true);
+            /*if (MainForm.userdata.username != "guest" && ihavethese.Any(x => x.Key.StartsWith("npc")) || debug) AddToolStrip(miscBMD, 1, new int[] { 433 }, null, false, "NPC", 1, 2, true);
             if (ihavethese.ContainsKey("npcsmile") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 433 }, null, false, "NPC Smile", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 433 }, null, false, "NPC Smile", 1, 2, false); }
             if (ihavethese.ContainsKey("npcsad") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 434 }, null, false, "NPC Sad", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 434 }, null, false, "NPC Sad", 1, 2, false); }
             if (ihavethese.ContainsKey("npcold") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 435 }, null, false, "NPC Old", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 435 }, null, false, "NPC Old", 1, 2, false); }
@@ -1802,6 +1802,7 @@ namespace EEditor
             if (ihavethese.ContainsKey("npcsnowman") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 552 }, null, false, "NPC Snowman", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 552 }, null, false, "NPC Snowman", 1, 2, false); }
             if (ihavethese.ContainsKey("npcwalrus") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 553 }, null, false, "NPC Walrus", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 553 }, null, false, "NPC Walrus", 1, 2, false); }
             if (ihavethese.ContainsKey("npccrab") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 556 }, null, false, "NPC Crab", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 556 }, null, false, "NPC Crab", 1, 2, false); }
+            */
             #endregion Action
 
             #region Background
@@ -1899,7 +1900,7 @@ namespace EEditor
                 if (flowLayoutPanel6.InvokeRequired) { this.Invoke((MethodInvoker)delegate { flowLayoutPanel6.Visible = false; }); }
                 else
                 {
-                    flowLayoutPanel2.Visible = true;
+                    flowLayoutPanel2.Visible = false;
                     flowLayoutPanel3.Visible = false;
                     flowLayoutPanel4.Visible = false;
                     flowLayoutPanel5.Visible = false;
