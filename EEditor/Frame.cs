@@ -25,6 +25,8 @@ namespace EEditor
         public string[,] BlockData4 { get; set; }
         public string[,] BlockData5 { get; set; }
         public string[,] BlockData6 { get; set; }
+
+        public int[] editBlock { get; set; }
         public string nickname { get; set; }
         public string owner { get; set; }
         public string levelname { get; set; }
@@ -33,6 +35,7 @@ namespace EEditor
         public static byte[] xx1;
         public static byte[] yy1;
         public static string[] split1;
+        
 
 
         public Frame(int width, int height)
@@ -51,6 +54,7 @@ namespace EEditor
             nickname = null;
             owner = null;
             levelname = null;
+            editBlock = new int[4];
         }
 
         public event EventHandler<StatusChangedArgs> StatusChanged;
@@ -183,7 +187,8 @@ namespace EEditor
             //int num2 = 0;
             foreach (var chunk in chunks)
             {
-                Console.WriteLine("Bid: " + chunk.Type + " Length: " + chunk.Args.Length);
+                //Console.WriteLine("Bid: " + chunk.Type + " Length: " + chunk.Args.Length);
+                
 
                 foreach (var pos in chunk.Locations)
                 {
@@ -200,6 +205,10 @@ namespace EEditor
                             int x = pos.X;
                             int y = pos.Y;
                             frame.Foreground[y, x] = Convert.ToInt32(chunk.Type);
+                            if (chunk.Type == 1584)
+                            {
+                                frame.editBlock = new int[] { x, y, 1 };
+                            }
                         }
                     }
                     if (chunk.Args.Length == 1)
