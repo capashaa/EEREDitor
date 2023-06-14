@@ -963,57 +963,56 @@
             // 
             // flowLayoutPanel6
             // 
-            this.flowLayoutPanel6.AutoSize = true;
+            this.flowLayoutPanel6.AutoScroll = true;
             this.flowLayoutPanel6.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanel6.Location = new System.Drawing.Point(0, 523);
             this.flowLayoutPanel6.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel6.Name = "flowLayoutPanel6";
-            this.flowLayoutPanel6.Size = new System.Drawing.Size(1005, 0);
+            this.flowLayoutPanel6.Size = new System.Drawing.Size(1005, 124);
             this.flowLayoutPanel6.TabIndex = 3;
             // 
             // flowLayoutPanel5
             // 
-            this.flowLayoutPanel5.AutoSize = true;
+            this.flowLayoutPanel5.AutoScroll = true;
             this.flowLayoutPanel5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanel5.Location = new System.Drawing.Point(0, 523);
             this.flowLayoutPanel5.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel5.Name = "flowLayoutPanel5";
-            this.flowLayoutPanel5.Size = new System.Drawing.Size(1005, 0);
+            this.flowLayoutPanel5.Size = new System.Drawing.Size(1005, 124);
             this.flowLayoutPanel5.TabIndex = 1;
             // 
             // flowLayoutPanel4
             // 
-            this.flowLayoutPanel4.AutoSize = true;
+            this.flowLayoutPanel4.AutoScroll = true;
             this.flowLayoutPanel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanel4.Location = new System.Drawing.Point(0, 523);
             this.flowLayoutPanel4.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
-            this.flowLayoutPanel4.Size = new System.Drawing.Size(1005, 0);
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(1005, 124);
             this.flowLayoutPanel4.TabIndex = 0;
             // 
             // flowLayoutPanel2
             // 
-            this.flowLayoutPanel2.AutoSize = true;
+            this.flowLayoutPanel2.AutoScroll = true;
             this.flowLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(0, 523);
             this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(1005, 0);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(1005, 124);
             this.flowLayoutPanel2.TabIndex = 0;
             // 
             // flowLayoutPanel3
             // 
-            this.flowLayoutPanel3.AutoSize = true;
-            this.flowLayoutPanel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flowLayoutPanel3.AutoScroll = true;
             this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanel3.Location = new System.Drawing.Point(0, 523);
             this.flowLayoutPanel3.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(1005, 0);
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(1005, 124);
             this.flowLayoutPanel3.TabIndex = 0;
             // 
             // bottomFlowLayoutPanel
