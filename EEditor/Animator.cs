@@ -596,6 +596,7 @@ namespace EEditor
                     OnStatusChanged("Wrong level size. Please create a level with the size of " + remoteFrame.Width + "x" + remoteFrame.Height + ".", DateTime.MinValue, true, 0, 0);
                     return;
                 }
+                if (remoteFrame.editBlock[2] == 1) conn.Send("editblocktouch", remoteFrame.editBlock[0], remoteFrame.editBlock[1]);
                 if (e.GetBoolean(34))
                 {
                     AnimateForm.crewWorld = true;
