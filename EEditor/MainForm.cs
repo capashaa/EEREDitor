@@ -360,7 +360,7 @@ namespace EEditor
                 { 1543, 250 },{1544, 251 },{ 1545, 252 },{ 1546, 253 },{ 1547, 254 },{ 1548, 255 },{ 1549, 256 },
                 { 1560, 257 },{ 1561, 258 },{ 1562, 259 },{ 1564, 260 },{ 1565, 261 },{ 1566, 262 },
                 { 1567, 263 },{ 1568, 264 },{ 1582, 265 },{ 1583, 266 }, { 1589, 267 }, { 1590, 268 },{ 1591, 269},{ 1598, 270},
-                { 1599, 271},{ 1600, 272},{ 1601, 273}, { 1603, 274 }, { 1604, 275}, { 1622,276}, 
+                { 1599, 271},{ 1600, 272},{ 1601, 273}, { 1603, 274 }, { 1604, 275}, { 1622,276},
                 { 1623, 277 }, { 1624, 278 }, {1000, 176}
             };
             for (int i = 0; i < decorInit.Length / 2; i++)
@@ -651,7 +651,7 @@ namespace EEditor
                                         {
                                             dropdownitems[a].ForeColor = themecolors.foreground;
 
-                                                if (dropdownitems[a].Image != null)
+                                            if (dropdownitems[a].Image != null)
                                             {
                                                 Bitmap bmpa = (Bitmap)dropdownitems[a].Image;
                                                 if (!sblocks.ContainsKey(incr2)) sblocks.Add(incr2, bmpa);
@@ -1215,53 +1215,118 @@ namespace EEditor
             #region Foreground
 
             //Foreground 1
+
+            //Basic blocks
             AddToolStrip(foregroundBMD, 0, new int[] { 260, 156, 9, 10, 11, 12, 13, 14, 15, 205 }, new uint[] { 0xB1B1B1, 0x282828, 0x6E6E6E, 0x3552A8, 0x9735A7, 0xA83554, 0x93A835, 0x42A836, 0x359EA6, 0xB24521 }, true, "Basic", 0, 0, true);
+
+            //Beta blocks
             if (ihavethese.ContainsKey("beta") || accs[userdata.username].admin) { AddToolStrip(foregroundBMD, 0, new int[] { 261, 37, 38, 39, 40, 41, 42, 206, 207, 208 }, new uint[] { 0xE5E5E5, 0xCE62CF, 0x4AC882, 0x4D84C6, 0xCF6650, 0xD2A945, 0x999999, 0x49C2C6, 0xCE7E50, 0x474747 }, false, "Beta", 0, 0, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 261, 37, 38, 39, 40, 41, 42, 206, 207, 208 }, new uint[] { 0xE5E5E5, 0xCE62CF, 0x4AC882, 0x4D84C6, 0xCF6650, 0xD2A945, 0x999999, 0x49C2C6, 0xCE7E50, 0x474747 }, false, "Beta", 0, 0, false); }
+            //Brick blocks
             AddToolStrip(foregroundBMD, 0, new int[] { 262, 16, 17, 18, 19, 20, 21, 209, 210, 211 }, new uint[] { 0x888888, 0x8B3E09, 0x246F4D, 0x4E246F, 0x438310, 0x6F2429, 0x6F5D24, 0x4C4C4C, 0x092164, 0x181818 }, false, "Brick", 0, 0, true);
+            //Metal blocks
             AddToolStrip(foregroundBMD, 0, new int[] { 29, 30, 31, }, new uint[] { 0xA1A3A5, 0xDF7A41, 0xF0A927 }, false, "Metal", 0, 0, true);
+            //Grass blocks
             AddToolStrip(foregroundBMD, 0, new int[] { 34, 35, 36 }, new uint[] { 0x456313, 0x456313, 0x456313 }, false, "Grass", 0, 0, true);
+            //Generic blocks
             AddToolStrip(foregroundBMD, 0, new int[] { 22, 235, 32, 236, 33 }, new uint[] { 0x895B12, 0xD19322, 0xCF9022, 0x523B0F, 0x000000 }, false, "Generic", 0, 0, true);
+            //Factory blocks
             AddToolStrip(foregroundBMD, 0, new int[] { 45, 46, 47, 48, 49 }, new uint[] { 0x72614B, 0x6E6B60, 0x8E734F, 0x7F4F2B, 0x757575 }, false, "Factory", 0, 0, true);
+            //Secret blocks
             AddToolStrip(foregroundBMD, 0, new int[] { 44 }, new uint[] { 0x000000 }, false, "Secrets", 0, 0, true);
             if (!OpenWorld) AddToolStrip(miscBMD, 1, new int[] { 9, 10, 16 }, null, false, "Secrets", 0, 0, true);
+            //Glass blocks
             AddToolStrip(foregroundBMD, 0, new int[] { 51, 52, 53, 54, 55, 56, 57, 58 }, new uint[] { 0xF89299, 0xE98BF6, 0xA789F6, 0x7E99F6, 0x95DCF6, 0x92FBAA, 0xF8DA8C, 0xF6BA94 }, false, "Glass", 0, 0, true);
+            //Mineral Blocks
             AddToolStrip(foregroundBMD, 0, new int[] { 70, 71, 72, 73, 74, 75, 76 }, new uint[] { 0xEE0000, 0xEE00EE, 0x0000EE, 0x00EEEE, 0x00EE00, 0xEEEE00, 0xEE7700 }, false, "Minerals", 0, 0, true);
-            AddToolStrip(foregroundBMD, 0, new int[] { 78, 79, 80, 81, 82 }, new uint[] { 0x7EBE14, 0xC38884, 0x99440F, 0x56197E, 0x568515 }, false, "Christmas 2011", 0, 0, true);
-            AddToolStrip(foregroundBMD, 0, new int[] { 60, 310, 61, 62, 63, 64, 65, 66, 67 }, new uint[] { 0xFB93B4, 0x9dc6fc, 0x772C6C, 0x711620, 0x315364, 0x134913, 0xC27474, 0xA46951, 0x8D3111 }, false, "Candy", 0, 0, true);
-            AddToolStrip(foregroundBMD, 0, new int[] { 59 }, new uint[] { 0xD9BB86 }, false, "Summer 2011", 0, 0, true);
-            AddToolStrip(foregroundBMD, 0, new int[] { 68, 69 }, new uint[] { 0x685454, 0x5E6E74 }, false, "Halloween 2011", 0, 0, true);
 
 
-            AddToolStrip(foregroundBMD, 0, new int[] { 84, 85, 308, 309, 317, 318, 86, 87, 88, 89, 90, 91, 234, 319, 320 }, new uint[] { 0x9F4340, 0x3B729D, 0x3C8E38, 0xA58337, 0x9237A4, 0x409191, 0x868686, 0xFFFFFF, 0x6C4F2C, 0xBA6971, 0x6977BA, 0x64B66E, 0xBD8453, 0xA966B8, 0x64B4A9 }, false, "Sci-Fi", 0, 1, true);
 
 
+            //Christmas 2011 blocks
+            if (ihavethese.ContainsKey("brickxmas2011")) { AddToolStrip(foregroundBMD, 0, new int[] { 78, 79, 80, 81, 82 }, new uint[] { 0x7EBE14, 0xC38884, 0x99440F, 0x56197E, 0x568515 }, false, "Christmas 2011", 0, 0, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 78, 79, 80, 81, 82 }, new uint[] { 0x7EBE14, 0xC38884, 0x99440F, 0x56197E, 0x568515 }, false, "Christmas 2011", 0, 0, false); }
+            //Candy blocks
+            if (ihavethese.ContainsKey("brickcandy")) { AddToolStrip(foregroundBMD, 0, new int[] { 60, 310, 61, 62, 63, 64, 65, 66, 67 }, new uint[] { 0xFB93B4, 0x9dc6fc, 0x772C6C, 0x711620, 0x315364, 0x134913, 0xC27474, 0xA46951, 0x8D3111 }, false, "Candy", 0, 0, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 60, 310, 61, 62, 63, 64, 65, 66, 67 }, new uint[] { 0xFB93B4, 0x9dc6fc, 0x772C6C, 0x711620, 0x315364, 0x134913, 0xC27474, 0xA46951, 0x8D3111 }, false, "Candy", 0, 0, false); }
+            //Summer 2011 blocks
+            if (ihavethese.ContainsKey("bricksummer2011")) { AddToolStrip(foregroundBMD, 0, new int[] { 59 }, new uint[] { 0xD9BB86 }, false, "Summer 2011", 0, 0, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 59 }, new uint[] { 0xD9BB86 }, false, "Summer 2011", 0, 0, false); }
+            //Halloween 2011 blocks
+            if (ihavethese.ContainsKey("brickhw2011")) { AddToolStrip(foregroundBMD, 0, new int[] { 68, 69 }, new uint[] { 0x685454, 0x5E6E74 }, false, "Halloween 2011", 0, 0, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 68, 69 }, new uint[] { 0x685454, 0x5E6E74 }, false, "Halloween 2011", 0, 0, false); }
+
+            //Scifi blocks
+            if (ihavethese.ContainsKey("brickscifi")) { AddToolStrip(foregroundBMD, 0, new int[] { 84, 85, 308, 309, 317, 318, 86, 87, 88, 89, 90, 91, 234, 319, 320 }, new uint[] { 0x9F4340, 0x3B729D, 0x3C8E38, 0xA58337, 0x9237A4, 0x409191, 0x868686, 0xFFFFFF, 0x6C4F2C, 0xBA6971, 0x6977BA, 0x64B66E, 0xBD8453, 0xA966B8, 0x64B4A9 }, false, "Sci-Fi", 0, 1, true); }
+            //Prison blocks
             AddToolStrip(foregroundBMD, 0, new int[] { 92 }, new uint[] { 0x808080 }, false, "Prison", 0, 1, true);
-            AddToolStrip(foregroundBMD, 0, new int[] { 93, 94, 131 }, new uint[] { 0xB09364, 0xA89455, 0 }, false, "Pirate", 0, 2, true);
-            AddToolStrip(foregroundBMD, 0, new int[] { 95, 226, 227, 228 }, new uint[] { 0x5E6267, 0x547064, 0x695137, 0x4D5772 }, false, "Stone", 0, 2, true);
-            AddToolStrip(foregroundBMD, 0, new int[] { 96, 97 }, null, false, "Dojo", 0, 2, true);
-            AddToolStrip(foregroundBMD, 0, new int[] { 99, 100, 101, 102, 103, 104 }, null, false, "Wild West", 0, 2, true);
-            AddToolStrip(foregroundBMD, 0, new int[] { 105, 106, 107, 108, 109, 110, 111, 112 }, new uint[] { 0x93EB10, 0xD53725, 0xDFCF19, 0x72C5EB, 0x2B43CF, 0xDA28D8, 0x2DAC10, 0xE5821F }, false, "Plastic", 0, 1, true);
-            AddToolStrip(foregroundBMD, 0, new int[] { 114, 115, 116, 117, 118, 119 }, new uint[] { 0xE0D5B1, 0xA29D88, 0xE4D98D, 0xD8B65A, 0xAF9468, 0x795A35 }, false, "Sand", 0, 1, true);
-            AddToolStrip(foregroundBMD, 0, new int[] { 120, 287 }, new uint[] { 0xF6FCFF, 0x7A7A7B }, false, "Cloud", 0, 1, true);
-            AddToolStrip(foregroundBMD, 0, new int[] { 121, 122, 123, 124, 294, 125, }, new uint[] { 0x7E7E7E, 0x595B5D, 0, 0, 0, 0 }, false, "Industrial", 0, 1, true);
-            AddToolStrip(miscBMD, 1, new int[] { 406 }, null, false, "Industrial", 0, 2, true);
-            AddToolStrip(foregroundBMD, 0, new int[] { 126, 288 }, new uint[] { 0x7B7A7A, 0x807F7F }, false, "Industrial", 0, 1, true);
-            AddToolStrip(miscBMD, 1, new int[] { 404 }, null, false, "Industrial", 0, 2, true);
-            AddToolStrip(foregroundBMD, 0, new int[] { 127, 128, 129, 130 }, new uint[] { 0x6D6C6C, 0x595858, 0x5E5D5D, 0x6D6C6C }, false, "Industrial", 0, 1, true);
 
-            AddToolStrip(foregroundBMD, 0, new int[] { 132, 133, 134, 136, 137 }, new uint[] { 0, 0x545F68, 0x4D565E, 0, 0 }, false, "Medieval", 0, 1, true);
+            //Pirate blocks
+            if (ihavethese.ContainsKey("brickscifi")) { AddToolStrip(foregroundBMD, 0, new int[] { 93, 94, 131 }, new uint[] { 0xB09364, 0xA89455, 0 }, false, "Pirate", 0, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 93, 94, 131 }, new uint[] { 0xB09364, 0xA89455, 0 }, false, "Pirate", 0, 2, false); }
+
+            //Stone blocks
+            if (ihavethese.ContainsKey("brickpirate")) { AddToolStrip(foregroundBMD, 0, new int[] { 95, 226, 227, 228 }, new uint[] { 0x5E6267, 0x547064, 0x695137, 0x4D5772 }, false, "Stone", 0, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 95, 226, 227, 228 }, new uint[] { 0x5E6267, 0x547064, 0x695137, 0x4D5772 }, false, "Stone", 0, 2, false); }
+
+            //Dojo blocks
+            if (ihavethese.ContainsKey("brickninja")) { AddToolStrip(foregroundBMD, 0, new int[] { 96, 97 }, null, false, "Dojo", 0, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 96, 97 }, null, false, "Dojo", 0, 2, false); }
+
+            //Wild west blocks
+            if (ihavethese.ContainsKey("brickcowboy")) { AddToolStrip(foregroundBMD, 0, new int[] { 99, 100, 101, 102, 103, 104 }, null, false, "Wild West", 0, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 99, 100, 101, 102, 103, 104 }, null, false, "Wild West", 0, 2, false); }
+
+            //Plastic blocks
+            if (ihavethese.ContainsKey("brickplastic")) { AddToolStrip(foregroundBMD, 0, new int[] { 105, 106, 107, 108, 109, 110, 111, 112 }, new uint[] { 0x93EB10, 0xD53725, 0xDFCF19, 0x72C5EB, 0x2B43CF, 0xDA28D8, 0x2DAC10, 0xE5821F }, false, "Plastic", 0, 1, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 105, 106, 107, 108, 109, 110, 111, 112 }, new uint[] { 0x93EB10, 0xD53725, 0xDFCF19, 0x72C5EB, 0x2B43CF, 0xDA28D8, 0x2DAC10, 0xE5821F }, false, "Plastic", 0, 1, false); }
+
+            //Sand blocks
+            if (ihavethese.ContainsKey("bricksand")) { AddToolStrip(foregroundBMD, 0, new int[] { 114, 115, 116, 117, 118, 119 }, new uint[] { 0xE0D5B1, 0xA29D88, 0xE4D98D, 0xD8B65A, 0xAF9468, 0x795A35 }, false, "Sand", 0, 1, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 114, 115, 116, 117, 118, 119 }, new uint[] { 0xE0D5B1, 0xA29D88, 0xE4D98D, 0xD8B65A, 0xAF9468, 0x795A35 }, false, "Sand", 0, 1, false); }
+
+            //Cloud blocks
+            AddToolStrip(foregroundBMD, 0, new int[] { 120, 287 }, new uint[] { 0xF6FCFF, 0x7A7A7B }, false, "Cloud", 0, 1, true);
+
+            //Industrial blocks
+            if (ihavethese.ContainsKey("brickindustrial"))
+            {
+                AddToolStrip(foregroundBMD, 0, new int[] { 121, 122, 123, 124, 294, 125, }, new uint[] { 0x7E7E7E, 0x595B5D, 0, 0, 0, 0 }, false, "Industrial", 0, 1, true);
+                AddToolStrip(miscBMD, 1, new int[] { 406 }, null, false, "Industrial", 0, 2, true);
+                AddToolStrip(foregroundBMD, 0, new int[] { 126, 288 }, new uint[] { 0x7B7A7A, 0x807F7F }, false, "Industrial", 0, 1, true);
+                AddToolStrip(miscBMD, 1, new int[] { 404 }, null, false, "Industrial", 0, 2, true);
+                AddToolStrip(foregroundBMD, 0, new int[] { 127, 128, 129, 130 }, new uint[] { 0x6D6C6C, 0x595858, 0x5E5D5D, 0x6D6C6C }, false, "Industrial", 0, 1, true);
+            }
+            else
+            {
+                AddToolStrip(foregroundBMD, 0, new int[] { 121, 122, 123, 124, 294, 125, }, new uint[] { 0x7E7E7E, 0x595B5D, 0, 0, 0, 0 }, false, "Industrial", 0, 1, false);
+                AddToolStrip(miscBMD, 1, new int[] { 406 }, null, false, "Industrial", 0, 2, false);
+                AddToolStrip(foregroundBMD, 0, new int[] { 126, 288 }, new uint[] { 0x7B7A7A, 0x807F7F }, false, "Industrial", 0, 1, false);
+                AddToolStrip(miscBMD, 1, new int[] { 404 }, null, false, "Industrial", 0, 2, false);
+                AddToolStrip(foregroundBMD, 0, new int[] { 127, 128, 129, 130 }, new uint[] { 0x6D6C6C, 0x595858, 0x5E5D5D, 0x6D6C6C }, false, "Industrial", 0, 1, false);
+            }
+
+            //Medieval Blocks
+            if (ihavethese.ContainsKey("brickmedieval")) { AddToolStrip(foregroundBMD, 0, new int[] { 132, 133, 134, 136, 137 }, new uint[] { 0, 0x545F68, 0x4D565E, 0, 0 }, false, "Medieval", 0, 1, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 132, 133, 134, 136, 137 }, new uint[] { 0, 0x545F68, 0x4D565E, 0, 0 }, false, "Medieval", 0, 1, false); }
+
+            //Pipes blocks
             AddToolStrip(foregroundBMD, 0, new int[] { 140, 141, 142, 143, 144, 145 }, new uint[] { 0xCC730C, 0xDE7A0D, 0xCF740D, 0xD57402, 0xEB7D02, 0xD57402 }, false, "Pipes", 0, 1, true);
 
+            //Outer Space blocks
             AddToolStrip(foregroundBMD, 0, new int[] { 146, 147, 148, 149, 150, 214 }, new uint[] { 0xD7D6DD, 0x639AFB, 0x58D30A, 0xE2456D, 0xFFAB44, 0x7F7F7F }, false, "Outer Space", 0, 1, true);
 
+            //Deset blocks
             AddToolStrip(foregroundBMD, 0, new int[] { 151, 152, 153, 154, 155 }, new uint[] { 0xDD943B, 0xC68534, 0x916127, 0xB67B31, 0xB47B33 }, false, "Desert", 0, 1, true);
+
+            //Checked blocks
             AddToolStrip(foregroundBMD, 0, new int[] { 263, 161, 162, 163, 164, 165, 166, 167, 212, 213 }, new uint[] { 0xBFBFBF, 0x6B6B6B, 0x2F5391, 0x803D91, 0xA8193F, 0xABB333, 0x45A337, 0x3CB2AC, 0xA15531, 0x272727 }, false, "Checker", 0, 1, true);
+
+            //Jungle blocks
             AddToolStrip(foregroundBMD, 0, new int[] { 168, 169, 170, 171, 172, 173, 176 }, new uint[] { 0, 0, 0x99997A, 0xAC7061, 0x62889A, 0x878441, 0 }, false, "Jungle", 0, 1, true);
-            AddToolStrip(foregroundBMD, 0, new int[] { 177, 178, 179 }, new uint[] { 0xFFCE3E, 0xFA970E, 0xFF5F00 }, false, "Lava", 0, 1, true);
-            AddToolStrip(foregroundBMD, 0, new int[] { 180, 181, 182, 183 }, new uint[] { 0xCDD1D3, 0xC1DCB9, 0xE5C6CF, 0 }, false, "Marble", 0, 1, true);
+
+            //Lava blocks
+            if (ihavethese.ContainsKey("bricklava")) { AddToolStrip(foregroundBMD, 0, new int[] { 177, 178, 179 }, new uint[] { 0xFFCE3E, 0xFA970E, 0xFF5F00 }, false, "Lava", 0, 1, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 177, 178, 179 }, new uint[] { 0xFFCE3E, 0xFA970E, 0xFF5F00 }, false, "Lava", 0, 1, false); }
+
+            //Marble/Sparta blocks
+            if (ihavethese.ContainsKey("bricksparta")) { AddToolStrip(foregroundBMD, 0, new int[] { 180, 181, 182, 183 }, new uint[] { 0xCDD1D3, 0xC1DCB9, 0xE5C6CF, 0 }, false, "Marble", 0, 1, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 180, 181, 182, 183 }, new uint[] { 0xCDD1D3, 0xC1DCB9, 0xE5C6CF, 0 }, false, "Marble", 0, 1, false); }
+
+            //Farm blocks
             AddToolStrip(foregroundBMD, 0, new int[] { 184 }, new uint[] { 0xCCBE75 }, false, "Farm", 0, 1, true);
-            AddToolStrip(foregroundBMD, 0, new int[] { 187, 188 }, new uint[] { 0xB2BCE1, 0x385862 }, false, "Christmas 2014", 0, 1, true);
-            AddToolStrip(miscBMD, 1, new int[] { 308, 55, 63, 59, 67, 224, 228, 232, 236, 240 }, new uint[] { 0x4A4A4A, 0x023032, 0x441602, 0x3C2D01, 0x3E0241, 0x232323, 0x021D33, 0x44020A, 0x0B2F0C, 0x0D0D0D }, false, "One-Way", 0, 2, true);
+
+            //Christmas 2014
+            if (ihavethese.ContainsKey("brickchristmas2014")) { AddToolStrip(foregroundBMD, 0, new int[] { 187, 188 }, new uint[] { 0xB2BCE1, 0x385862 }, false, "Christmas 2014", 0, 1, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 187, 188 }, new uint[] { 0xB2BCE1, 0x385862 }, false, "Christmas 2014", 0, 1, false); }
+
+            //One-Way blocks
+            if (ihavethese.ContainsKey("brickoneway")) { AddToolStrip(miscBMD, 1, new int[] { 308, 55, 63, 59, 67, 224, 228, 232, 236, 240 }, new uint[] { 0x4A4A4A, 0x023032, 0x441602, 0x3C2D01, 0x3E0241, 0x232323, 0x021D33, 0x44020A, 0x0B2F0C, 0x0D0D0D }, false, "One-Way", 0, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 308, 55, 63, 59, 67, 224, 228, 232, 236, 240 }, new uint[] { 0x4A4A4A, 0x023032, 0x441602, 0x3C2D01, 0x3E0241, 0x232323, 0x021D33, 0x44020A, 0x0B2F0C, 0x0D0D0D }, false, "One-Way", 0, 2, false); }
             if (ihavethese.ContainsKey("brickmagic") || accs[userdata.username].admin) { AddToolStrip(foregroundBMD, 0, new int[] { 200 }, new uint[] { 0x2D4F16 }, false, "Magic blocks", 0, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 200 }, new uint[] { 0x2D4F16 }, false, "Magic blocks", 0, 2, false); }
             if (ihavethese.ContainsKey("brickmagic2") || accs[userdata.username].admin) { AddToolStrip(foregroundBMD, 0, new int[] { 201 }, new uint[] { 0x4A1471 }, false, "Magic blocks", 0, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 201 }, new uint[] { 0x4A1471 }, false, "Magic blocks", 0, 2, false); }
             if (ihavethese.ContainsKey("brickmagic3") || accs[userdata.username].admin) { AddToolStrip(foregroundBMD, 0, new int[] { 202 }, new uint[] { 0x9D611A }, false, "Magic blocks", 0, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 202 }, new uint[] { 0x9D611A }, false, "Magic blocks", 0, 2, false); }
@@ -1272,41 +1337,99 @@ namespace EEditor
             if (ihavethese.ContainsKey("brickmagic8") || accs[userdata.username].admin) { AddToolStrip(foregroundBMD, 0, new int[] { 316 }, new uint[] { 0x1D1D1D }, false, "Magic blocks", 0, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 316 }, new uint[] { 0x1D1D1D }, false, "Magic blocks", 0, 2, false); }
 
 
-
+            //Enviroment blocks
             AddToolStrip(foregroundBMD, 0, new int[] { 215, 216, 217, 218, 219 }, new uint[] { 0x814224, 0x639012, 0xD3A558, 0x666C7E, 0x7F4413 }, false, "Enviroment", 0, 2, true);
+
+            //Domestick blocks
             AddToolStrip(foregroundBMD, 0, new int[] { 220, 221, 222, 223, 224, 225 }, new uint[] { 0xAE8358, 0x8D4E07, 0xA11616, 0x165CA1, 0x298820, 0xACA09C }, false, "Domestic", 0, 2, true);
             AddToolStrip(miscBMD, 1, new int[] { 203, 207, 211 }, new uint[] { 0x544321, 0x462807, 0x55504E }, false, "Domestic", 0, 2, true);
-            AddToolStrip(foregroundBMD, 0, new int[] { 229, 230, 231, 232 }, new uint[] { 0x50642F, 0x85897F, 0x3D443C, 0 }, false, "Halloween 2015", 0, 2, true);
+
+
+            if (ihavethese.ContainsKey("brickhalloween2015")) { AddToolStrip(foregroundBMD, 0, new int[] { 229, 230, 231, 232 }, new uint[] { 0x50642F, 0x85897F, 0x3D443C, 0 }, false, "Halloween 2015", 0, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 229, 230, 231, 232 }, new uint[] { 0x50642F, 0x85897F, 0x3D443C, 0 }, false, "Halloween 2015", 0, 2, false); }
+
+            //Arctic blocks
             AddToolStrip(foregroundBMD, 0, new int[] { 237, 238, 239, 240, 241 }, new uint[] { 0x6E8CC7, 0xA2B1CD, 0x8B98CB, 0x8B98CC, 0x8C9ACC }, false, "Arctic", 0, 2, true);
+
+            //Goldmember blocks
             if (ihavethese.ContainsKey("goldmember") || accs[userdata.username].admin) { AddToolStrip(foregroundBMD, 0, new int[] { 242, 243, 244, 245, 246 }, new uint[] { 0xC7A546, 0xBF9426, 0xBF9D42, 0xB99334, 0 }, false, "Gold Membership", 0, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 242, 243, 244, 245, 246 }, new uint[] { 0xC7A546, 0xBF9426, 0xBF9D42, 0xB99334, 0 }, false, "Gold Membership", 0, 2, false); }
-            AddToolStrip(foregroundBMD, 0, new int[] { 247, 248, 249, 250, 251 }, new uint[] { 0x98A093, 0xCB7D15, 0x3CB517, 0x7DB2DB, 0xC83D3F, 0xACA09C }, false, "Fairytale", 0, 2, true);
-            AddToolStrip(miscBMD, 1, new int[] { 264, 268, 272, 276 }, new uint[] { 0x5F3827, 0x3B5A30, 0x26485F, 0x61364C }, false, "Fairytale", 0, 2, true);
-            AddToolStrip(foregroundBMD, 0, new int[] { 253, 254 }, new uint[] { 0x932A0D, 0x165701 }, false, "Spring 2016", 0, 2, true);
-            AddToolStrip(foregroundBMD, 0, new int[] { 255, 256, 257, 258, 259 }, new uint[] { 0xB59358, 0x9A6093, 0xC5A228, 0x56A56E, 0 }, false, "Summer 2016", 0, 2, true);
 
-            AddToolStrip(foregroundBMD, 0, new int[] { 264 }, new uint[] { 0x9B5A3F }, false, "Mine", 0, 2, true);
+            //Fairytale blocks
+            if (ihavethese.ContainsKey("brickfairytale"))
+            {
+                AddToolStrip(foregroundBMD, 0, new int[] { 247, 248, 249, 250, 251 }, new uint[] { 0x98A093, 0xCB7D15, 0x3CB517, 0x7DB2DB, 0xC83D3F, 0xACA09C }, false, "Fairytale", 0, 2, true);
+                AddToolStrip(miscBMD, 1, new int[] { 264, 268, 272, 276 }, new uint[] { 0x5F3827, 0x3B5A30, 0x26485F, 0x61364C }, false, "Fairytale", 0, 2, true);
+            }
+            else
+            {
+                AddToolStrip(foregroundBMD, 0, new int[] { 247, 248, 249, 250, 251 }, new uint[] { 0x98A093, 0xCB7D15, 0x3CB517, 0x7DB2DB, 0xC83D3F, 0xACA09C }, false, "Fairytale", 0, 2, false);
+                AddToolStrip(miscBMD, 1, new int[] { 264, 268, 272, 276 }, new uint[] { 0x5F3827, 0x3B5A30, 0x26485F, 0x61364C }, false, "Fairytale", 0, 2, false);
+            }
+            //Spring 2016 blocks
+            if (ihavethese.ContainsKey("brickspring2016")) { AddToolStrip(foregroundBMD, 0, new int[] { 253, 254 }, new uint[] { 0x932A0D, 0x165701 }, false, "Spring 2016", 0, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 253, 254 }, new uint[] { 0x932A0D, 0x165701 }, false, "Spring 2016", 0, 2, false); }
+
+            //Summer 2016 blocks
+            if (ihavethese.ContainsKey("bricksummer2016")) { AddToolStrip(foregroundBMD, 0, new int[] { 255, 256, 257, 258, 259 }, new uint[] { 0xB59358, 0x9A6093, 0xC5A228, 0x56A56E, 0 }, false, "Summer 2016", 0, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 255, 256, 257, 258, 259 }, new uint[] { 0xB59358, 0x9A6093, 0xC5A228, 0x56A56E, 0 }, false, "Summer 2016", 0, 2, false); }
+
+            //Mine blocks
+            if (ihavethese.ContainsKey("brickmine")) { AddToolStrip(foregroundBMD, 0, new int[] { 264 }, new uint[] { 0x9B5A3F }, false, "Mine", 0, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 264 }, new uint[] { 0x9B5A3F }, false, "Mine", 0, 2, false); }
+            
+            //Construction blocks
             AddToolStrip(foregroundBMD, 0, new int[] { 265, 266, 267, 268, 291, 289, 290, 292, 269 }, new uint[] { 0xC79B68, 0x797979, 0xC9B190, 0xAB4A38, 0xAC4B38, 0xAA4937, 0xAC4B38, 0xAA4937, 0xAA4937 }, false, "Construction", 0, 2, true);
-            AddToolStrip(foregroundBMD, 0, new int[] { 270, 271, 272, 273, 274 }, new uint[] { 0x6E2B0B, 0x443C0B, 0x7D4E49, 0x253461, 0x86410D }, false, "Christmas 2016", 0, 2, true);
 
-            AddToolStrip(foregroundBMD, 0, new int[] { 275, 276, 277, 278, 279, 280, 281, 282, 283, 284 }, new uint[] { 0xB3B09B, 0x959386, 0x716F60, 0xAD7373, 0xA97C67, 0xA59069, 0x7E9575, 0x7EA194, 0x7C8B9D, 0x857A99 }, false, "Tiles", 0, 2, true);
+            //Christmas 2016
+            if (ihavethese.ContainsKey("brickchristmas2016")) { AddToolStrip(foregroundBMD, 0, new int[] { 270, 271, 272, 273, 274 }, new uint[] { 0x6E2B0B, 0x443C0B, 0x7D4E49, 0x253461, 0x86410D }, false, "Christmas 2016", 0, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 270, 271, 272, 273, 274 }, new uint[] { 0x6E2B0B, 0x443C0B, 0x7D4E49, 0x253461, 0x86410D }, false, "Christmas 2016", 0, 2, false); }
 
-            AddToolStrip(miscBMD, 1, new int[] { 362, 366, 370, 374, 378, 382, 386, 390, 394, 398 }, new uint[] { 0x5D5D5D, 0x2E2E2E, 0x151515, 0x59030D, 0x591D03, 0x4E3C02, 0x0E3E10, 0x034143, 0x032643, 0x4F0359 }, false, "Half Blocks", 0, 2, true);
-            AddToolStrip(foregroundBMD, 0, new int[] { 295, 296, 297, 298 }, new uint[] { 0x98BAC5, 0xB0C2C0, 0x9BC5D1, 0x97A0A6 }, false, "Winter 2018", 0, 2, true);
-            AddToolStrip(miscBMD, 1, new int[] { 426, 430 }, new uint[] { 0x565F5E, 0x485C63 }, false, "Winter 2018", 0, 2, true);
+            //Tiles blocks
+            if (ihavethese.ContainsKey("bricktiles")) { AddToolStrip(foregroundBMD, 0, new int[] { 275, 276, 277, 278, 279, 280, 281, 282, 283, 284 }, new uint[] { 0xB3B09B, 0x959386, 0x716F60, 0xAD7373, 0xA97C67, 0xA59069, 0x7E9575, 0x7EA194, 0x7C8B9D, 0x857A99 }, false, "Tiles", 0, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 275, 276, 277, 278, 279, 280, 281, 282, 283, 284 }, new uint[] { 0xB3B09B, 0x959386, 0x716F60, 0xAD7373, 0xA97C67, 0xA59069, 0x7E9575, 0x7EA194, 0x7C8B9D, 0x857A99 }, false, "Tiles", 0, 2, false); }
 
-            AddToolStrip(foregroundBMD, 0, new int[] { 300, 301, 302, 304, 305, 306 }, new uint[] { 0x695138, 0x536A22, 0x529E1F, 0, 0, 0 }, false, "Garden", 0, 2, true);
-            AddToolStrip(miscBMD, 1, new int[] { 466 }, null, false, "Toxic", 0, 2, true);
-            AddToolStrip(foregroundBMD, 0, new int[] { 311, 312, 313, 314 }, new uint[] { 0x4E4646, 0x3A4940, 0x3C3F4D, 0x4C3B54 }, false, "Dungeon", 0, 2, true);
-            AddToolStrip(miscBMD, 1, new int[] { 478 }, new uint[] { 0x3f3737 }, false, "Dungeon", 0, 2, true);
+            //Half blocks
+            if (ihavethese.ContainsKey("brickhalfblocks")) { AddToolStrip(miscBMD, 1, new int[] { 362, 366, 370, 374, 378, 382, 386, 390, 394, 398 }, new uint[] { 0x5D5D5D, 0x2E2E2E, 0x151515, 0x59030D, 0x591D03, 0x4E3C02, 0x0E3E10, 0x034143, 0x032643, 0x4F0359 }, false, "Half Blocks", 0, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 362, 366, 370, 374, 378, 382, 386, 390, 394, 398 }, new uint[] { 0x5D5D5D, 0x2E2E2E, 0x151515, 0x59030D, 0x591D03, 0x4E3C02, 0x0E3E10, 0x034143, 0x032643, 0x4F0359 }, false, "Half Blocks", 0, 2, false); }
+
+            //Winter 2018 blocks
+            if (ihavethese.ContainsKey("brickwinter2018"))
+            {
+                AddToolStrip(foregroundBMD, 0, new int[] { 295, 296, 297, 298 }, new uint[] { 0x98BAC5, 0xB0C2C0, 0x9BC5D1, 0x97A0A6 }, false, "Winter 2018", 0, 2, true);
+                AddToolStrip(miscBMD, 1, new int[] { 426, 430 }, new uint[] { 0x565F5E, 0x485C63 }, false, "Winter 2018", 0, 2, true);
+            }
+            else
+            {
+                AddToolStrip(foregroundBMD, 0, new int[] { 295, 296, 297, 298 }, new uint[] { 0x98BAC5, 0xB0C2C0, 0x9BC5D1, 0x97A0A6 }, false, "Winter 2018", 0, 2, false);
+                AddToolStrip(miscBMD, 1, new int[] { 426, 430 }, new uint[] { 0x565F5E, 0x485C63 }, false, "Winter 2018", 0, 2, false);
+            }
+
+            //Garden blocks
+            if (ihavethese.ContainsKey("brickgarden")) { AddToolStrip(foregroundBMD, 0, new int[] { 300, 301, 302, 304, 305, 306 }, new uint[] { 0x695138, 0x536A22, 0x529E1F, 0, 0, 0 }, false, "Garden", 0, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 300, 301, 302, 304, 305, 306 }, new uint[] { 0x695138, 0x536A22, 0x529E1F, 0, 0, 0 }, false, "Garden", 0, 2, false); }
+            
+            //Toxic blocks (Doesn't exist)
+            if (ihavethese.ContainsKey("bricktoxic")) { AddToolStrip(miscBMD, 1, new int[] { 466 }, null, false, "Toxic", 0, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 466 }, null, false, "Toxic", 0, 2, false); }
+
+            //Dungeon blocks (Doesn't exist)
+            if (ihavethese.ContainsKey("brickdungeon"))
+            {
+                AddToolStrip(foregroundBMD, 0, new int[] { 311, 312, 313, 314 }, new uint[] { 0x4E4646, 0x3A4940, 0x3C3F4D, 0x4C3B54 }, false, "Dungeon", 0, 2, true);
+                AddToolStrip(miscBMD, 1, new int[] { 478 }, new uint[] { 0x3f3737 }, false, "Dungeon", 0, 2, true);
+            }
+            else
+            {
+                AddToolStrip(foregroundBMD, 0, new int[] { 311, 312, 313, 314 }, new uint[] { 0x4E4646, 0x3A4940, 0x3C3F4D, 0x4C3B54 }, false, "Dungeon", 0, 2, false);
+                AddToolStrip(miscBMD, 1, new int[] { 478 }, new uint[] { 0x3f3737 }, false, "Dungeon", 0, 2, false);
+            }
             #endregion Foreground
 
             #region Decoration
 
             //Decorations 1
 
-            AddToolStrip(decosBMD, 2, new int[] { 32, 33, 34, 35, 36, 37 }, null, false, "Christmas 2010", 2, 0, true);
-            AddToolStrip(decosBMD, 2, new int[] { 27, 28, 29, 30, 31 }, null, false, "New Year 2010", 2, 0, true);
-            AddToolStrip(decosBMD, 2, new int[] { 16, 17, 18, 19, 20, 21, 22, 23 }, null, false, "Spring 2011", 2, 0, true);
+            //Christmas 2010 decorations
+            if (ihavethese.ContainsKey("brickchristmas2010")) { AddToolStrip(decosBMD, 2, new int[] { 32, 33, 34, 35, 36, 37 }, null, false, "Christmas 2010", 2, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 32, 33, 34, 35, 36, 37 }, null, false, "Christmas 2010", 2, 0, false); }
+
+            //New year 2010 decorations
+            if (ihavethese.ContainsKey("mixednewyear2010")) { AddToolStrip(decosBMD, 2, new int[] { 27, 28, 29, 30, 31 }, null, false, "New Year 2010", 2, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 27, 28, 29, 30, 31 }, null, false, "New Year 2010", 2, 0, false); }
+
+            //Spring 2011 decorations
+            if (ihavethese.ContainsKey("brickspring2011")) { AddToolStrip(decosBMD, 2, new int[] { 16, 17, 18, 19, 20, 21, 22, 23 }, null, false, "Spring 2011", 2, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 16, 17, 18, 19, 20, 21, 22, 23 }, null, false, "Spring 2011", 2, 0, false); }
+            
+            //Halloween trophy
             if (ihavethese.ContainsKey("brickhwtrophy") || accs[userdata.username].admin) { AddToolStrip(decosBMD, 2, new int[] { 6 }, null, false, "Prizes", 2, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 6 }, null, false, "Prizes", 2, 0, false); }
 
             if (ihavethese.ContainsKey("brickspringtrophybronze") || accs[userdata.username].admin) { AddToolStrip(decosBMD, 2, new int[] { 209 }, null, false, "Prizes", 2, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 209 }, null, false, "Prizes", 2, 0, false); }
@@ -1319,82 +1442,264 @@ namespace EEditor
             if (ihavethese.ContainsKey("brickdesigntrophysilver") || accs[userdata.username].admin) { AddToolStrip(decosBMD, 2, new int[] { 248 }, null, false, "Prizes", 2, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 248 }, null, false, "Prizes", 2, 0, false); }
             if (ihavethese.ContainsKey("brickdesigntrophygold") || accs[userdata.username].admin) { AddToolStrip(decosBMD, 2, new int[] { 247 }, null, false, "Prizes", 2, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 247 }, null, false, "Prizes", 2, 0, false); }
 
-            AddToolStrip(decosBMD, 2, new int[] { 39, 40, 41, 42, 43 }, null, false, "Easter 2012", 2, 0, true);
-            AddToolStrip(decosBMD, 2, new int[] { 10, 184, 185, 186, 187 }, null, false, "Candy", 2, 0, true);
-            AddToolStrip(decosBMD, 2, new int[] { 11, 12, 13, 14, 15 }, null, false, "Summer 2011", 2, 0, true);
-            AddToolStrip(decosBMD, 2, new int[] { 7, 8, 9 }, null, false, "Halloween 2011", 2, 0, true);
-            AddToolStrip(decosBMD, 2, new int[] { 1, 2, 3, 4, 5 }, null, false, "Christmas 2011", 2, 0, true);
-            AddToolStrip(miscBMD, 1, new int[] { 35, 39, 41, 45, 47, 51, 161, 167 }, null, false, "Sci-Fi", 2, 0, true);
+            //Easter 2012 decorations
+            if (ihavethese.ContainsKey("brickeaster2012")) { AddToolStrip(decosBMD, 2, new int[] { 39, 40, 41, 42, 43 }, null, false, "Easter 2012", 2, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 39, 40, 41, 42, 43 }, null, false, "Easter 2012", 2, 0, false); }
+
+            //Candy decorations
+            if (ihavethese.ContainsKey("brickcandy")) { AddToolStrip(decosBMD, 2, new int[] { 10, 184, 185, 186, 187 }, null, false, "Candy", 2, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 10, 184, 185, 186, 187 }, null, false, "Candy", 2, 0, false); }
+
+            //Summer 2011 decorations
+            if (ihavethese.ContainsKey("bricksummer2011")) { AddToolStrip(decosBMD, 2, new int[] { 11, 12, 13, 14, 15 }, null, false, "Summer 2011", 2, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 11, 12, 13, 14, 15 }, null, false, "Summer 2011", 2, 0, false); }
+
+            //Halloween 2011 decorations
+            if (ihavethese.ContainsKey("brickhw2011")) { AddToolStrip(decosBMD, 2, new int[] { 7, 8, 9 }, null, false, "Halloween 2011", 2, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 7, 8, 9 }, null, false, "Halloween 2011", 2, 0, false); }
+
+            //Christmas 2011 decorations
+            if (ihavethese.ContainsKey("brickxmas2011")) { AddToolStrip(decosBMD, 2, new int[] { 1, 2, 3, 4, 5 }, null, false, "Christmas 2011", 2, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 1, 2, 3, 4, 5 }, null, false, "Christmas 2011", 2, 0, false); }
+
+            //Scifi decorations
+            if (ihavethese.ContainsKey("brickscifi")) { AddToolStrip(miscBMD, 1, new int[] { 35, 39, 41, 45, 47, 51, 161, 167 }, null, false, "Sci-Fi", 2, 0, true); } else { AddToolStrip(miscBMD, 1, new int[] { 35, 39, 41, 45, 47, 51, 161, 167 }, null, false, "Sci-Fi", 2, 0, false); }
+            
+            //Prison decorations
             AddToolStrip(decosBMD, 2, new int[] { 44 }, null, false, "Prison", 2, 0, true);
+
+            //Windows decorations
             AddToolStrip(decosBMD, 2, new int[] { 45, 46, 47, 48, 49, 50, 51, 52, 53 }, null, false, "Windows", 2, 0, true);
-            AddToolStrip(decosBMD, 2, new int[] { 54, 55, 188, 189 }, null, false, "Pirate", 2, 0, true);
-            AddToolStrip(decosBMD, 2, new int[] { 59, 60, 61, 62, 63, 64, 65, 66, 67 }, null, false, "Dojo", 2, 0, true);
-            AddToolStrip(decosBMD, 2, new int[] { 68, 69, 232, 233, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82 }, null, false, "Wild West", 2, 0, true);
+            
+            //Pirate decorations
+            if (ihavethese.ContainsKey("brickpirate")) { AddToolStrip(decosBMD, 2, new int[] { 54, 55, 188, 189 }, null, false, "Pirate", 2, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 54, 55, 188, 189 }, null, false, "Pirate", 2, 0, false); }
+
+            //Dojo decorations
+            if (ihavethese.ContainsKey("brickninja")) { AddToolStrip(decosBMD, 2, new int[] { 59, 60, 61, 62, 63, 64, 65, 66, 67 }, null, false, "Dojo", 2, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 59, 60, 61, 62, 63, 64, 65, 66, 67 }, null, false, "Dojo", 2, 0, false); }
+
+            //Wild West decorations
+            if (ihavethese.ContainsKey("brickcowboy")) { AddToolStrip(decosBMD, 2, new int[] { 68, 69, 232, 233, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82 }, null, false, "Wild West", 2, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 68, 69, 232, 233, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82 }, null, false, "Wild West", 2, 0, false); }
+            
+            //Water decorations
             AddToolStrip(miscBMD, 1, new int[] { 1 }, null, false, "Water", 2, 0, true);
-            AddToolStrip(decosBMD, 2, new int[] { 83, 84, 85, 86, 87, 88 }, null, false, "Sand", 2, 0, true);
-            AddToolStrip(decosBMD, 2, new int[] { 89, 90, 91, 92 }, null, false, "Summer 2012", 2, 0, true);
+
+            //Sand decorations
+            if (ihavethese.ContainsKey("bricksand")) { AddToolStrip(decosBMD, 2, new int[] { 83, 84, 85, 86, 87, 88 }, null, false, "Sand", 2, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 83, 84, 85, 86, 87, 88 }, null, false, "Sand", 2, 0, false); }
+
+            //Summer 2012 decorations
+            if (ihavethese.ContainsKey("bricksummer2012")) { AddToolStrip(decosBMD, 2, new int[] { 89, 90, 91, 92 }, null, false, "Summer 2012", 2, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 89, 90, 91, 92 }, null, false, "Summer 2012", 2, 0, false); }
+            
+            //Cloud decorations
             AddToolStrip(decosBMD, 2, new int[] { 93, 94, 95, 96, 97, 98, 99, 100, 234, 235, 236, 237, 238, 239, 240, 241 }, null, false, "Cloud", 2, 0, true);
-            AddToolStrip(decosBMD, 2, new int[] { 101, 102, 103, 104, 105, 106 }, null, false, "Industrial", 2, 1, true);
-            AddToolStrip(miscBMD, 1, new int[] { 402 }, null, false, "Industrial", 2, 1, true);
-            AddToolStrip(decosBMD, 2, new int[] { 107, 108, 190 }, null, false, "Medieval", 2, 1, true);
-            AddToolStrip(miscBMD, 1, new int[] { 169 }, null, false, "Medieval", 2, 1, true);
-            AddToolStrip(decosBMD, 2, new int[] { 112 }, null, false, "Medieval", 2, 1, true);
-            AddToolStrip(miscBMD, 1, new int[] { 117, 129, 125, 157, 121 }, null, false, "Medieval", 2, 1, true);
 
+            //Industrial decorations
+            if (ihavethese.ContainsKey("brickindustrial"))
+            {
+                AddToolStrip(decosBMD, 2, new int[] { 101, 102, 103, 104, 105, 106 }, null, false, "Industrial", 2, 1, true);
+                AddToolStrip(miscBMD, 1, new int[] { 402 }, null, false, "Industrial", 2, 1, true);
+            }
+            else
+            {
+                AddToolStrip(decosBMD, 2, new int[] { 101, 102, 103, 104, 105, 106 }, null, false, "Industrial", 2, 1, false);
+                AddToolStrip(miscBMD, 1, new int[] { 402 }, null, false, "Industrial", 2, 1, false);
+            }
+            //Medieval decorations
+            if (ihavethese.ContainsKey("brickmedieval"))
+            {
+                AddToolStrip(decosBMD, 2, new int[] { 107, 108, 190 }, null, false, "Medieval", 2, 1, true);
+                AddToolStrip(miscBMD, 1, new int[] { 169 }, null, false, "Medieval", 2, 1, true);
+                AddToolStrip(decosBMD, 2, new int[] { 112 }, null, false, "Medieval", 2, 1, true);
+                AddToolStrip(miscBMD, 1, new int[] { 117, 129, 125, 157, 121 }, null, false, "Medieval", 2, 1, true);
+            }
+            else
+            {
+                AddToolStrip(decosBMD, 2, new int[] { 107, 108, 190 }, null, false, "Medieval", 2, 1, false);
+                AddToolStrip(miscBMD, 1, new int[] { 169 }, null, false, "Medieval", 2, 1, false);
+                AddToolStrip(decosBMD, 2, new int[] { 112 }, null, false, "Medieval", 2, 1, false);
+                AddToolStrip(miscBMD, 1, new int[] { 117, 129, 125, 157, 121 }, null, false, "Medieval", 2, 1, false);
+            }
+            //Outer Space decorations
             AddToolStrip(decosBMD, 2, new int[] { 114, 115, 116, 263, 264, 277, 278, 117, 181, 182, 183, 113 }, null, false, "Outer Space", 2, 1, true);
+            
+            //Deset decorations
             AddToolStrip(decosBMD, 2, new int[] { 118, 178, 179, 180 }, null, false, "Desert", 2, 1, true);
-            AddToolStrip(miscBMD, 1, new int[] { 137, 133, 153 }, null, false, "Monster", 2, 1, true);
-            AddToolStrip(decosBMD, 2, new int[] { 57, 122, 123 }, null, false, "Monster", 2, 1, true);
+
+            //Monster decorations
+            if (ihavethese.ContainsKey("brickmonster"))
+            {
+                AddToolStrip(miscBMD, 1, new int[] { 137, 133, 153 }, null, false, "Monster", 2, 1, true);
+                AddToolStrip(decosBMD, 2, new int[] { 57, 122, 123 }, null, false, "Monster", 2, 1, true);
+            }
+            else
+            {
+                AddToolStrip(miscBMD, 1, new int[] { 137, 133, 153 }, null, false, "Monster", 2, 1, false);
+                AddToolStrip(decosBMD, 2, new int[] { 57, 122, 123 }, null, false, "Monster", 2, 1, false);
+            }
+
+            //fog decorations
             AddToolStrip(decosBMD, 2, new int[] { 124, 125, 126, 127, 128, 129, 130, 131, 132 }, null, false, "Fog", 2, 1, true);
-            AddToolStrip(decosBMD, 2, new int[] { 133, 134, 135, 136, 137 }, null, false, "Halloween 2012", 2, 1, true);
+
+            //Halloween 2012 decorations
+            if (ihavethese.ContainsKey("brickhw2012")) { AddToolStrip(decosBMD, 2, new int[] { 133, 134, 135, 136, 137 }, null, false, "Halloween 2012", 2, 1, true); } else { AddToolStrip(decosBMD, 2, new int[] { 133, 134, 135, 136, 137 }, null, false, "Halloween 2012", 2, 1, false); }
+            
+            //Jungle decorations
             AddToolStrip(decosBMD, 2, new int[] { 138, 139, 140 }, null, false, "Jungle", 2, 1, true);
-            AddToolStrip(decosBMD, 2, new int[] { 141, 142, 143, 144, 145, 146 }, null, false, "Christmas 2012", 2, 1, true);
-            AddToolStrip(decosBMD, 2, new int[] { 175 }, null, false, "Lava", 2, 1, true);
-            AddToolStrip(miscBMD, 1, new int[] { 30 }, null, false, "Swamp", 2, 1, true);
-            AddToolStrip(decosBMD, 2, new int[] { 147, 148, 149 }, null, false, "Swamp", 2, 1, true);
-            AddToolStrip(decosBMD, 2, new int[] { 150, 151, 152 }, null, false, "Marble", 2, 1, true);
+
+            //Christmas 2012 decorations
+            if (ihavethese.ContainsKey("brickxmas2012")) { AddToolStrip(decosBMD, 2, new int[] { 141, 142, 143, 144, 145, 146 }, null, false, "Christmas 2012", 2, 1, true); } else { AddToolStrip(decosBMD, 2, new int[] { 141, 142, 143, 144, 145, 146 }, null, false, "Christmas 2012", 2, 1, false); }
+
+            //Lava decorations
+            if (ihavethese.ContainsKey("bricklava")) { AddToolStrip(decosBMD, 2, new int[] { 175 }, null, false, "Lava", 2, 1, true); } else { AddToolStrip(decosBMD, 2, new int[] { 175 }, null, false, "Lava", 2, 1, false); }
+
+            //Swamp decorations
+            if (ihavethese.ContainsKey("brickswamp"))
+            {
+                AddToolStrip(miscBMD, 1, new int[] { 30 }, null, false, "Swamp", 2, 1, true);
+                AddToolStrip(decosBMD, 2, new int[] { 147, 148, 149 }, null, false, "Swamp", 2, 1, true);
+            }
+            else
+            {
+                AddToolStrip(miscBMD, 1, new int[] { 30 }, null, false, "Swamp", 2, 1, false);
+                AddToolStrip(decosBMD, 2, new int[] { 147, 148, 149 }, null, false, "Swamp", 2, 1, false);
+            }
+
+            //Marble/Sparta decorations
+            if (ihavethese.ContainsKey("bricksparta")) { AddToolStrip(decosBMD, 2, new int[] { 150, 151, 152 }, null, false, "Marble", 2, 1, true); } else { AddToolStrip(decosBMD, 2, new int[] { 150, 151, 152 }, null, false, "Marble", 2, 1, false); }
+            
+            
+            //Farm decorations
             AddToolStrip(decosBMD, 2, new int[] { 154, 155, 156, 243, 157 }, null, false, "Farm", 2, 2, true);
-            AddToolStrip(decosBMD, 2, new int[] { 158, 159, 160, 161, 162, 163, 164 }, null, false, "Autumn 2014", 2, 2, true);
-            AddToolStrip(decosBMD, 2, new int[] { 165, 166, 167, 168, 169, 170, 171 }, null, false, "Christmas 2014", 2, 2, true);
-            AddToolStrip(decosBMD, 2, new int[] { 172, 173, 174 }, null, false, "Valentines 2015", 2, 2, true);
-            AddToolStrip(decosBMD, 2, new int[] { 191, 192, 193, 194, 195 }, null, false, "Summer 2015", 2, 2, true);
-            AddToolStrip(decosBMD, 2, new int[] { 196, 246 }, null, false, "Domestic", 2, 2, true);
-            AddToolStrip(miscBMD, 1, new int[] { 179, 183, 409, 411, 187, 191, 195, 199, 415 }, null, false, "Domestic", 2, 2, true);
-            AddToolStrip(decosBMD, 2, new int[] { 197, 198 }, null, false, "Halloween 2015", 2, 2, true);
-            AddToolStrip(miscBMD, 1, new int[] { 215, 217, 219 }, null, false, "Halloween 2015", 2, 2, true);
-            AddToolStrip(decosBMD, 2, new int[] { 200, 201 }, null, false, "New Year 2015", 2, 2, true);
-            AddToolStrip(miscBMD, 1, new int[] { 244, 248 }, null, false, "New Year 2015", 2, 2, true);
 
-            AddToolStrip(decosBMD, 2, new int[] { 202, 273, 203, 204 }, null, false, "Fairytale", 2, 2, true);
-            AddToolStrip(miscBMD, 1, new int[] { 279 }, null, false, "Fairytale", 2, 2, true);
-            AddToolStrip(decosBMD, 2, new int[] { 205, 206 }, null, false, "Spring 2016", 2, 2, true);
-            AddToolStrip(miscBMD, 1, new int[] { 283, 286, 289 }, null, false, "Spring 2016", 2, 2, true);
-            AddToolStrip(miscBMD, 1, new int[] { 292, 298, 304 }, null, false, "Summer 2016", 2, 2, true);
+            //Autumn 2014 decorations
+            if (ihavethese.ContainsKey("brickautumn2014")) { AddToolStrip(decosBMD, 2, new int[] { 158, 159, 160, 161, 162, 163, 164 }, null, false, "Autumn 2014", 2, 2, true); } else { AddToolStrip(decosBMD, 2, new int[] { 158, 159, 160, 161, 162, 163, 164 }, null, false, "Autumn 2014", 2, 2, false); }
 
-            AddToolStrip(decosBMD, 2, new int[] { 218, 219 }, null, false, "Mine", 2, 2, true);
-            AddToolStrip(miscBMD, 1, new int[] { 311, 317 }, null, false, "Mine", 2, 2, true);
-            AddToolStrip(decosBMD, 2, new int[] { 213, 214, 215, 216, 217 }, null, false, "Restaurant", 2, 2, true);
-            AddToolStrip(miscBMD, 1, new int[] { 319, 323, 327 }, null, false, "Restaurant", 2, 2, true);
-            AddToolStrip(decosBMD, 2, new int[] { 220 }, null, false, "Halloween 2016", 2, 2, true);
-            AddToolStrip(miscBMD, 1, new int[] { 331, 335, 338 }, null, false, "Halloween 2016", 2, 2, true);
+            //Christmas 2014 decorations
+            if (ihavethese.ContainsKey("brickchristmas2014")) { AddToolStrip(decosBMD, 2, new int[] { 165, 166, 167, 168, 169, 170, 171 }, null, false, "Christmas 2014", 2, 2, true); } else { AddToolStrip(decosBMD, 2, new int[] { 165, 166, 167, 168, 169, 170, 171 }, null, false, "Christmas 2014", 2, 2, false); }
+
+            //Valentines 2015 decorations
+            if (ihavethese.ContainsKey("brickvalentines2015")) { AddToolStrip(decosBMD, 2, new int[] { 172, 173, 174 }, null, false, "Valentines 2015", 2, 2, true); } else { AddToolStrip(decosBMD, 2, new int[] { 172, 173, 174 }, null, false, "Valentines 2015", 2, 2, false); }
+
+            //Summer 2015 decorations
+            if (ihavethese.ContainsKey("bricksummer2015")) { AddToolStrip(decosBMD, 2, new int[] { 191, 192, 193, 194, 195 }, null, false, "Summer 2015", 2, 2, true); } else { AddToolStrip(decosBMD, 2, new int[] { 191, 192, 193, 194, 195 }, null, false, "Summer 2015", 2, 2, false); }
+
+            //Domestic decorations
+            if (ihavethese.ContainsKey("brickdomestic"))
+            {
+                AddToolStrip(decosBMD, 2, new int[] { 196, 246 }, null, false, "Domestic", 2, 2, true);
+                AddToolStrip(miscBMD, 1, new int[] { 179, 183, 409, 411, 187, 191, 195, 199, 415 }, null, false, "Domestic", 2, 2, true);
+            }
+            else
+            {
+                AddToolStrip(decosBMD, 2, new int[] { 196, 246 }, null, false, "Domestic", 2, 2, false);
+                AddToolStrip(miscBMD, 1, new int[] { 179, 183, 409, 411, 187, 191, 195, 199, 415 }, null, false, "Domestic", 2, 2, false);
+            }
+            //Halloween 2015 decorations
+            if (ihavethese.ContainsKey("brickhalloween2015"))
+            {
+                AddToolStrip(decosBMD, 2, new int[] { 197, 198 }, null, false, "Halloween 2015", 2, 2, true);
+                AddToolStrip(miscBMD, 1, new int[] { 215, 217, 219 }, null, false, "Halloween 2015", 2, 2, true);
+            }
+            else
+            {
+                AddToolStrip(decosBMD, 2, new int[] { 197, 198 }, null, false, "Halloween 2015", 2, 2, false);
+                AddToolStrip(miscBMD, 1, new int[] { 215, 217, 219 }, null, false, "Halloween 2015", 2, 2, false);
+            }
+
+            //New year 2015 decorations
+            if (ihavethese.ContainsKey("bricknewyear2015"))
+            {
+                AddToolStrip(decosBMD, 2, new int[] { 200, 201 }, null, false, "New Year 2015", 2, 2, true);
+                AddToolStrip(miscBMD, 1, new int[] { 244, 248 }, null, false, "New Year 2015", 2, 2, true);
+            }
+            else
+            {
+                AddToolStrip(decosBMD, 2, new int[] { 200, 201 }, null, false, "New Year 2015", 2, 2, false);
+                AddToolStrip(miscBMD, 1, new int[] { 244, 248 }, null, false, "New Year 2015", 2, 2, false);
+            }
+
+            //Fairytale decorations
+            if (ihavethese.ContainsKey("brickfairytale"))
+            {
+                AddToolStrip(decosBMD, 2, new int[] { 202, 273, 203, 204 }, null, false, "Fairytale", 2, 2, true);
+                AddToolStrip(miscBMD, 1, new int[] { 279 }, null, false, "Fairytale", 2, 2, true);
+            }
+            else
+            {
+                AddToolStrip(decosBMD, 2, new int[] { 202, 273, 203, 204 }, null, false, "Fairytale", 2, 2, false);
+                AddToolStrip(miscBMD, 1, new int[] { 279 }, null, false, "Fairytale", 2, 2, false);
+            }
+
+            //Spring 2016 decorations
+            if (ihavethese.ContainsKey("brickspring2016"))
+            {
+                AddToolStrip(decosBMD, 2, new int[] { 205, 206 }, null, false, "Spring 2016", 2, 2, true);
+                AddToolStrip(miscBMD, 1, new int[] { 283, 286, 289 }, null, false, "Spring 2016", 2, 2, true);
+            }
+            else
+            {
+                AddToolStrip(decosBMD, 2, new int[] { 205, 206 }, null, false, "Spring 2016", 2, 2, false);
+                AddToolStrip(miscBMD, 1, new int[] { 283, 286, 289 }, null, false, "Spring 2016", 2, 2, false);
+            }
+
+            //Summer 2016 decorations
+            if (ihavethese.ContainsKey("bricksummer2016")) { AddToolStrip(miscBMD, 1, new int[] { 292, 298, 304 }, null, false, "Summer 2016", 2, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 292, 298, 304 }, null, false, "Summer 2016", 2, 2, false); }
+
+            //Mine decorations
+            if (ihavethese.ContainsKey("brickmine"))
+            {
+                AddToolStrip(decosBMD, 2, new int[] { 218, 219 }, null, false, "Mine", 2, 2, true);
+                AddToolStrip(miscBMD, 1, new int[] { 311, 317 }, null, false, "Mine", 2, 2, true);
+            }
+            else
+            {
+                AddToolStrip(decosBMD, 2, new int[] { 218, 219 }, null, false, "Mine", 2, 2, false);
+                AddToolStrip(miscBMD, 1, new int[] { 311, 317 }, null, false, "Mine", 2, 2, false);
+            }
+
+            //Restaurant decorations
+            if (ihavethese.ContainsKey("brickrestaurant"))
+            {
+                AddToolStrip(decosBMD, 2, new int[] { 213, 214, 215, 216, 217 }, null, false, "Restaurant", 2, 2, true);
+                AddToolStrip(miscBMD, 1, new int[] { 319, 323, 327 }, null, false, "Restaurant", 2, 2, true);
+            }
+            else
+            {
+                AddToolStrip(decosBMD, 2, new int[] { 213, 214, 215, 216, 217 }, null, false, "Restaurant", 2, 2, false);
+                AddToolStrip(miscBMD, 1, new int[] { 319, 323, 327 }, null, false, "Restaurant", 2, 2, false);
+            }
+
+            //Halloween 2016 decorations
+            if (ihavethese.ContainsKey("brickhalloween2016"))
+            {
+                AddToolStrip(decosBMD, 2, new int[] { 220 }, null, false, "Halloween 2016", 2, 2, true);
+                AddToolStrip(miscBMD, 1, new int[] { 331, 335, 338 }, null, false, "Halloween 2016", 2, 2, true);
+            }
+            else
+            {
+                AddToolStrip(decosBMD, 2, new int[] { 220 }, null, false, "Halloween 2016", 2, 2, false);
+                AddToolStrip(miscBMD, 1, new int[] { 331, 335, 338 }, null, false, "Halloween 2016", 2, 2, false);
+            }
+            //Construction decorations
             AddToolStrip(decosBMD, 2, new int[] { 221, 222, 223, 244, 245 }, null, false, "Construction", 2, 2, true);
-            AddToolStrip(miscBMD, 1, new int[] { 343, 348 }, null, false, "Christmas 2016", 2, 2, true);
-            AddToolStrip(decosBMD, 2, new int[] { 224, 225 }, null, false, "Christmas 2016", 2, 2, true);
-            AddToolStrip(miscBMD, 1, new int[] { 352 }, null, false, "Christmas 2016", 2, 2, true);
-            AddToolStrip(decosBMD, 2, new int[] { 226, 227, 228, 229, 230 }, null, false, "St. Patricks 2017", 2, 2, true);
-            AddToolStrip(decosBMD, 2, new int[] { 250, 251, 252, 253, 254, 255, 256 }, null, false, "Winter 2018", 2, 2, true);
 
-            AddToolStrip(decosBMD, 2, new int[] { 257, 258, 259, 260, 261, 262 }, null, false, "Garden", 2, 2, true);
+            //Christmas 2016 decorations
+            if (ihavethese.ContainsKey("brickchristmas2016"))
+            {
+                AddToolStrip(miscBMD, 1, new int[] { 343, 348 }, null, false, "Christmas 2016", 2, 2, true);
+                AddToolStrip(decosBMD, 2, new int[] { 224, 225 }, null, false, "Christmas 2016", 2, 2, true);
+                AddToolStrip(miscBMD, 1, new int[] { 352 }, null, false, "Christmas 2016", 2, 2, true);
+            }
+            else
+            {
+                AddToolStrip(miscBMD, 1, new int[] { 343, 348 }, null, false, "Christmas 2016", 2, 2, false);
+                AddToolStrip(decosBMD, 2, new int[] { 224, 225 }, null, false, "Christmas 2016", 2, 2, false);
+                AddToolStrip(miscBMD, 1, new int[] { 352 }, null, false, "Christmas 2016", 2, 2, false);
+            }
 
-            if (ihavethese.ContainsKey("brickfirework") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 448 }, null, false, "Fireworks", 2, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 448 }, null, false, "Fireworks", 2, 2, false); }
-            AddToolStrip(miscBMD, 1, new int[] { 457, 459, 460, }, null, false, "Toxic", 2, 2, true);
-            AddToolStrip(decosBMD, 2, new int[] { 267, 268 }, null, false, "Toxic", 2, 2, true);
-            if (ihavethese.ContainsKey("blockgoldenegg") || accs[userdata.username].admin) { AddToolStrip(decosBMD, 2, new int[] { 269 }, null, false, "Special", 2, 2, true); } else { AddToolStrip(decosBMD, 2, new int[] { 269 }, null, false, "Special", 2, 2, false); }
-            if (ihavethese.ContainsKey("brickgreenspace") || accs[userdata.username].admin) { AddToolStrip(decosBMD, 2, new int[] { 274 }, null, false, "Special", 2, 2, true); } else { AddToolStrip(decosBMD, 2, new int[] { 274 }, null, false, "Special", 2, 2, false); }
-            if (ihavethese.ContainsKey("brickgoldsack") || accs[userdata.username].admin) { AddToolStrip(decosBMD, 2, new int[] { 275 }, null, false, "Special", 2, 2, true); } else { AddToolStrip(decosBMD, 2, new int[] { 275 }, null, false, "Special", 2, 2, false); }
-            AddToolStrip(miscBMD, 1, new int[] { 470, 474, 481, 486, 490 }, null, false, "Dungeon", 2, 2, true);
-            AddToolStrip(decosBMD, 2, new int[] { 270, 271, 272, 273 }, null, false, "Dungeon", 2, 2, true);
-            AddToolStrip(miscBMD, 1, new int[] { 505, 508, 512, 514, 518, 519, 523, 527, 529, 533, 534, 538, 542, 546 }, null, false, "Shadow", 2, 2, true);
+            //St. Patricks decorations
+            if (ihavethese.ContainsKey("brickstpatricks2017")) { AddToolStrip(decosBMD, 2, new int[] { 226, 227, 228, 229, 230 }, null, false, "St. Patricks 2017", 2, 2, true); } else { AddToolStrip(decosBMD, 2, new int[] { 226, 227, 228, 229, 230 }, null, false, "St. Patricks 2017", 2, 2, false); }
+
+            //Winter 2018 decorations
+            if (ihavethese.ContainsKey("brickwinter2018")) { AddToolStrip(decosBMD, 2, new int[] { 250, 251, 252, 253, 254, 255, 256 }, null, false, "Winter 2018", 2, 2, true); } else { AddToolStrip(decosBMD, 2, new int[] { 250, 251, 252, 253, 254, 255, 256 }, null, false, "Winter 2018", 2, 2, false); }
+
+            //Garden decorations
+            if (ihavethese.ContainsKey("brickgarden")) { AddToolStrip(decosBMD, 2, new int[] { 257, 258, 259, 260, 261, 262 }, null, false, "Garden", 2, 2, true); } else { AddToolStrip(decosBMD, 2, new int[] { 257, 258, 259, 260, 261, 262 }, null, false, "Garden", 2, 2, false); }
+
             //Decorations 3
 
             #endregion Decoration
@@ -1414,18 +1719,18 @@ namespace EEditor
 
             AddToolStrip(foregroundBMD, 0, new int[] { 139, 43 }, new uint[] { 0xB88E15, 0xB88E15 }, false, "Yellow coin doors/gates", 1, 0, true);
             AddToolStrip(foregroundBMD, 0, new int[] { 186, 185 }, new uint[] { 0x1C60F4, 0x1C60F4 }, false, "Blue coin doors/gates", 1, 0, true);
-            AddToolStrip(decosBMD, 2, new int[] { 38 }, null, false, "Tools", 1, 0, true);
-            if (ihavethese.ContainsKey("brickworldportal") || accs[userdata.username].admin) { AddToolStrip(decosBMD, 2, new int[] { 265 }, null, false, "Tools", 1, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 265 }, null, false, "Tools", 1, 0, false); }
-            AddToolStrip(miscBMD, 1, new int[] { 27 }, null, false, "Tools", 1, 0, true);
-            AddToolStrip(decosBMD, 2, new int[] { 199 }, null, false, "Tools", 1, 0, true);
-            AddToolStrip(decosBMD, 2, new int[] { 231 }, null, false, "Tools", 1, 0, true);
-            AddToolStrip(decosBMD, 2, new int[] { 266 }, null, false, "Tools", 1, 0, true);
+            AddToolStrip(decosBMD, 2, new int[] { 38 }, null, false, "SpawnPoint", 1, 0, true);
+            if (ihavethese.ContainsKey("brickworldportal") || accs[userdata.username].admin) { AddToolStrip(decosBMD, 2, new int[] { 265 }, null, false, "WorldPortal", 1, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 265 }, null, false, "WorldPortal", 1, 0, false); }
+            AddToolStrip(miscBMD, 1, new int[] { 27 }, null, false, "Checkpoint", 1, 0, true);
+            AddToolStrip(decosBMD, 2, new int[] { 199 }, null, false, "Reset", 1, 0, true);
+            if (ihavethese.ContainsKey("brickgodblock") || accs[userdata.username].admin) { AddToolStrip(decosBMD, 2, new int[] { 231 }, null, false, "Godmode", 1, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 231 }, null, false, "Godmode", 1, 0, false); }
+            if (ihavethese.ContainsKey("brickmapblock") || accs[userdata.username].admin) { AddToolStrip(decosBMD, 2, new int[] { 266 }, null, false, "Minimap", 1, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 266 }, null, false, "Minimap", 1, 0, false); }
             AddToolStrip(foregroundBMD, 0, new int[] { 5 }, new uint[] { 0x43391F }, false, "Crown", 1, 0, true);
-            AddToolStrip(miscBMD, 1, new int[] { 341, 340 }, null, false, "Crown Doors", 1, 0, true);
-            AddToolStrip(miscBMD, 1, new int[] { 8 }, null, false, "Tools", 1, 0, true);
-            AddToolStrip(miscBMD, 1, new int[] { 454, 455 }, null, false, "Trophy Doors", 1, 0, true);
+            if (ihavethese.ContainsKey("brickcrowndoor")) { AddToolStrip(miscBMD, 1, new int[] { 341, 340 }, null, false, "Crown Doors", 1, 0, true); } else { AddToolStrip(miscBMD, 1, new int[] { 341, 340 }, null, false, "Crown Doors", 1, 0, false); }
+            AddToolStrip(miscBMD, 1, new int[] { 8 }, null, false, "Crown", 1, 0, true);
+            //if (ihavethese.ContainsKey("brickcrowndoor")) AddToolStrip(miscBMD, 1, new int[] { 454, 455 }, null, false, "Trophy Doors", 1, 0, true);
 
-            AddToolStrip(foregroundBMD, 0, new int[] { 157, 158, 159, 160 }, null, false, "Boost", 1, 0, true);
+            if (ihavethese.ContainsKey("brickboost")) { AddToolStrip(foregroundBMD, 0, new int[] { 157, 158, 159, 160 }, null, false, "Boost", 1, 0, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 157, 158, 159, 160 }, null, false, "Boost", 1, 0, false); }
             AddToolStrip(foregroundBMD, 0, new int[] { 98 }, null, false, "Climbable", 1, 0, true);
             AddToolStrip(decosBMD, 2, new int[] { 242 }, null, false, "Climbable", 1, 0, true);
             AddToolStrip(foregroundBMD, 0, new int[] { 135 }, null, false, "Climbable", 1, 0, true);
@@ -1444,8 +1749,8 @@ namespace EEditor
             if (ihavethese.ContainsKey("bricknode") || accs[userdata.username].admin) { AddToolStrip(foregroundBMD, 0, new int[] { 77 }, null, false, "Music", 1, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 77 }, null, false, "Music", 1, 2, false); }
             if (ihavethese.ContainsKey("brickguitar") || accs[userdata.username].admin) { AddToolStrip(foregroundBMD, 0, new int[] { 286 }, null, false, "Music", 1, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 286 }, null, false, "Music", 1, 2, false); }
 
-            AddToolStrip(miscBMD, 1, new int[] { 24, 558, 563, 568, 573, 578, 583 }, null, false, "Spikes", 1, 2, true);
-            AddToolStrip(miscBMD, 1, new int[] { 446, 561, 566, 571, 576, 581, 586 }, null, false, "Spikes", 1, 2, true);
+            if (ihavethese.ContainsKey("brickguitar")) { AddToolStrip(miscBMD, 1, new int[] { 24 }, null, false, "Spikes", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 24 }, null, false, "Spikes", 1, 2, false); }
+            //AddToolStrip(miscBMD, 1, new int[] { 446, 561, 566, 571, 576, 581, 586 }, null, false, "Spikes", 1, 2, true);
 
 
             if (accs[userdata.username].admin) { AddToolStrip(decosBMD, 2, new int[] { 176 }, null, false, "Label", 1, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 176 }, null, false, "Label", 1, 0, false); }
@@ -4454,7 +4759,7 @@ namespace EEditor
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-           
+
         }
 
         private void MainForm_Activated(object sender, EventArgs e)
@@ -4662,34 +4967,34 @@ namespace EEditor
                 MyWorlds form = new MyWorlds();
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    Frame frame = LoadWorld.LoadData(form.selectedworld,form.loaddb);
+                    Frame frame = LoadWorld.LoadData(form.selectedworld, form.loaddb);
                     if (frame != null)
                     {
                         editArea.Init(frame, false);
                     }
-                        /*if (form.MapFrame != null)
+                    /*if (form.MapFrame != null)
+                    {
+                        editArea.Init(form.MapFrame, false);
+                        Bitmap bmp1 = new Bitmap(Properties.Resources.refresh.Width, Properties.Resources.refresh.Height);
+                        Bitmap bmp = new Bitmap(Properties.Resources.refresh);
+                        for (int x = 0; x < bmp.Width; x++)
                         {
-                            editArea.Init(form.MapFrame, false);
-                            Bitmap bmp1 = new Bitmap(Properties.Resources.refresh.Width, Properties.Resources.refresh.Height);
-                            Bitmap bmp = new Bitmap(Properties.Resources.refresh);
-                            for (int x = 0; x < bmp.Width; x++)
+                            for (int y = 0; y < bmp.Height; y++)
                             {
-                                for (int y = 0; y < bmp.Height; y++)
+                                if (bmp.GetPixel(x, y).A > 80)
                                 {
-                                    if (bmp.GetPixel(x, y).A > 80)
-                                    {
-                                        bmp1.SetPixel(x, y, themecolors.imageColors);
-                                    }
-                                    else
-                                    {
-                                        bmp1.SetPixel(x, y, themecolors.background);
-                                    }
+                                    bmp1.SetPixel(x, y, themecolors.imageColors);
+                                }
+                                else
+                                {
+                                    bmp1.SetPixel(x, y, themecolors.background);
                                 }
                             }
-                            refreshButton.Image = bmp1;*/
-                        //updateImageColor();
-                        //}
-                    }
+                        }
+                        refreshButton.Image = bmp1;*/
+                    //updateImageColor();
+                    //}
+                }
                 else
                 {
                 }
