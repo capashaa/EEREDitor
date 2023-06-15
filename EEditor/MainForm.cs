@@ -3771,7 +3771,7 @@ namespace EEditor
             filledCircleButton.Checked = false;
             editArea.Tool.CleanUp(false);
             editArea.Tool = new ToolMark(editArea);
-            Console.WriteLine(selectedBrick.ID);
+            //Console.WriteLine(selectedBrick.ID);
             editArea.Tool.PenID = selectedBrick.ID == 1550 ? 0 : selectedBrick.ID;
             SetTransFormToolStrip(true);
             selectionTool = true;
