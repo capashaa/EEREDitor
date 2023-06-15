@@ -371,8 +371,8 @@ namespace EEditor
             else
             {
                 Frame frame = new Frame(1, 1);
-                DatabaseArray worlddata = worlds.GetArray("blocks");
-                if (worlds.Contains("blocks"))
+                DatabaseArray worlddata = worlds.GetArray("worlddata");
+                if (worlds.Contains("worlddata"))
                 {
                     frame = new Frame(width, height);
                     int width1 = width;
@@ -386,7 +386,7 @@ namespace EEditor
                             yy1 = worldinfo.GetBytes("y1");
                             xx = worldinfo.GetBytes("x");
                             yy = worldinfo.GetBytes("y");
-                            int bid = worldinfo.GetInt("type");
+                            int bid = Convert.ToInt32(worldinfo.GetUInt("type"));
                             int layer = worldinfo.Contains("layer") ? worldinfo.GetInt("layer") : 0;
                             if (xx != null && yy != null)
                             {
@@ -396,17 +396,18 @@ namespace EEditor
                                     int tmpyy = yy[xxx] << 8 | yy[xxx + 1];
                                     if (layer == 0)
                                     {
+
                                         object goal, signtype, text, rotation, id, target, name, mes1, mes2, mes3;
                                         frame.Foreground[tmpyy, tmpxx] = Convert.ToInt32(worldinfo["type"]);
                                         if (worldinfo.TryGetValue("name", out name)) frame.BlockData3[tmpyy, tmpxx] = name.ToString();
                                         if (worldinfo.TryGetValue("mes1", out mes1)) frame.BlockData4[tmpyy, tmpxx] = mes1.ToString();
                                         if (worldinfo.TryGetValue("mes2", out mes2)) frame.BlockData5[tmpyy, tmpxx] = mes2.ToString();
                                         if (worldinfo.TryGetValue("mes3", out mes3)) frame.BlockData6[tmpyy, tmpxx] = mes3.ToString();
-                                        if (worldinfo.TryGetValue("five", out goal)) frame.BlockData[tmpyy, tmpxx] = Convert.ToInt32(goal);
-                                        if (worldinfo.TryGetValue("five", out signtype)) frame.BlockData[tmpyy, tmpxx] = Convert.ToInt32(signtype);
+                                        if (worldinfo.TryGetValue("goal", out goal)) frame.BlockData[tmpyy, tmpxx] = Convert.ToInt32(goal);
+                                        if (worldinfo.TryGetValue("signtype", out signtype)) frame.BlockData[tmpyy, tmpxx] = Convert.ToInt32(signtype);
                                         if (worldinfo.TryGetValue("text", out text)) frame.BlockData3[tmpyy, tmpxx] = text.ToString();
-                                        if (worldinfo.TryGetValue("five", out rotation)) frame.BlockData[tmpyy, tmpxx] = Convert.ToInt32(rotation);
-                                        if (worldinfo.TryGetValue("six", out id))
+                                        if (worldinfo.TryGetValue("rotation", out rotation)) frame.BlockData[tmpyy, tmpxx] = Convert.ToInt32(rotation);
+                                        if (worldinfo.TryGetValue("id", out id))
                                         {
                                             if (bdata.sound.Contains(Convert.ToInt32(worldinfo["type"])))
                                             {
@@ -417,8 +418,8 @@ namespace EEditor
                                                 frame.BlockData1[tmpyy, tmpxx] = Convert.ToInt32(id);
                                             }
                                         }
-                                        if (Convert.ToInt32(worldinfo["type"]) == 242 || Convert.ToInt32(worldinfo["type"]) == 381) frame.BlockData2[tmpyy, tmpxx] = Convert.ToInt32(worldinfo["seven"]);
-                                        if (Convert.ToInt32(worldinfo["type"]) == 374) frame.BlockData3[tmpyy, tmpxx] = worldinfo["seven"].ToString();
+                                        if (Convert.ToInt32(worldinfo["type"]) == 242 || Convert.ToInt32(worldinfo["type"]) == 381) frame.BlockData2[tmpyy, tmpxx] = Convert.ToInt32(worldinfo["target"]);
+                                        if (Convert.ToInt32(worldinfo["type"]) == 374) frame.BlockData3[tmpyy, tmpxx] = worldinfo["target"].ToString();
                                         if (bid == 1000)
                                         {
 
@@ -432,9 +433,9 @@ namespace EEditor
                                                 {
                                                     hexcolor = worldinfo.GetString("text_color");
                                                 }
-                                                if (worldinfo.Contains("five"))
+                                                if (worldinfo.Contains("id"))
                                                 {
-                                                    wrap = Convert.ToInt32(worldinfo["five"]);
+                                                    wrap = Convert.ToInt32(worldinfo["id"]);
                                                 }
                                                 frame.BlockData4[tmpyy, tmpxx] = hexcolor;
                                                 frame.BlockData[tmpyy, tmpxx] = wrap;
@@ -462,11 +463,11 @@ namespace EEditor
                                         if (worldinfo.TryGetValue("mes1", out mes1)) frame.BlockData4[tmpyy0, tmpxx0] = mes1.ToString();
                                         if (worldinfo.TryGetValue("mes2", out mes2)) frame.BlockData5[tmpyy0, tmpxx0] = mes2.ToString();
                                         if (worldinfo.TryGetValue("mes3", out mes3)) frame.BlockData6[tmpyy0, tmpxx0] = mes3.ToString();
-                                        if (worldinfo.TryGetValue("five", out goal)) frame.BlockData[tmpyy0, tmpxx0] = Convert.ToInt32(goal);
-                                        if (worldinfo.TryGetValue("five", out signtype)) frame.BlockData[tmpyy0, tmpxx0] = Convert.ToInt32(signtype);
+                                        if (worldinfo.TryGetValue("goal", out goal)) frame.BlockData[tmpyy0, tmpxx0] = Convert.ToInt32(goal);
+                                        if (worldinfo.TryGetValue("signtype", out signtype)) frame.BlockData[tmpyy0, tmpxx0] = Convert.ToInt32(signtype);
                                         if (worldinfo.TryGetValue("text", out text)) frame.BlockData3[tmpyy0, tmpxx0] = text.ToString();
-                                        if (worldinfo.TryGetValue("five", out rotation)) frame.BlockData[tmpyy0, tmpxx0] = Convert.ToInt32(rotation);
-                                        if (worldinfo.TryGetValue("six", out id))
+                                        if (worldinfo.TryGetValue("rotation", out rotation)) frame.BlockData[tmpyy0, tmpxx0] = Convert.ToInt32(rotation);
+                                        if (worldinfo.TryGetValue("id", out id))
                                         {
                                             if (bdata.sound.Contains(Convert.ToInt32(worldinfo["type"])))
                                             {
@@ -477,8 +478,8 @@ namespace EEditor
                                                 frame.BlockData1[tmpyy0, tmpxx0] = Convert.ToInt32(id);
                                             }
                                         }
-                                        if (Convert.ToInt32(worldinfo["type"]) == 242 || Convert.ToInt32(worldinfo["type"]) == 381) frame.BlockData2[tmpyy0, tmpxx0] = Convert.ToInt32(worldinfo["seven"]);
-                                        if (Convert.ToInt32(worldinfo["type"]) == 374) frame.BlockData3[tmpyy0, tmpxx0] = worldinfo["seven"].ToString();
+                                        if (Convert.ToInt32(worldinfo["type"]) == 242 || Convert.ToInt32(worldinfo["type"]) == 381) frame.BlockData2[tmpyy0, tmpxx0] = Convert.ToInt32(worldinfo["target"]);
+                                        if (Convert.ToInt32(worldinfo["type"]) == 374) frame.BlockData3[tmpyy0, tmpxx0] = worldinfo["target"].ToString();
                                         if (bid == 1000)
                                         {
 
@@ -492,9 +493,9 @@ namespace EEditor
                                                 {
                                                     hexcolor = worldinfo.GetString("text_color");
                                                 }
-                                                if (worldinfo.Contains("five"))
+                                                if (worldinfo.Contains("id"))
                                                 {
-                                                    wrap = Convert.ToInt32(worldinfo["five"]);
+                                                    wrap = Convert.ToInt32(worldinfo["id"]);
                                                 }
                                                 frame.BlockData4[tmpyy0, tmpxx0] = hexcolor;
                                                 frame.BlockData[tmpyy0, tmpxx0] = wrap;
