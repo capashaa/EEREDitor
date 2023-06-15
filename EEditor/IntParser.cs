@@ -41,7 +41,7 @@ namespace EEditor
                 else
                 {
                     data.CopyTo(dataGone,0);
-                    Console.WriteLine(dataGone[0]);
+                    //Console.WriteLine(dataGone[0]);
                 }
                 chunks.Add(new DataChunk(llayer, ttype, xxs, yys, aargs.ToArray()));
 
