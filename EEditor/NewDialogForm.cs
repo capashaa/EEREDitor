@@ -322,17 +322,17 @@ namespace EEditor
                     DatabaseObject dbo = client.BigDB.Load("Worlds", MainForm.userdata.level);
                     if (dbo != null)
                     {
-                        Console.WriteLine(dbo.ToString());
-                        var name = dbo.Contains("title") ? dbo["title"].ToString() : "Untitled World";
-                        owner = dbo.Contains("ownerusername") ? dbo["ownerusername"].ToString() : "Unknown Owner";
+                        var name = dbo.Contains("name") ? dbo["name"].ToString() : "Untitled World";
+                        owner = dbo.Contains("owner") ? dbo["owner"].ToString() : "Unknown user";
                         if (dbo.Contains("bg"))
                         {
                             EEditor.MainForm.userdata.useColor = true;
                             EEditor.MainForm.userdata.thisColor = UIntToColor(Convert.ToUInt32(dbo["bg"]));
                         }
-                        if (dbo.Contains("width") && dbo.Contains("height") && dbo.Contains("blocks"))
+                        if (dbo.Contains("width") && dbo.Contains("height") && dbo.Contains("worlddata"))
                         {
-                            updateData(name, owner, Convert.ToInt32(dbo["width"]), Convert.ToInt32(dbo["height"]));
+                            uid2name(owner, name,Convert.ToInt32(dbo["width"]), Convert.ToInt32(dbo["height"]));
+                            //updateData(name, owner, Convert.ToInt32(dbo["width"]), Convert.ToInt32(dbo["height"]));
                             MapFrame = new Frame(Convert.ToInt32(dbo["width"]), Convert.ToInt32(dbo["height"]));
                         }
                         else
@@ -387,22 +387,22 @@ namespace EEditor
                                         h = 150;
                                         break;
                                 }
-                                if (dbo.Contains("blocks"))
+                                if (dbo.Contains("worlddata"))
                                 {
                                     MapFrame = new Frame(w, h);
-                                    //uid2name(owner, name, w, h);
-                                    updateData(name, owner, w,h);
+                                    uid2name(owner, name, w, h);
+                                    //updateData(name, owner, w,h);
                                 }
                             }
                             else
                             {
-                                //uid2name(owner, name, 200, 200);
-                                updateData(name, owner, 200,200);
+                                uid2name(owner, name, 200, 200);
+                                //updateData(name, owner, 200,200);
                                 MapFrame = new Frame(200, 200);
                             }
                         }
 
-                        if (dbo.Contains("blocks"))
+                        if (dbo.Contains("worlddata"))
                         {
                             MapFrame = Frame.FromMessage2(dbo);
                             if (MapFrame != null)
@@ -436,7 +436,7 @@ namespace EEditor
                         owner = dbo.Contains("owner") ? dbo["owner"].ToString() : null;
                         if (dbo.Contains("width") && dbo.Contains("height") && dbo.Contains("worlddata"))
                         {
-                            //uid2name(owner, name, Convert.ToInt32(dbo["width"]), Convert.ToInt32(dbo["height"]));
+                            uid2name(owner, name, Convert.ToInt32(dbo["width"]), Convert.ToInt32(dbo["height"]));
                             MapFrame = new Frame(Convert.ToInt32(dbo["width"]), Convert.ToInt32(dbo["height"]));
                         }
                         else
@@ -492,11 +492,11 @@ namespace EEditor
                                         break;
                                 }
                                 MapFrame = new Frame(w, h);
-                                //uid2name(owner, name, w, h);
+                                uid2name(owner, name, w, h);
                             }
                             else
                             {
-                                //uid2name(owner, name, 200, 200);
+                                uid2name(owner, name, 200, 200);
                                 MapFrame = new Frame(200, 200);
                             }
                         }
@@ -512,6 +512,28 @@ namespace EEditor
             catch (PlayerIOError error)
             {
                 MessageBox.Show("An error occurred:" + error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void uid2name(string uid, string title, int width, int height)
+        {
+            if (uid != null)
+            {
+                client.BigDB.LoadRange("usernames", "owner", null, uid, null, 1, (DatabaseObject[] data) =>
+                {
+                    if (data.Length == 1)
+                    {
+                        worldOwner = data[0].Key.ToString();
+                        MainForm.Text = $"({title}) [{worldOwner}] ({width}x{height}) - EERditor {this.ProductVersion}";
+                    }
+                    else
+                    {
+                        MainForm.Text = $"({title}) [Unknown Owner] ({width}x{height}) - EERditor {this.ProductVersion}";
+                    }
+                }, (PlayerIOError error) => { MainForm.Text = $"({title}) [Unknown Owner] ({width}x{height}) - EERditor {this.ProductVersion}"; });
+            }
+            else
+            {
+                MainForm.Text = $"({title}) [Unknown Owner] ({width}x{height}) - EEditor {this.ProductVersion}";
             }
         }
 
