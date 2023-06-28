@@ -488,7 +488,10 @@ namespace EEditor
             starting1 = false;
             hideBlocksButton.PerformClick();
             accountsComboBox.SelectedItem = userdata.username;
-            accountsComboBox.ForeColor = accs[userdata.username].admin ? Color.Orange : themecolors.foreground;
+            if (accs[userdata.username].admin) accountsComboBox.ForeColor = Color.Orange;
+            else if (accs[userdata.username].moderator) accountsComboBox.ForeColor = ColorTranslator.FromHtml("#FA2FD5");
+            else { accountsComboBox.ForeColor = themecolors.foreground; }
+            
             starting1 = false;
             /*if (userdata.updateChecker)
             {
@@ -1327,6 +1330,8 @@ namespace EEditor
 
             //One-Way blocks
             if (ihavethese.ContainsKey("brickoneway")) { AddToolStrip(miscBMD, 1, new int[] { 308, 55, 63, 59, 67, 224, 228, 232, 236, 240 }, new uint[] { 0x4A4A4A, 0x023032, 0x441602, 0x3C2D01, 0x3E0241, 0x232323, 0x021D33, 0x44020A, 0x0B2F0C, 0x0D0D0D }, false, "One-Way", 0, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 308, 55, 63, 59, 67, 224, 228, 232, 236, 240 }, new uint[] { 0x4A4A4A, 0x023032, 0x441602, 0x3C2D01, 0x3E0241, 0x232323, 0x021D33, 0x44020A, 0x0B2F0C, 0x0D0D0D }, false, "One-Way", 0, 2, false); }
+            
+            //Magic blocks
             if (ihavethese.ContainsKey("brickmagic") || accs[userdata.username].admin) { AddToolStrip(foregroundBMD, 0, new int[] { 200 }, new uint[] { 0x2D4F16 }, false, "Magic blocks", 0, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 200 }, new uint[] { 0x2D4F16 }, false, "Magic blocks", 0, 2, false); }
             if (ihavethese.ContainsKey("brickmagic2") || accs[userdata.username].admin) { AddToolStrip(foregroundBMD, 0, new int[] { 201 }, new uint[] { 0x4A1471 }, false, "Magic blocks", 0, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 201 }, new uint[] { 0x4A1471 }, false, "Magic blocks", 0, 2, false); }
             if (ihavethese.ContainsKey("brickmagic3") || accs[userdata.username].admin) { AddToolStrip(foregroundBMD, 0, new int[] { 202 }, new uint[] { 0x9D611A }, false, "Magic blocks", 0, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 202 }, new uint[] { 0x9D611A }, false, "Magic blocks", 0, 2, false); }
@@ -4314,6 +4319,7 @@ namespace EEditor
                                 }
                             }
                             if (accs[selectedAcc].admin) accountsComboBox.ForeColor = Color.Orange;
+                            else if (accs[selectedAcc].moderator) accountsComboBox.ForeColor = ColorTranslator.FromHtml("#FA2FD5");
                             else accountsComboBox.ForeColor = themecolors.foreground;
                             //SetupImages();
                             rebuildGUI(false);
