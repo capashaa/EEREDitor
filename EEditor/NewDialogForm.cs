@@ -277,7 +277,7 @@ namespace EEditor
                 {
                     if (MainForm.userdata.level.StartsWith("OW"))
                     {
-                        client.Multiplayer.ListRooms($"{bdata.normal_room}{bdata.version}", null, 0, 0,
+                        client.Multiplayer.ListRooms($"{bdata.normal_room}{client.BigDB.Load("config", "config")["version"]}", null, 0, 0,
                         (RoomInfo[] rinfo) =>
                         {
                             foreach (var val in rinfo)
@@ -287,7 +287,7 @@ namespace EEditor
                                     if (val.Id == MainForm.userdata.level)
                                     {
                                         MainForm.userdata.level = val.Id;
-                                        Connection = client.Multiplayer.CreateJoinRoom(MainForm.userdata.level, $"{bdata.normal_room}{bdata.version}", true, null, null);
+                                        Connection = client.Multiplayer.CreateJoinRoom(MainForm.userdata.level, $"{bdata.normal_room}{client.BigDB.Load("config", "config")["version"]}", true, null, null);
                                         Connection.OnMessage += OnMessage;
                                         Connection.Send("init");
                                         NeedsInit = false;
@@ -303,7 +303,7 @@ namespace EEditor
                     {
                         if (client != null)
                         {
-                            Connection = client.Multiplayer.CreateJoinRoom(MainForm.userdata.level, $"{bdata.normal_room}{bdata.version}", true, null, null);
+                            Connection = client.Multiplayer.CreateJoinRoom(MainForm.userdata.level, $"{bdata.normal_room}{client.BigDB.Load("config", "config")["version"]}", true, null, null);
                             Connection.OnMessage += OnMessage;
                             Connection.Send("init");
                             NeedsInit = false;

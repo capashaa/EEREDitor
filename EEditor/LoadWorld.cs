@@ -95,7 +95,7 @@ namespace EEditor
                 }
                 else
                 {
-                    sel.Multiplayer.CreateJoinRoom(roomid, $"{bdata.normal_room}{bdata.version}", false, null, null, (Connection con) =>
+                    sel.Multiplayer.CreateJoinRoom(roomid, $"{bdata.normal_room}{sel.BigDB.Load("config", "config")["version"]}", false, null, null, (Connection con) =>
                     {
 
                         con.Send("init");
@@ -116,6 +116,7 @@ namespace EEditor
                         con.OnDisconnect += (object sender, string reason) =>
                         {
                             Console.WriteLine(reason);
+                            s1.Release();
                         };
 
                     });

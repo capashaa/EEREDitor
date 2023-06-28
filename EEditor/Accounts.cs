@@ -241,7 +241,7 @@ namespace EEditor
         {
             if (client != null)
             {
-                client.Multiplayer.CreateJoinRoom(id, $"Lobby{bdata.version}", true, null, null,
+                client.Multiplayer.CreateJoinRoom(id, $"Lobby{client.BigDB.Load("config", "config")["version"]}", true, null, null,
                     (Connection con) =>
                     {
                         lobbyConnected(con, client, login, password, loginmethod);
@@ -258,7 +258,6 @@ namespace EEditor
 
             con.OnMessage += (s, m) =>
             {
-                Console.WriteLine(m);
                 switch (m.Type)
                 {
                     
