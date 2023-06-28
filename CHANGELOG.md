@@ -4,7 +4,9 @@
 * Added: Full about information in about window. 
 * Added: Automatic edit access, if editblock is inside the world.  
 * Fixed: Block bar shouldn't show up automatic each start.   
-* Fixed: Database reading now works. 
+* Fixed: Database reading now works.  
+* Fixed: Loading your own worlds now works.  
+* Fixed: Reading worlds and uploading worlds is reading from latest version of EER.  
 
 ## Beta 1 (0.0.1)
 * Fixed: New blocks which doesn't exists in EEditor doesn't crash.  
