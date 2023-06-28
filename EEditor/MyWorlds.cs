@@ -197,12 +197,13 @@ namespace EEditor
         private void loginToWorlds(Client client)
         {
             //client_ = client;
-            client.Multiplayer.CreateJoinRoom(client.ConnectUserId, $"Lobby{bdata.version}", false, null, null, lobbyConnected, (PlayerIOError error) => { Console.WriteLine(error.Message); });
+            client.Multiplayer.CreateJoinRoom(client.ConnectUserId, $"Lobby{client.BigDB.Load("config", "config")["version"]}", false, null, null, lobbyConnected, (PlayerIOError error) => { Console.WriteLine(error.Message); });
         }
 
         private void lobbyConnected(Connection con)
         {
             Dictionary<string, myWorlds> datta = new Dictionary<string, myWorlds>();
+            datta.Clear();
             con.OnMessage += (s, m) =>
             {
                 Console.WriteLine(m);
@@ -218,86 +219,118 @@ namespace EEditor
                         int total = 0;
                         int incr = 0, incr1 = 0, total1 = 0;
                         owner = m[(uint)total].ToString();
-
-                        if (m[(UInt32)17].ToString().Contains((char)0x1399) && m[(UInt32)18].ToString().Contains((char)0x1399) && m[(UInt32)19].ToString().Contains((char)0x1399))
+                        if (m[(UInt32)17].ToString() == "worldhome")
+                        {
+                            worlds.Add(m[(UInt32)18].ToString(), new myWorlds() { name = m[(UInt32)19].ToString(), size = "40x30" });
+                        }
+                        else if (m[(UInt32)17].ToString().Contains((char)0x1399) && m[(UInt32)18].ToString().Contains((char)0x1399) && m[(UInt32)19].ToString().Contains((char)0x1399))
                         {
                             string[] sizes = m[(UInt32)17].ToString().Split(new char[] { (char)0x1399 });
                             string[] worlds_ = m[(UInt32)18].ToString().Split(new char[] { (char)0x1399 });
                             string[] title = m[(UInt32)19].ToString().Split(new char[] { (char)0x1399 });
+                            string title_ = "Untitled World";
                             for (int i = 0; i < worlds_.Length; i++)
                             {
-                                worlds.Add(worlds_[i].ToString(), new myWorlds() { name = title[i], size = sizes[i] });
+                                if (string.IsNullOrEmpty(title[i])) title_ = "Untitled World";
+                                else title_ = title[i];
+                                if (!worlds.ContainsKey(worlds_[i].ToString())) worlds.Add(worlds_[i].ToString(), new myWorlds() { name = title_, size = sizes[i] });
                             }
                         }
-
-                        if (worlds.Count > 0)
-                        {
-                            foreach (KeyValuePair<string, myWorlds> kvp in worlds)
-                            {
-                                this.Invoke((MethodInvoker)delegate
-                                {
-                                    progressBar1.Value = 100;
-                                    ListViewItem lvi = new ListViewItem();
-                                    lvi.Text = kvp.Value.name;
-                                    lvi.SubItems.Add(kvp.Value.size);
-                                    lvi.SubItems.Add(kvp.Key);
-                                    listView1.Items.Add(lvi);
-                                });
-                                if (listView1.InvokeRequired)
-                                {
-                                    this.Invoke((MethodInvoker)delegate
-                                    {
-                                        listView1.Enabled = true;
-                                        listView1.EndUpdate();
-                                    });
-                                }
-                            }
-                            /*var world = new World(InputType.BigDB, rooms[i], client_);
-                            this.Invoke((MethodInvoker)delegate
-                            {
-                                ListViewItem lvi = new ListViewItem();
-                                string names = null;
-                                string wh = null;
-                                //Console.WriteLine(world.Width);
-                                if (world.Width.ToString() == null && world.Height.ToString() == null)
-                                {
-                                    if (world.Type.ToString() != null)
-                                    {
-                                        wh = world.Type.ToString();
-                                    }
-                                    else
-                                    {
-                                        wh = "?x?";
-                                    }
-                                }
-                                else
-                                {
-                                    wh = $"{world.Width}x{world.Height}";
-                                }
-                                progressBar1.Value = (incr1 * 100) / total1;
-                                if (!worlds.ContainsKey(rooms[i]))
-                                {
-                                    names = world.Title;
-                                    lvi.Text = names;
-                                    lvi.SubItems.Add(wh);
-                                    lvi.SubItems.Add(rooms[i]);
-                                    listView1.Items.Add(lvi);
-                                    worlds.Add(rooms[i], new myWorlds() { name = names, size = wh });
-                                }
-                                incr1++;
-                                if (incr1 >= total1)
-                                {
-                                    s2.Release();
-                                }
-
-                            });*/
-                        }
+                        s1.Release();
+                        LoadWorld();
+                        
+                        break;
 
 
-                break;
+                
             }
             };
     }
+
+        private void LoadWorld()
+        {
+            s1.WaitOne();
+            int incr = 0;
+            if (worlds.Count > 0)
+            {
+                foreach (KeyValuePair<string, myWorlds> kvp in worlds)
+                {
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        
+                        if (incr >= 100)
+                        {
+                            progressBar1.Value = 100;
+                        }
+                        else
+                        {
+                            progressBar1.Value = (incr * 100) / worlds.Count;
+                        }
+                        ListViewItem lvi = new ListViewItem();
+                        lvi.Text = kvp.Value.name;
+                        lvi.SubItems.Add(kvp.Value.size);
+                        lvi.SubItems.Add(kvp.Key);
+                        listView1.Items.Add(lvi);
+                        listView1.Enabled = true;
+
+                    });
+                    incr++;
+                }
+                this.Invoke((MethodInvoker)delegate
+                {
+
+                    if (incr >= 100)
+                    {
+                        progressBar1.Value = 100;
+                    }
+                    else
+                    {
+                        progressBar1.Value = (incr * 100) / worlds.Count;
+                    }
+                    listView1.EndUpdate();
+
+                });
+                /*var world = new World(InputType.BigDB, rooms[i], client_);
+                this.Invoke((MethodInvoker)delegate
+                {
+                    ListViewItem lvi = new ListViewItem();
+                    string names = null;
+                    string wh = null;
+                    //Console.WriteLine(world.Width);
+                    if (world.Width.ToString() == null && world.Height.ToString() == null)
+                    {
+                        if (world.Type.ToString() != null)
+                        {
+                            wh = world.Type.ToString();
+                        }
+                        else
+                        {
+                            wh = "?x?";
+                        }
+                    }
+                    else
+                    {
+                        wh = $"{world.Width}x{world.Height}";
+                    }
+                    progressBar1.Value = (incr1 * 100) / total1;
+                    if (!worlds.ContainsKey(rooms[i]))
+                    {
+                        names = world.Title;
+                        lvi.Text = names;
+                        lvi.SubItems.Add(wh);
+                        lvi.SubItems.Add(rooms[i]);
+                        listView1.Items.Add(lvi);
+                        worlds.Add(rooms[i], new myWorlds() { name = names, size = wh });
+                    }
+                    incr1++;
+                    if (incr1 >= total1)
+                    {
+                        s2.Release();
+                    }
+
+                });*/
+            }
+        }
     private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
     {
 
