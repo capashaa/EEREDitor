@@ -1,4 +1,8 @@
-## Beta 2 (0.0.2)
+## Beta 3 (0.0.3)  
+* Added all background blocks.  
+* Fixed so administrators could use all blocks.  
+    
+## Beta 2 (0.0.2)  
 * Changed: EEO/E to EERditor.  
 * Changed: Bought blocks will only show up. Rest is hidden. (Still not finished).  
 * Added: Full about information in about window. 
