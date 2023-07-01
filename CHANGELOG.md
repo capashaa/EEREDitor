@@ -1,7 +1,8 @@
 ## Beta 3 (0.0.3)  
 * Added all background blocks.  
 * Fixed so administrators could use all blocks.
-* Fixed so fairytale mushroom shows up.
+* Fixed so fairytale mushroom shows up as decoration.
+* Fixed so outer space shows upp all decorations.
     
 ## Beta 2 (0.0.2)  
 * Changed: EEO/E to EERditor.  
