@@ -19,6 +19,9 @@ namespace EEditor
         {
             Frame frame = null;
             Client sel = SelectAccount();
+            MainForm.userdata.level = roomid;
+            MainForm.editArea.MainForm.updateId.Text = roomid;
+            Console.WriteLine(roomid);
             if (sel != null)
             {
 
@@ -106,10 +109,12 @@ namespace EEditor
                             {
                                 case "init":
                                     frame = Frame.FromMessage(m, m.GetInt(18), m.GetInt(19));
+                                    frame.levelname = m.GetString(1);
+                                    frame.owner = m.GetString(0);
                                     con.Send("init2");
                                     break;
                                 case "init2":
-                                    s1.Release();
+                                    con.Disconnect();
                                     break;
                             }
                         };
@@ -119,6 +124,10 @@ namespace EEditor
                             s1.Release();
                         };
 
+                    },(PlayerIOError error) =>
+                    {
+                        Console.WriteLine($"Error: {error}");
+                        s1.Release();
                     });
                     s1.WaitOne();
                 }
