@@ -341,6 +341,7 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
             {
                 Frames.Clear();
                 Frames.Add(frame);
+                if (!string.IsNullOrEmpty(frame.levelname) && !string.IsNullOrEmpty(frame.owner)) MainForm.Text = $"({frame.levelname}) [{frame.owner}] ({frame.Width}x{frame.Height}) - EERditor {bdata.programVersion}";
                 curFrame = 0;
                 Size size = new Size(BlockWidth * MainForm.Zoom, BlockHeight * MainForm.Zoom);
                 //Bricks = new Bitmap[3000];
@@ -743,7 +744,7 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
             if (started)
             {
                 Point p = Tool.GetLocation(e);
-                if (e.X / MainForm.Zoom <= CurFrame.Width) MainForm.pos.Text = "X: " + p.X + " Y: " + p.Y;
+                if (e.X / MainForm.Zoom <= CurFrame.Width && e.Y / MainForm.Zoom <= CurFrame.Height) MainForm.pos.Text = "X: " + p.X + " Y: " + p.Y;
                 MainForm.fg.Text = CurFrame.Foreground[p.Y, p.X].ToString();
                 MainForm.bg.Text = CurFrame.Background[p.Y, p.X].ToString();
                 if (CurFrame.Foreground[p.Y, p.X] == 374)
@@ -759,7 +760,6 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
                         {
                             text = CurFrame.BlockData3[p.Y, p.X];
                         }
-                        MainForm.rot.Text = CurFrame.BlockData[p.Y, p.X].ToString();
                         MainForm.txt.Text = text;
                     }
                 }
@@ -904,13 +904,13 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
                     if (MainForm.debug)
                     {
                         MainForm.debug = false;
-                        MainForm.Text = "EERditor " + MainForm.ProductVersion;
+                        MainForm.Text = "EERditor " + bdata.programVersion;
                         MainForm.rebuildGUI(false);
 
                     }
                     else
                     {
-                        MainForm.Text = "EERditor " + MainForm.ProductVersion + " - Using Debug";
+                        MainForm.Text = "EERditor " + bdata.programVersion + " - Using Debug";
                         MainForm.debug = true;
                         MainForm.rebuildGUI(false);
 
