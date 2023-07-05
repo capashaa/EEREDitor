@@ -13,20 +13,26 @@ namespace EEditor
         private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont,
 IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
         public static string gameID = "everybody-edits-v226-5ugofmmni06qbc11k5tqq";
-        public static int version = 248;
+        public static string programVersion { get; set; }
+
+        //Force version here, else read from database
+        public static int version = 250;
+        public static bool forceversion = false;
+
+
         public static string lobby = "Lobby";
         public static string normal_room = "Everybodyedits";
         public static int[] goal = { 77, 83, 43, 165, 213, 214, 417, 418, 419, 420, 421, 422, 423, 1027, 1028, 113, 185, 184, 1011, 1012, 453, 461, 467, 1079, 1080, 1520,1582,1619,1620 };
         //public static int[] effects = { 417, 418, 419, 420, 421, 422, 453 };
         //spikes
-        public static int[] rotate = { 1001, 1002, 1003, 1004, 1027, 1028, 361, 385, 374, 1052, 1053, 1054, 1055, 1056, 1092, 1625, 1627, 1629, 1631, 1633, 1635 };
+        public static int[] rotate = { 1001, 1002, 1003, 1004, 1027, 1028, 361, 385, 1052, 1053, 1054, 1055, 1056, 1092, 1625, 1627, 1629, 1631, 1633, 1635 };
         public static int[] ignore = { 1001, 1002, 1003, 1004, 361, 417, 418, 419, 420, 1052, 1053, 1054, 1055, 1056, 1092, 1625, 1627, 1629, 1631, 1633, 1635 };
         public static int[] morphable = {
             375, 376, 379, 380, 377, 378, 438, 439, 276, 277, 279, 280, 440, 275,
             329, 273, 328, 327, 338, 339, 340, 1041, 1042, 1043, 456, 457, 458, 447, 448, 449, 450, 451, 452,
             464, 465, 1075, 1076, 1077, 1078, 471, 475, 476, 477, 481, 482, 483, 497, 492, 493, 494, 499, 1500,
             1502,1507, 1506,1101,1102,1103,1104,1105,1517,1116,1117,1118,1119,1120,1121,1122,1123,1124,1125,1135,
-            1134,1538,1536,1537,1538,1140,1141,1535,1581,1587,1588,1155,1160,1592,1593,1594,1595,1596,1597,1584,1605,1606,1607,1609,1610,1611,1612,1614,1615,1616,1617 };
+            1134,1538,1536,1537,1538,1140,1141,1535,1581,1155,1592,1593,1594,1595,1596,1597,1605,1606,1607,1609,1610,1611,1612,1614,1615,1616,1617 };
         public static int[] portals = { 242, 381 };
 
         public static int[] sound = { 77, 83, 1520 };
@@ -36,10 +42,10 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
             1001, 1002, 1003, 1004, 361, 375, 376, 377, 378, 379, 380, 438, 439, 275,
             329, 273, 328, 327, 338, 339, 340, 1041, 1042, 1043, 447, 448, 449, 450, 451, 452, 1052, 1053, 1054, 1055,
             1056, 1075, 1076, 1077, 1078, 1092, 492, 493, 494, 499, 1502, 1116, 1117, 1118, 1119, 1120, 1121, 1122, 1123,
-            1124, 1125, 1537,1140,1141,1155,1160,1592,1593,1594,1595,1596,1597,1605,1607,1609,1610,1612,1614,1615,1616,1617,1625,1627,1629,1631,1633,1635};
+            1124, 1125, 1537,1140,1141,1155,1592,1593,1594,1595,1596,1597,1605,1607,1609,1610,1612,1614,1615,1616,1617,1625,1627,1629,1631,1633,1635};
         public static int[] increase2 = { 417, 276, 277, 279, 280, 471, 475, 476, 477, 483, 1134, 419 };
-        public static int[] increase1 = { 418, 420, 453, 456, 457, 458, 1135, 1536,1535, 1500,1587, 1606,1611 };
-        public static int[] increase4 = { 1507, 1506, 464, 465,1588,1517 };
+        public static int[] increase1 = { 418, 420, 453, 456, 457, 458, 1135, 1536,1535, 1500, 1606,1611 };
+        public static int[] increase4 = { 1507, 1506, 464, 465,1517 };
         public static int[] increase5 = { 440, 481, 482, 497, 1581 };
         public static int[] increase11 = { 1538 };
 
@@ -71,8 +77,8 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
         }
         public static bool isNPC(int id)
         {
-            if (id >= 1550 && id <= 1559 || id >= 1569 && id <= 1579) return true;
-            else return false;
+            //if (id >= 1550 && id <= 1559 || id >= 1569 && id <= 1579) return true;
+            return false;
         }
         public static bool ParamNumbers(PlayerIOClient.Message m, int message, string type)
         {
@@ -124,8 +130,8 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
                     fid == 493 || fid == 494 || fid == 499 || fid == 1500 || fid == 1502 || fid == 1506 || 
                     fid == 1507 || fid == 1517 || fid >= 1116 && fid <= 1125 || fid == 1135 || fid == 1134 
                     || fid == 1538 || fid == 1536 || fid == 1537 || fid == 1140 || fid == 1141 || fid == 1535 
-                    || fid == 1581 || fid == 1587 || fid == 1588 || fid == 1155 || fid == 1160 || fid == 1592 
-                    || fid == 1593 || fid == 1594 || fid == 1595 || fid == 1596 || fid == 1597 || fid == 1584 
+                    || fid == 1581 || fid == 1155 || fid == 1592 
+                    || fid == 1593 || fid == 1594 || fid == 1595 || fid == 1596 || fid == 1597
                     || fid == 1605 || fid == 1606 || fid == 1607 || fid == 1609 || fid == 1610 || fid == 1611 
                     || fid == 1612 || fid == 1614 || fid == 1615 || fid == 1616 || fid == 1617)
                 {
@@ -145,17 +151,13 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
                             if (fid == 1607) roted = 514;
                             if (fid == 1606) roted = 512;
                             if (fid == 1605) roted = 508;
-                            if (fid == 1584) roted = 498;
                             if (fid == 1597) roted = 489;
                             if (fid == 1596) roted = 493;
                             if (fid == 1595) roted = 485;
                             if (fid == 1594) roted = 481;
                             if (fid == 1593) roted = 473;
                             if (fid == 1592) roted = 469;
-                            if (fid == 1160) roted = 477;
                             if (fid == 1155) roted = 465;
-                            if (fid == 1588) roted = 460;
-                            if (fid == 1587) roted = 458;
                             if (fid == 1581) roted = 447;
                             if (fid == 1141) roted = 429;
                             if (fid == 1140) roted = 425;
@@ -225,17 +227,13 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
                             if (fid == 1607) roted = 515;
                             if (fid == 1606) roted = 513;
                             if (fid == 1605) roted = 509;
-                            if (fid == 1584) roted = 497;
                             if (fid == 1597) roted = 490;
                             if (fid == 1596) roted = 494;
                             if (fid == 1595) roted = 486;
                             if (fid == 1594) roted = 482;
                             if (fid == 1593) roted = 474;
                             if (fid == 1592) roted = 470;
-                            if (fid == 1160) roted = 478;
                             if (fid == 1155) roted = 466;
-                            if (fid == 1588) roted = 461;
-                            if (fid == 1587) roted = 459;
                             if (fid == 1581) roted = 448;
                             if (fid == 1141) roted = 430;
                             if (fid == 1140) roted = 426;
@@ -303,16 +301,13 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
                             if (fid == 1609) roted = 521;
                             if (fid == 1607) roted = 516;
                             if (fid == 1605) roted = 510;
-                            if (fid == 1584) roted = 497;
                             if (fid == 1597) roted = 491;
                             if (fid == 1596) roted = 495;
                             if (fid == 1595) roted = 487;
                             if (fid == 1594) roted = 483;
                             if (fid == 1593) roted = 475;
                             if (fid == 1592) roted = 471;
-                            if (fid == 1160) roted = 479;
                             if (fid == 1155) roted = 467;
-                            if (fid == 1588) roted = 462;
                             if (fid == 1581) roted = 449;
                             if (fid == 1141) roted = 431;
                             if (fid == 1140) roted = 427;
@@ -373,16 +368,13 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
                             if (fid == 1609) roted = 522;
                             if (fid == 1607) roted = 517;
                             if (fid == 1605) roted = 511;
-                            if (fid == 1584) roted = 497;
                             if (fid == 1597) roted = 492;
                             if (fid == 1596) roted = 496;
                             if (fid == 1595) roted = 488;
                             if (fid == 1594) roted = 484;
                             if (fid == 1593) roted = 476;
                             if (fid == 1592) roted = 472;
-                            if (fid == 1160) roted = 480;
                             if (fid == 1155) roted = 468;
-                            if (fid == 1588) roted = 463;
                             if (fid == 1581) roted = 450;
                             if (fid == 1141) roted = 432;
                             if (fid == 1140) roted = 428;
@@ -425,8 +417,6 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
                             if (fid == 1125) roted = 400;
                             break;
                         case 4:
-                            if (fid == 1584) roted = 497;
-                            if (fid == 1588) roted = 464;
                             if (fid == 1581) roted = 451;
                             if (fid == 1538) roted = 418;
                             if (fid == 497) roted = 315;
@@ -435,34 +425,27 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
                             if (fid == 1517) roted = 359;
                             break;
                         case 5:
-                            if (fid == 1584) roted = 497;
                             if (fid == 1581) roted = 452;
                             if (fid == 497) roted = 316;
                             if (fid == 1538) roted = 419;
                             break;
                         case 6:
-                            if (fid == 1584) roted = 497;
                             if (fid == 1538) roted = 420;
                             break;
                         case 7:
-                            if (fid == 1584) roted = 497;
                             if (fid == 1538) roted = 421;
                             break;
                         case 8:
-                            if (fid == 1584) roted = 497;
                             if (fid == 1538) roted = 422;
                             break;
                         case 9:
-                            if (fid == 1584) roted = 497;
                             if (fid == 1538) roted = 423;
                             break;
                         case 10:
-                            if (fid == 1584) roted = 497;
                             if (fid == 1538) roted = 424;
                             break;
                         default:
                             roted = 15;
-                            if (fid == 1584) roted = 497;
                             break;
                     }
                     if (roted == 15) return null;
@@ -935,14 +918,6 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
             }
         }
 
-        public static bool IsLinux
-        {
-            get
-            {
-                int p = (int)Environment.OSVersion.Platform;
-                return (p == 4) || (p == 6) || (p == 128);
-            }
-        }
         public static string tostring(string link,bool useof)
         {
                 string linkedof = null;
