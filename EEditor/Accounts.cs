@@ -241,7 +241,8 @@ namespace EEditor
         {
             if (client != null)
             {
-                client.Multiplayer.CreateJoinRoom(id, $"Lobby{client.BigDB.Load("config", "config")["version"]}", true, null, null,
+                int version = bdata.forceversion ? bdata.version : Convert.ToInt32(client.BigDB.Load("config", "config")["version"]);
+                client.Multiplayer.CreateJoinRoom(id, $"Lobby{version}", true, null, null,
                     (Connection con) =>
                     {
                         lobbyConnected(con, client, login, password, loginmethod);
