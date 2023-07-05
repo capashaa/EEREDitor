@@ -197,7 +197,8 @@ namespace EEditor
         private void loginToWorlds(Client client)
         {
             //client_ = client;
-            client.Multiplayer.CreateJoinRoom(client.ConnectUserId, $"Lobby{client.BigDB.Load("config", "config")["version"]}", false, null, null, lobbyConnected, (PlayerIOError error) => { Console.WriteLine(error.Message); });
+            int version = bdata.forceversion ? bdata.version : Convert.ToInt32(client.BigDB.Load("config", "config")["version"]);
+            client.Multiplayer.CreateJoinRoom(client.ConnectUserId, $"Lobby{version}", false, null, null, lobbyConnected, (PlayerIOError error) => { Console.WriteLine(error.Message); });
         }
 
         private void lobbyConnected(Connection con)
@@ -221,7 +222,7 @@ namespace EEditor
                         owner = m[(uint)total].ToString();
                         if (m[(UInt32)17].ToString() == "worldhome")
                         {
-                            worlds.Add(m[(UInt32)18].ToString(), new myWorlds() { name = m[(UInt32)19].ToString(), size = "40x30" });
+                            worlds.Add(m[(UInt32)18].ToString(), new myWorlds() { name = m[(UInt32)19].ToString(), size = "25x25" });
                         }
                         else if (m[(UInt32)17].ToString().Contains((char)0x1399) && m[(UInt32)18].ToString().Contains((char)0x1399) && m[(UInt32)19].ToString().Contains((char)0x1399))
                         {
@@ -233,7 +234,11 @@ namespace EEditor
                             {
                                 if (string.IsNullOrEmpty(title[i])) title_ = "Untitled World";
                                 else title_ = title[i];
-                                if (!worlds.ContainsKey(worlds_[i].ToString())) worlds.Add(worlds_[i].ToString(), new myWorlds() { name = title_, size = sizes[i] });
+
+                                if (!worlds.ContainsKey(worlds_[i].ToString()))
+                                {
+                                    worlds.Add(worlds_[i].ToString(), new myWorlds() { name = title_, size = sizes[i] });
+                                }
                             }
                         }
                         s1.Release();
@@ -253,8 +258,72 @@ namespace EEditor
             int incr = 0;
             if (worlds.Count > 0)
             {
+                int w = 200;
+                int h = 200;
                 foreach (KeyValuePair<string, myWorlds> kvp in worlds)
                 {
+
+                    if (kvp.Value.size.Contains("x"))
+                    {
+                        switch (kvp.Value.size.Split('x')[0])
+                        {
+                           
+                            case "world1":
+                                w = 50;
+                                h = 50;
+                                break;
+                            case "world2":
+                                w = 100;
+                                h = 100;
+                                break;
+                            default:
+                            case "world3":
+                                w = 200;
+                                h = 200;
+                                break;
+                            case "world4":
+                                w = 400;
+                                h = 50;
+                                break;
+                            case "world5":
+                                w = 400;
+                                h = 200;
+                                break;
+                            case "world6":
+                                w = 100;
+                                h = 400;
+                                break;
+                            case "world7":
+                                w = 636;
+                                h = 50;
+                                break;
+                            case "world8":
+                                w = 110;
+                                h = 110;
+                                break;
+                            case "world11":
+                                w = 300;
+                                h = 300;
+                                break;
+                            case "world12":
+                                w = 250;
+                                h = 150;
+                                break;
+                            case "world13":
+                                w = 150;
+                                h = 150;
+                                break;
+                        };
+                    }
+                    else
+                    {
+                        if (kvp.Value.size == "worldhome")
+                        {
+                            w = 25;
+                            h = 25;
+                        }
+                    }
+                    worlds[kvp.Key].size = $"{w}x{h}";
                     this.Invoke((MethodInvoker)delegate
                     {
                         
@@ -268,7 +337,7 @@ namespace EEditor
                         }
                         ListViewItem lvi = new ListViewItem();
                         lvi.Text = kvp.Value.name;
-                        lvi.SubItems.Add(kvp.Value.size);
+                        lvi.SubItems.Add($"{w}x{h}");
                         lvi.SubItems.Add(kvp.Key);
                         listView1.Items.Add(lvi);
                         listView1.Enabled = true;
