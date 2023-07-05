@@ -9,6 +9,7 @@ using System.IO;
 using Newtonsoft.Json.Linq;
 using EELVL;
 using static System.Windows.Forms.MonthCalendar;
+using SharpCompress.Writers;
 
 namespace EEditor
 {
@@ -215,10 +216,13 @@ namespace EEditor
                     {
                         if (Convert.ToString(chunk.Args[0]) != "we")
                         {
-                            if (bdata.goal.Contains((int)chunk.Type) || bdata.morphable.Contains((int)chunk.Type) || bdata.rotate.Contains((int)chunk.Type) && (int)chunk.Type != 385 && (int)chunk.Type != 374)
+                            if (bdata.goal.Contains((int)chunk.Type) || bdata.morphable.Contains((int)chunk.Type) || bdata.rotate.Contains((int)chunk.Type) && (int)chunk.Type != 385)
                             {
                                 frame.Foreground[pos.Y, pos.X] = Convert.ToInt32(chunk.Type);
                                 frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[0]);
+                                if ((int)chunk.Type == 1141 || (int)chunk.Type == 1140) {
+                                    Console.WriteLine(chunk.Args[0]);
+                                }
                             }
                             else
                             {
@@ -228,22 +232,15 @@ namespace EEditor
                                     frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[1]);
                                     frame.BlockData3[pos.Y, pos.X] = chunk.Args[0].ToString();
                                 }
-                                else if ((int)chunk.Type == 374)
-                                {
-
-                                    frame.Foreground[pos.Y, pos.X] = Convert.ToInt32(chunk.Type);
-                                    frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[1]);
-                                    frame.BlockData3[pos.Y, pos.X] = chunk.Args[0].ToString();
-                                }
                                 else if ((int)chunk.Type == 1000)
                                 {
                                     frame.Foreground[pos.Y, pos.X] = Convert.ToInt32(chunk.Type);
-                                    frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[1]);
+                                    frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[0]);
                                     frame.BlockData3[pos.Y, pos.X] = chunk.Args[0].ToString();
                                     frame.BlockData4[pos.Y, pos.X] = chunk.Args[2].ToString();
                                 }
 
-                                if ((int)chunk.Type != 374 && (int)chunk.Type != 385)
+                                if ((int)chunk.Type != 385)
                                 {
                                     if ((int)chunk.Layer == 1)
                                     {
@@ -286,15 +283,14 @@ namespace EEditor
                                 frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[1]);
                                 frame.BlockData3[pos.Y, pos.X] = chunk.Args[0].ToString();
                             }
-                            else if (chunk.Type == 374)
-                            {
-                                frame.BlockData3[pos.Y, pos.X] = chunk.Args[0].ToString();
-                                frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[1]);
-                            }
 
                             else if (bdata.goal.Contains((int)chunk.Type) || bdata.morphable.Contains((int)chunk.Type) || bdata.rotate.Contains((int)chunk.Type))
                             {
                                 frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[0]);
+                                if ((int)chunk.Type == 1141 || (int)chunk.Type == 1140)
+                                {
+                                    Console.WriteLine(chunk.Args[0]);
+                                }
                             }
                         }
                     }
@@ -311,12 +307,19 @@ namespace EEditor
                                 frame.BlockData2[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[2]);
                             }
                         }
-                        else if ((int)chunk.Type == 385 || (int)chunk.Type == 374)
+                        else if ((int)chunk.Type == 385)
                         {
                             if (Convert.ToString(chunk.Args[0]) != "we" && Convert.ToString(chunk.Args[1]) != "we")
                             {
                                 frame.Foreground[pos.Y, pos.X] = Convert.ToInt32(chunk.Type);
                                 frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[1]);
+                                frame.BlockData3[pos.Y, pos.X] = Convert.ToString(chunk.Args[0]);
+                            }
+                        }
+                        else if ((int)chunk.Type == 374) {
+                            if (Convert.ToString(chunk.Args[0]) != "we")
+                            {
+                                frame.Foreground[pos.Y, pos.X] = Convert.ToInt32(chunk.Type);
                                 frame.BlockData3[pos.Y, pos.X] = Convert.ToString(chunk.Args[0]);
                             }
                         }
@@ -528,7 +531,7 @@ namespace EEditor
                 {
                     if (Foreground[y, x] != f.Foreground[y, x])
                     {
-                        if (bdata.morphable.Contains(Foreground[y, x]) && !bdata.isNPC(Foreground[y, x]))
+                        if (bdata.morphable.Contains(Foreground[y, x]))
                         {
                             res.Add(new string[] { x.ToString(), y.ToString(), Foreground[y, x].ToString(), "0", BlockData[y, x].ToString() });
                         }
@@ -536,7 +539,7 @@ namespace EEditor
                         {
                             res.Add(new string[] { x.ToString(), y.ToString(), Foreground[y, x].ToString(), "0", BlockData[y, x].ToString() });
                         }
-                        else if (bdata.rotate.Contains(Foreground[y, x]) && Foreground[y, x] != 385 && Foreground[y, x] != 374)
+                        else if (bdata.rotate.Contains(Foreground[y, x]) && Foreground[y, x] != 385)
                         {
                             res.Add(new string[] { x.ToString(), y.ToString(), Foreground[y, x].ToString(), "0", BlockData[y, x].ToString() });
                         }
@@ -554,15 +557,7 @@ namespace EEditor
                         }
                         else if (Foreground[y, x] == 374)
                         {
-                            res.Add(new string[] { x.ToString(), y.ToString(), Foreground[y, x].ToString(), "0", BlockData3[y, x], BlockData[y, x].ToString() });
-                        }
-                        else if (Foreground[y, x] == 1000)
-                        {
-                            res.Add(new string[] { x.ToString(), y.ToString(), Foreground[y, x].ToString(), "0", BlockData[y, x].ToString(), BlockData3[y, x].ToString(), BlockData4[y, x].ToString() });
-                        }
-                        else if (bdata.isNPC(Foreground[y, x]))
-                        {
-                            res.Add(new string[] { x.ToString(), y.ToString(), Foreground[y, x].ToString(), "0", BlockData3[y, x], BlockData4[y, x], BlockData5[y, x], BlockData6[y, x] });
+                            res.Add(new string[] { x.ToString(), y.ToString(), Foreground[y, x].ToString(), "0", BlockData3[y, x] });
                         }
                         else if (Foreground[y, x] == 1000)
                         {
@@ -589,7 +584,7 @@ namespace EEditor
                     }
                     if (Foreground[y, x] == f.Foreground[y, x])
                     {
-                        if (bdata.morphable.Contains(Foreground[y, x]) && !bdata.isNPC(Foreground[y, x]))
+                        if (bdata.morphable.Contains(Foreground[y, x]))
                         {
                             if (BlockData[y, x] != f.BlockData[y, x])
                             {
@@ -603,7 +598,7 @@ namespace EEditor
                                 res.Add(new string[] { x.ToString(), y.ToString(), Foreground[y, x].ToString(), "0", BlockData[y, x].ToString() });
                             }
                         }
-                        else if (bdata.rotate.Contains(Foreground[y, x]) && Foreground[y, x] != 385 && Foreground[y, x] != 374)
+                        else if (bdata.rotate.Contains(Foreground[y, x]) && Foreground[y, x] != 385)
                         {
                             if (BlockData[y, x] != f.BlockData[y, x])
                             {
@@ -633,18 +628,18 @@ namespace EEditor
                         }
                         else if (Foreground[y, x] == 374)
                         {
-                            if (BlockData3[y, x] != f.BlockData3[y, x] || BlockData[y, x] != f.BlockData[y, x])
+                            if (BlockData3[y, x] != f.BlockData3[y, x])
                             {
-                                res.Add(new string[] { x.ToString(), y.ToString(), Foreground[y, x].ToString(), "0", BlockData3[y, x], BlockData[y, x].ToString() });
+                                res.Add(new string[] { x.ToString(), y.ToString(), Foreground[y, x].ToString(), "0", BlockData3[y, x] });
                             }
                         }
-                        else if (bdata.isNPC(Foreground[y, x]))
+                        /*else if (bdata.isNPC(Foreground[y, x]))
                         {
                             if (BlockData3[y, x] != f.BlockData3[y, x] || BlockData4[y, x] != f.BlockData4[y, x] || BlockData5[y, x] != f.BlockData5[y, x] || BlockData6[y, x] != f.BlockData6[y, x])
                             {
                                 res.Add(new string[] { x.ToString(), y.ToString(), Foreground[y, x].ToString(), "0", BlockData3[y, x], BlockData4[y, x], BlockData5[y, x], BlockData6[y, x] });
                             }
-                        }
+                        }*/
                     }
                     if (Background[y, x] != f.Background[y, x])
                     {
@@ -766,7 +761,7 @@ namespace EEditor
                     int t = Foreground[y, x];
                     writer.Write((short)t);
                     writer.Write((short)Background[y, x]);
-                    if (bdata.goal.Contains(t) || bdata.rotate.Contains(t) || bdata.morphable.Contains(t) && t != 385 && t != 374)
+                    if (bdata.goal.Contains(t) || bdata.rotate.Contains(t) || bdata.morphable.Contains(t) && t != 385)
                     {
                         writer.Write((short)BlockData[y, x]);
                     }
@@ -778,7 +773,6 @@ namespace EEditor
                     if (t == 374)
                     {
                         writer.Write(BlockData3[y, x]);
-                        writer.Write((short)BlockData[y, x]);
                     }
                     if (bdata.portals.Contains(t))
                     {
@@ -786,12 +780,11 @@ namespace EEditor
                         writer.Write(BlockData1[y, x]);
                         writer.Write(BlockData2[y, x]);
                     }
-                    if (bdata.isNPC(t))
+                    if (t == 1000)
                     {
+                        writer.Write(BlockData[y, x]);
                         writer.Write(BlockData3[y, x]);
                         writer.Write(BlockData4[y, x]);
-                        writer.Write(BlockData5[y, x]);
-                        writer.Write(BlockData6[y, x]);
                     }
                 }
             writer.Close();
@@ -817,7 +810,7 @@ namespace EEditor
                         {
                             var bg = reader.ReadInt16();
                             corrects[2] = bg >= 500 || bg <= 999;
-                            if (bdata.goal.Contains(fg) || bdata.rotate.Contains(fg) || bdata.morphable.Contains(fg) && fg != 385 && fg != 374)
+                            if (bdata.goal.Contains(fg) || bdata.rotate.Contains(fg) || bdata.morphable.Contains(fg) && fg != 385)
                             {
                                 var rotation = reader.ReadInt16();
                                 corrects[3] = rotation >= 0 || rotation <= 999;
@@ -1206,7 +1199,7 @@ namespace EEditor
                         int t = reader.ReadInt16();
                         f.Foreground[y, x] = t;
                         f.Background[y, x] = reader.ReadInt16();
-                        if (bdata.goal.Contains(t) || bdata.rotate.Contains(t) || bdata.morphable.Contains(t) && t != 385 && t != 374)
+                        if (bdata.goal.Contains(t) || bdata.rotate.Contains(t) || bdata.morphable.Contains(t) && t != 385)
                         {
                             f.BlockData[y, x] = Convert.ToInt32(reader.ReadInt16());
                         }
@@ -1218,7 +1211,6 @@ namespace EEditor
                         if (t == 374)
                         {
                             f.BlockData3[y, x] = reader.ReadString();
-                            f.BlockData[y, x] = Convert.ToInt32(reader.ReadInt16());
                         }
                         if (bdata.portals.Contains(t))
                         {
@@ -1226,12 +1218,12 @@ namespace EEditor
                             f.BlockData1[y, x] = reader.ReadInt32();
                             f.BlockData2[y, x] = reader.ReadInt32();
                         }
-                        if (bdata.isNPC(t))
+                        if (t == 1000)
                         {
+                            f.BlockData[y, x] = Convert.ToInt32(reader.ReadInt32());
                             f.BlockData3[y, x] = reader.ReadString();
                             f.BlockData4[y, x] = reader.ReadString();
-                            f.BlockData5[y, x] = reader.ReadString();
-                            f.BlockData6[y, x] = reader.ReadString();
+
                         }
                     }
                 }
@@ -1249,7 +1241,7 @@ namespace EEditor
                         int t = reader.ReadInt16();
                         f.Foreground[y, x] = t;
                         f.Background[y, x] = reader.ReadInt16();
-                        if (bdata.goal.Contains(t) || bdata.rotate.Contains(t) || bdata.morphable.Contains(t) && t != 385 && t != 374)
+                        if (bdata.goal.Contains(t) || bdata.rotate.Contains(t) || bdata.morphable.Contains(t) && t != 385)
                         {
                             f.BlockData[y, x] = Convert.ToInt32(reader.ReadInt16());
                         }
@@ -1291,7 +1283,7 @@ namespace EEditor
                         int t = reader.ReadInt16();
                         f.Foreground[y, x] = t;
                         f.Background[y, x] = reader.ReadInt16();
-                        if (bdata.goal.Contains(t) || bdata.rotate.Contains(t) || bdata.morphable.Contains(t) && t != 385 && t != 374)
+                        if (bdata.goal.Contains(t) || bdata.rotate.Contains(t) || bdata.morphable.Contains(t) && t != 385)
                         {
                             f.BlockData[y, x] = Convert.ToInt32(reader.ReadInt16());
                         }
@@ -1409,12 +1401,7 @@ namespace EEditor
                             {
                                 f.BlockData[y, x] = Convert.ToInt32(reader.ReadInt16());
                             }
-                            else if (t == 374)
-                            {
-                                f.BlockData[y, x] = 0;
-                                f.BlockData3[y, x] = reader.ReadString();
-                            }
-                            else if (t == 385)
+                            else if (t == 374 || t == 385)
                             {
                                 f.BlockData3[y, x] = reader.ReadString();
                             }
