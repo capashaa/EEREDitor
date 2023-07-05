@@ -613,10 +613,10 @@
     <None Include="Resources\ag_icon.png" />
     <None Include="Resources\add.png" />
     <None Include="Resources\bullets.png" />
+    <None Include="Resources\blueprint.png" />
     <None Include="Resources\BLOCKS_back.png" />
     <None Include="Resources\BLOCKS_deco.png" />
     <None Include="Resources\BLOCKS_front.png" />
-    <None Include="Resources\blueprint.png" />
     <Content Include="Resources\copy.png" />
     <None Include="Resources\eeditor_bgIgnore.png" />
     <None Include="Resources\eeditor_bgIgnore.ico" />
@@ -702,7 +702,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-<ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\EELVL\EELVL.csproj">
       <Project>{b20758f1-6a7a-4c5f-920f-62adcfaa1c6b}</Project>
       <Name>EELVL</Name>
