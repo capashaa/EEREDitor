@@ -161,7 +161,7 @@ namespace EEditor
                                         correctWay = true;
                                     }
                                 }
-                                else if (bdata.rotate.Contains(blockId) && blockId != 385 && blockId != 374)
+                                else if (bdata.rotate.Contains(blockId) && blockId != 385)
                                 {
                                     if (cur.Length == 5)
                                     {
@@ -177,7 +177,7 @@ namespace EEditor
                                 }
                                 else if (blockId == 374)
                                 {
-                                    if (cur.Length == 6)
+                                    if (cur.Length == 5)
                                     {
                                         correctWay = true;
                                     }
@@ -230,7 +230,7 @@ namespace EEditor
                                         }
                                     }
                                 }
-                                else if (bdata.rotate.Contains(blockId) && blockId != 385 && blockId != 374)
+                                else if (bdata.rotate.Contains(blockId) && blockId != 385)
                                 {
                                     if (cur.Length == 5)
                                     {
@@ -262,9 +262,9 @@ namespace EEditor
                                 }
                                 else if (blockId == 374)
                                 {
-                                    if (cur.Length == 6)
+                                    if (cur.Length == 5)
                                     {
-                                        if (remoteFrame.BlockData3[y, x] != cur[4] || remoteFrame.BlockData[y, x] != Convert.ToInt32(cur[5]))
+                                        if (remoteFrame.BlockData3[y, x] != cur[4])
                                         {
                                             correctWay = true;
                                         }
@@ -312,7 +312,7 @@ namespace EEditor
                                     param = new object[] { layer, x, y, blockId, Convert.ToInt32(cur[4]) };
                                 }
                             }
-                            else if (bdata.rotate.Contains(blockId) && blockId != 385 && blockId != 374)
+                            else if (bdata.rotate.Contains(blockId) && blockId != 385)
                             {
                                 if (cur.Length == 5)
                                 {
@@ -328,9 +328,9 @@ namespace EEditor
                             }
                             else if (blockId == 374)
                             {
-                                if (cur.Length == 6)
+                                if (cur.Length == 5)
                                 {
-                                    param = new object[] { layer, x, y, blockId, cur[4], Convert.ToInt32(cur[5]) };
+                                    param = new object[] { layer, x, y, blockId, cur[4] };
                                 }
                             }
                             else if (bdata.isNPC(blockId))
@@ -494,7 +494,7 @@ namespace EEditor
             }
             else if (e.Type == "wp")
             {
-                if (botid == (int)e.GetInt(5))
+                if (botid == (int)e.GetInt(4))
                 {
                     int x = e.GetInt(0), y = e.GetInt(1);
                     remoteFrame.Foreground[y, x] = e.GetInt(2);
