@@ -85,7 +85,7 @@ namespace EEditor
             MainForm.tsc.Items.Add("Background");
             MainForm.tsc.Text = "Background";
             NeedsInit = true;
-            MainForm.Text = "EERditor " + MainForm.ProductVersion;
+            MainForm.Text = "EERditor " + bdata.programVersion;
             MainForm.OpenWorld = false;
             MainForm.OpenWorldCode = false;
             #region Listbox selection
@@ -258,7 +258,7 @@ namespace EEditor
         }
         private void updateData(string title,string owner, int width, int height)
         {
-            MainForm.Text = $"({title}) [{owner}] ({width}x{height}) - EERditor {this.ProductVersion}";
+            MainForm.Text = $"({title}) [{owner}] ({width}x{height}) - EERditor {bdata.programVersion}";
         }
         public void LoadFromLevel(string level, int datas)
         {
@@ -277,7 +277,8 @@ namespace EEditor
                 {
                     if (MainForm.userdata.level.StartsWith("OW"))
                     {
-                        client.Multiplayer.ListRooms($"{bdata.normal_room}{client.BigDB.Load("config", "config")["version"]}", null, 0, 0,
+                        int version = bdata.forceversion ? bdata.version : Convert.ToInt32(client.BigDB.Load("config", "config")["version"]);
+                        client.Multiplayer.ListRooms($"{bdata.normal_room}{version}", null, 0, 0,
                         (RoomInfo[] rinfo) =>
                         {
                             foreach (var val in rinfo)
@@ -287,7 +288,7 @@ namespace EEditor
                                     if (val.Id == MainForm.userdata.level)
                                     {
                                         MainForm.userdata.level = val.Id;
-                                        Connection = client.Multiplayer.CreateJoinRoom(MainForm.userdata.level, $"{bdata.normal_room}{client.BigDB.Load("config", "config")["version"]}", true, null, null);
+                                        Connection = client.Multiplayer.CreateJoinRoom(MainForm.userdata.level, $"{bdata.normal_room}{version}", true, null, null);
                                         Connection.OnMessage += OnMessage;
                                         Connection.Send("init");
                                         NeedsInit = false;
@@ -303,7 +304,8 @@ namespace EEditor
                     {
                         if (client != null)
                         {
-                            Connection = client.Multiplayer.CreateJoinRoom(MainForm.userdata.level, $"{bdata.normal_room}{client.BigDB.Load("config", "config")["version"]}", true, null, null);
+                            int version = bdata.forceversion ? bdata.version : Convert.ToInt32(client.BigDB.Load("config", "config")["version"]);
+                            Connection = client.Multiplayer.CreateJoinRoom(MainForm.userdata.level, $"{bdata.normal_room}{version}", true, null, null);
                             Connection.OnMessage += OnMessage;
                             Connection.Send("init");
                             NeedsInit = false;
@@ -523,17 +525,17 @@ namespace EEditor
                     if (data.Length == 1)
                     {
                         worldOwner = data[0].Key.ToString();
-                        MainForm.Text = $"({title}) [{worldOwner}] ({width}x{height}) - EERditor {this.ProductVersion}";
+                        MainForm.Text = $"({title}) [{worldOwner}] ({width}x{height}) - EERditor {bdata.programVersion}";
                     }
                     else
                     {
-                        MainForm.Text = $"({title}) [Unknown Owner] ({width}x{height}) - EERditor {this.ProductVersion}";
+                        MainForm.Text = $"({title}) [Unknown Owner] ({width}x{height}) - EERditor {bdata.programVersion}";
                     }
-                }, (PlayerIOError error) => { MainForm.Text = $"({title}) [Unknown Owner] ({width}x{height}) - EERditor {this.ProductVersion}"; });
+                }, (PlayerIOError error) => { MainForm.Text = $"({title}) [Unknown Owner] ({width}x{height}) - EERditor {bdata.programVersion}"; });
             }
             else
             {
-                MainForm.Text = $"({title}) [Unknown Owner] ({width}x{height}) - EEditor {this.ProductVersion}";
+                MainForm.Text = $"({title}) [Unknown Owner] ({width}x{height}) - EERditor {bdata.programVersion}";
             }
         }
 
@@ -566,7 +568,7 @@ namespace EEditor
                     }
 
                     var owner = e.GetString(0)?.Length == 0 ? "Unknown" : e.GetString(0);
-                    MainForm.Text = $"({e[1]}) [{owner}] ({e[18]}x{e[19]}) - EERditor {this.ProductVersion}";
+                    MainForm.Text = $"({e[1]}) [{owner}] ({e[18]}x{e[19]}) - EERditor {bdata.programVersion}";
                     SizeWidth = MapFrame.Width;
                     SizeHeight = MapFrame.Height;
                     Connection.Disconnect();
