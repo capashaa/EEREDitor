@@ -9,8 +9,7 @@ Originally built by Cyph1e, then continued by capasha and robotkotkoer.
 
 ## **Installation/Download**
 You can Download this tool at [Releases](https://github.com/capashaa/EEREDitor/releases).  
-Select the correct archive: EEOditor_v.x.x.zip. x.x.x stands for version number.    
-If you don't find this, click on Assets and collapse the menu.   
+Select the correct archive: EERditor.zip. If you don't find this, click on Assets and collapse the menu.    
 
 Extract the archive. Then Run EERditor.exe. 
 Files will be placed in the folder such as settings.json, and a folder named blueprints.  
@@ -18,7 +17,7 @@ if you never have used this tool before. settings.json store all settings. Folde
 
 ## **System requirements**  
 
-EEOEditor have only been tested in a Windows environment. Not on Mac/Linux.  
+EEREditor have only been tested in a Windows environment. Not on Mac/Linux.  
 Versions of Windows that is supported, Windows: 7 SP1, 8, 8.1, 10 and 11.  
 
 If you don't have .NET Framework 4.8 Runtime installed on your computer.  
