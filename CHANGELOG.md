@@ -1,10 +1,12 @@
 ## Beta 3 (0.0.3)  
-* Added all background blocks.  
-* Fixed so administrators could use all blocks.  
-* Fixed so fairytale mushroom shows up as decoration.  
-* Fixed so outer space shows upp all decorations.  
-* Fixed so pirate blocks gets detected.  
-* Fixed so stone blocks gets detected.  
+* Added: all background blocks.  
+* Added: All new blocks in EER.  
+* Fixed: so administrators could use all blocks.  
+* Fixed: so fairytale mushroom shows up as decoration.  
+* Fixed: so outer space shows upp all decorations.  
+* Fixed: so pirate blocks gets detected.  
+* Fixed: so stone blocks gets detected.  
+* Fixed: rotation of rotation blocks.   
     
 ## Beta 2 (0.0.2)  
 * Changed: EEO/E to EERditor.  
