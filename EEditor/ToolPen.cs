@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Security.Cryptography;
 
 namespace EEditor
 {
@@ -115,6 +116,7 @@ namespace EEditor
                     {
                         if (PenID < 500 || PenID >= 1000)
                         {
+                            
                             if (!rotation.ContainsKey(PenID) && bdata.increase1.Contains(PenID) || bdata.increase2.Contains(PenID) || bdata.increase3.Contains(PenID) || bdata.increase4.Contains(PenID) || bdata.increase5.Contains(PenID) || bdata.increase11.Contains(PenID))
                             {
                                 if (!rotation.ContainsKey(PenID) && !bdata.portals.Contains(PenID)) rotation[PenID] = 1;
@@ -195,6 +197,7 @@ namespace EEditor
                 {
                     if (PenID < 500 || PenID >= 1000)
                     {
+                       
                         var bid = editArea.CurFrame.Foreground[y, x];
                         if (bdata.increase1.Contains(bid))
                         {
@@ -203,9 +206,7 @@ namespace EEditor
                                 if (button)
                                 {
                                     editArea.CurFrame.BlockData[y, x] += 1;
-                                    if (editArea.CurFrame.BlockData[y, x] > 1) editArea.CurFrame.BlockData[y, x] = 1;
-                                    editArea.CurFrame.BlockData1[y, x] = 0;
-                                    editArea.CurFrame.BlockData2[y, x] = 0;
+                                    if (editArea.CurFrame.BlockData[y, x] > 1) editArea.CurFrame.BlockData[y, x] = 0;
                                     if (rotation.ContainsKey(bid)) { rotation[bid] = editArea.CurFrame.BlockData[y, x]; }
                                     else { rotation.Add(bid, editArea.CurFrame.BlockData[y, x]); }
                                 }
@@ -216,6 +217,8 @@ namespace EEditor
                                 else { rotation.Add(bid, editArea.CurFrame.BlockData[y, x]); }
                             }
                         }
+
+                    
                         else if (bdata.increase3.Contains(bid))
                         {
                             if (!mouseMove)
@@ -487,15 +490,7 @@ namespace EEditor
                             }
                             else
                             {
-                                /*if (bid >= 417 && bid <= 420)
-                                {
-                                    editArea.CurFrame.BlockData[y, x] += 1;
-                                    if (editArea.CurFrame.BlockData[y, x] > 1) editArea.CurFrame.BlockData[y, x] = 0;
-                                    editArea.CurFrame.BlockData1[y, x] = 0;
-                                    editArea.CurFrame.BlockData2[y, x] = 0;
-                                }
-                                 */
-                                if (bid == 423 || bid == 1027 || bid == 1028)
+                                if (bid == 420 || bid == 423 || bid == 1027 || bid == 1028)
                                 {
                                     if (rotation.ContainsKey(bid))
                                     {
@@ -506,6 +501,7 @@ namespace EEditor
                                         editArea.CurFrame.BlockData[y, x] = 0;
                                     }
                                 }
+
                                 if (bid == 422 || bid == 421)
                                 {
                                     if (rotation.ContainsKey(bid))
