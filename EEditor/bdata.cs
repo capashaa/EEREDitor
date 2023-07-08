@@ -130,7 +130,7 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
                     fid == 493 || fid == 494 || fid == 499 || fid == 1500 || fid == 1502 || fid == 1506 || 
                     fid == 1507 || fid == 1517 || fid >= 1116 && fid <= 1125 || fid == 1135 || fid == 1134 
                     || fid == 1538 || fid == 1536 || fid == 1537 || fid == 1140 || fid == 1141 || fid == 1535 
-                    || fid == 1581 || fid == 1155 || fid == 1592 
+                    || fid == 1581 || fid == 1155 || fid == 1592
                     || fid == 1593 || fid == 1594 || fid == 1595 || fid == 1596 || fid == 1597
                     || fid == 1605 || fid == 1606 || fid == 1607 || fid == 1609 || fid == 1610 || fid == 1611 
                     || fid == 1612 || fid == 1614 || fid == 1615 || fid == 1616 || fid == 1617)
