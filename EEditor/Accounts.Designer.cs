@@ -35,10 +35,10 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.reloadPacks = new System.Windows.Forms.Button();
             this.saveAccount = new System.Windows.Forms.Button();
+            this.loginLabel1 = new System.Windows.Forms.Label();
+            this.loginLabel2 = new System.Windows.Forms.Label();
             this.loginField2 = new System.Windows.Forms.TextBox();
             this.loginField1 = new System.Windows.Forms.TextBox();
-            this.loginLabel2 = new System.Windows.Forms.Label();
-            this.loginLabel1 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.groupBox1.SuspendLayout();
@@ -53,7 +53,7 @@
             this.groupBox1.Controls.Add(this.addAccount);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(191, 301);
+            this.groupBox1.Size = new System.Drawing.Size(201, 233);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Accounts";
@@ -63,7 +63,7 @@
             this.accountListBox.FormattingEnabled = true;
             this.accountListBox.Location = new System.Drawing.Point(6, 19);
             this.accountListBox.Name = "accountListBox";
-            this.accountListBox.Size = new System.Drawing.Size(179, 225);
+            this.accountListBox.Size = new System.Drawing.Size(185, 160);
             this.accountListBox.TabIndex = 3;
             this.accountListBox.SelectedIndexChanged += new System.EventHandler(this.accountListBox_SelectedIndexChanged);
             // 
@@ -72,7 +72,7 @@
             this.removeAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.removeAccount.Image = global::EEditor.Properties.Resources.remove;
             this.removeAccount.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.removeAccount.Location = new System.Drawing.Point(95, 255);
+            this.removeAccount.Location = new System.Drawing.Point(101, 185);
             this.removeAccount.Name = "removeAccount";
             this.removeAccount.Size = new System.Drawing.Size(90, 35);
             this.removeAccount.TabIndex = 2;
@@ -85,7 +85,7 @@
             this.addAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addAccount.Image = global::EEditor.Properties.Resources.createnew;
             this.addAccount.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.addAccount.Location = new System.Drawing.Point(6, 255);
+            this.addAccount.Location = new System.Drawing.Point(6, 185);
             this.addAccount.Name = "addAccount";
             this.addAccount.Size = new System.Drawing.Size(90, 35);
             this.addAccount.TabIndex = 1;
@@ -101,7 +101,7 @@
             this.groupBox2.Controls.Add(this.loginLabel2);
             this.groupBox2.Controls.Add(this.loginField2);
             this.groupBox2.Controls.Add(this.loginField1);
-            this.groupBox2.Location = new System.Drawing.Point(209, 175);
+            this.groupBox2.Location = new System.Drawing.Point(219, 107);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(200, 138);
             this.groupBox2.TabIndex = 2;
@@ -133,6 +133,24 @@
             this.saveAccount.UseVisualStyleBackColor = true;
             this.saveAccount.Click += new System.EventHandler(this.saveAccount_Click);
             // 
+            // loginLabel1
+            // 
+            this.loginLabel1.AutoSize = true;
+            this.loginLabel1.Location = new System.Drawing.Point(7, 34);
+            this.loginLabel1.Name = "loginLabel1";
+            this.loginLabel1.Size = new System.Drawing.Size(35, 13);
+            this.loginLabel1.TabIndex = 5;
+            this.loginLabel1.Text = "Email:";
+            // 
+            // loginLabel2
+            // 
+            this.loginLabel2.AutoSize = true;
+            this.loginLabel2.Location = new System.Drawing.Point(7, 63);
+            this.loginLabel2.Name = "loginLabel2";
+            this.loginLabel2.Size = new System.Drawing.Size(56, 13);
+            this.loginLabel2.TabIndex = 6;
+            this.loginLabel2.Text = "Password:";
+            // 
             // loginField2
             // 
             this.loginField2.Location = new System.Drawing.Point(69, 60);
@@ -148,31 +166,13 @@
             this.loginField1.Size = new System.Drawing.Size(146, 20);
             this.loginField1.TabIndex = 7;
             // 
-            // loginLabel2
-            // 
-            this.loginLabel2.AutoSize = true;
-            this.loginLabel2.Location = new System.Drawing.Point(7, 63);
-            this.loginLabel2.Name = "loginLabel2";
-            this.loginLabel2.Size = new System.Drawing.Size(56, 13);
-            this.loginLabel2.TabIndex = 6;
-            this.loginLabel2.Text = "Password:";
-            // 
-            // loginLabel1
-            // 
-            this.loginLabel1.AutoSize = true;
-            this.loginLabel1.Location = new System.Drawing.Point(7, 34);
-            this.loginLabel1.Name = "loginLabel1";
-            this.loginLabel1.Size = new System.Drawing.Size(35, 13);
-            this.loginLabel1.TabIndex = 5;
-            this.loginLabel1.Text = "Email:";
-            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripProgressBar1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 327);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 268);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(583, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(435, 22);
             this.statusStrip1.TabIndex = 3;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -185,7 +185,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(583, 349);
+            this.ClientSize = new System.Drawing.Size(435, 290);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
