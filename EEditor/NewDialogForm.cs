@@ -16,7 +16,7 @@ namespace EEditor
     {
         public int SizeWidth { get; private set; }
         public int SizeHeight { get; private set; }
-        public Frame MapFrame { get; private set; }
+        public Frame MapFrame { get; set; }
         public bool NeedsInit { get; private set; }
         public bool RealTime { get; }
         public bool notsaved { get; set; }
@@ -25,20 +25,21 @@ namespace EEditor
         public Connection Connection { get; set; }
         public MainForm MainForm { get; set; }
         public MainForm mainform { get; set; }
-        private Client client;
+        private Client client_;
         private string worldOwner = "Anonymous";
         private string owner = null;
+        private int inputData = 0;
         private Dictionary<string, string> data = new Dictionary<string, string>();
         private Semaphore s = new Semaphore(0, 1);
         private Semaphore s1 = new Semaphore(0, 1);
+        private string roomID { get; set; }
         //private bool errors = false;
-        public NewDialogForm(MainForm mainForm)
+        public NewDialogForm(MainForm mainform)
         {
             InitializeComponent();
+            MainForm = mainform;
             levelTextBox.Text = MainForm.userdata.level;
             //levelPassTextBox.Text = EEditor.Properties.Settings.Default.LevelPass;
-            MainForm = mainForm;
-            mainform = mainForm;
             CheckForIllegalCrossThreadCalls = false;
             listBox1.SelectedIndex = 0;
             notsaved = false;
@@ -70,7 +71,7 @@ namespace EEditor
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MainForm.SetPenTool();
+            //MainForm.SetPenTool();
             if (Clipboard.ContainsData("EEBrush")) Clipboard.Clear();
             if (!usebg)
             {
@@ -234,7 +235,7 @@ namespace EEditor
             {
                 MainForm.userdata.useColor = true;
                 MainForm.userdata.thisColor = dg.Color;
-                
+
                 using (Graphics gr = Graphics.FromImage(bmp))
                 {
                     gr.Clear(dg.Color);
@@ -249,14 +250,14 @@ namespace EEditor
                 using (Graphics gr = Graphics.FromImage(bmp))
                 {
                     gr.Clear(Color.Transparent);
-                    gr.DrawRectangle(new Pen(GetContrastColor(MainForm.themecolors.accent)),new Rectangle(0,0,bmp.Width -1,bmp.Height -1));   
+                    gr.DrawRectangle(new Pen(GetContrastColor(MainForm.themecolors.accent)), new Rectangle(0, 0, bmp.Width - 1, bmp.Height - 1));
                 }
             }
-            pbColor.Image= bmp;
+            pbColor.Image = bmp;
             //Properties.Settings.Default.usecolor = false;
             //Properties.Settings.Default.Save();
         }
-        private void updateData(string title,string owner, int width, int height)
+        private void updateData(string title, string owner, int width, int height)
         {
             MainForm.Text = $"({title}) [{owner}] ({width}x{height}) - EERditor {bdata.programVersion}";
         }
@@ -264,274 +265,311 @@ namespace EEditor
         {
             //errors = false;
             //EEditor.Properties.Settings.Default.LevelPass = levelPassTextBox.Text;
-
-            try
+            if (MainForm.accs.ContainsKey(MainForm.selectedAcc))
             {
-                var value = MainForm.accs[MainForm.selectedAcc].loginMethod;
-                if (value == 0 && MainForm.accs.ContainsKey(MainForm.selectedAcc))
+                Client client = PlayerIO.QuickConnect.SimpleConnect(bdata.gameID, MainForm.accs[MainForm.selectedAcc].login, MainForm.accs[MainForm.selectedAcc].password, null);
                 {
-                    client = PlayerIO.QuickConnect.SimpleConnect(bdata.gameID, MainForm.accs[MainForm.selectedAcc].login, MainForm.accs[MainForm.selectedAcc].password, null);
-                }
-
-                if (datas == 0)
-                {
-                    if (MainForm.userdata.level.StartsWith("OW"))
+                    if (client != null)
                     {
-                        int version = bdata.forceversion ? bdata.version : Convert.ToInt32(client.BigDB.Load("config", "config")["version"]);
-                        client.Multiplayer.ListRooms($"{bdata.normal_room}{version}", null, 0, 0,
-                        (RoomInfo[] rinfo) =>
+                        client_ = client;
+                        if (datas == 0)
                         {
-                            foreach (var val in rinfo)
+                            if (MainForm.userdata.level.StartsWith("OW"))
                             {
-                                if (val.Id.StartsWith("OW"))
+                                int version = bdata.forceversion ? bdata.version : Convert.ToInt32(client.BigDB.Load("config", "config")["version"]);
+                                client.Multiplayer.ListRooms($"{bdata.normal_room}{version}", null, 0, 0,
+                                (RoomInfo[] rinfo) =>
                                 {
-                                    if (val.Id == MainForm.userdata.level)
+                                    foreach (var val in rinfo)
                                     {
-                                        MainForm.userdata.level = val.Id;
-                                        Connection = client.Multiplayer.CreateJoinRoom(MainForm.userdata.level, $"{bdata.normal_room}{version}", true, null, null);
-                                        Connection.OnMessage += OnMessage;
-                                        Connection.Send("init");
-                                        NeedsInit = false;
-                                        break;
+                                        if (val.Id.StartsWith("OW"))
+                                        {
+                                            if (val.Id == MainForm.userdata.level)
+                                            {
+                                                MainForm.userdata.level = val.Id;
+                                                Connection = client.Multiplayer.CreateJoinRoom(MainForm.userdata.level, $"{bdata.normal_room}{version}", true, null, null);
+                                                Connection.OnMessage += OnMessage;
+                                                Connection.Send("init");
+                                                NeedsInit = false;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                },
+                                (PlayerIOError error) => Console.WriteLine(error.Message));
+                                s.WaitOne();
+                            }
+                            else
+                            {
+                                if (client != null)
+                                {
+                                    int version = bdata.forceversion ? bdata.version : Convert.ToInt32(client.BigDB.Load("config", "config")["version"]);
+                                    Connection = client.Multiplayer.CreateJoinRoom(level, $"{bdata.normal_room}{version}", true, null, null);
+                                    Connection.OnMessage += OnMessage;
+                                    Connection.Send("init");
+                                    NeedsInit = false;
+                                    s.WaitOne();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Client is null");
+                                }
+                            }
+                        }
+                        else if (datas == 1)
+                        {
+                            int w = 0;
+                            int h = 0;
+                            DatabaseObject dbo = client.BigDB.Load("Worlds", level);
+                            {
+                                if (dbo != null)
+                                {
+                                    var name = dbo.Contains("name") ? dbo["name"].ToString() : "Untitled World";
+                                    owner = dbo.Contains("owner") ? dbo["owner"].ToString() : "Unknown user";
+
+                                    if (dbo.Contains("backgroundColor") && Convert.ToInt32(dbo["backgroundColor"]) != 0)
+                                    {
+                                        EEditor.MainForm.userdata.useColor = true;
+                                        EEditor.MainForm.userdata.thisColor = UIntToColor(Convert.ToUInt32(dbo["backgroundColor"]));
+                                    }
+                                    if (dbo.Contains("width") && dbo.Contains("height") && dbo.Contains("worlddata"))
+                                    {
+                                        //uid2name(owner, name, Convert.ToInt32(dbo["width"]), Convert.ToInt32(dbo["height"]));
+                                        //updateData(name, owner, Convert.ToInt32(dbo["width"]), Convert.ToInt32(dbo["height"]));
+                                        MapFrame = new Frame(Convert.ToInt32(dbo["width"]), Convert.ToInt32(dbo["height"]));
+                                    }
+                                    else
+                                    {
+                                        if (dbo.Contains("type"))
+                                        {
+                                            switch (dbo["type"])
+                                            {
+                                                case "world0":
+                                                    w = 25;
+                                                    h = 25;
+                                                    break;
+                                                case "world1":
+                                                    w = 50;
+                                                    h = 50;
+                                                    break;
+                                                case "world2":
+                                                    w = 100;
+                                                    h = 100;
+                                                    break;
+                                                default:
+                                                case "world3":
+                                                    w = 200;
+                                                    h = 200;
+                                                    break;
+                                                case "world4":
+                                                    w = 400;
+                                                    h = 50;
+                                                    break;
+                                                case "world5":
+                                                    w = 400;
+                                                    h = 200;
+                                                    break;
+                                                case "world6":
+                                                    w = 100;
+                                                    h = 400;
+                                                    break;
+                                                case "world7":
+                                                    w = 636;
+                                                    h = 50;
+                                                    break;
+                                                case "world8":
+                                                    w = 110;
+                                                    h = 110;
+                                                    break;
+                                                case "world11":
+                                                    w = 300;
+                                                    h = 300;
+                                                    break;
+                                                case "world12":
+                                                    w = 250;
+                                                    h = 150;
+                                                    break;
+                                                case "world13":
+                                                    w = 150;
+                                                    h = 150;
+                                                    break;
+                                            }
+                                            if (dbo.Contains("worlddata"))
+                                            {
+                                                MapFrame = new Frame(w, h);
+                                                //uid2name(owner, name, w, h);
+                                                //updateData(name, owner, w,h);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            //uid2name(owner, name, 200, 200);
+                                            //updateData(name, owner, 200,200);
+                                            MapFrame = new Frame(200, 200);
+                                        }
+                                    }
+                                    if (dbo.Contains("worlddata"))
+                                    {
+                                        MapFrame = Frame.FromMessage2(dbo);
+                                        if (MapFrame != null)
+                                        {
+                                            SizeWidth = MapFrame.Width;
+                                            SizeHeight = MapFrame.Height;
+                                            NeedsInit = false;
+                                            DialogResult = DialogResult.OK;
+                                            Close();
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Couldn't read mapdata", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        }
                                     }
                                 }
+                                
                             }
-                        },
-                        (PlayerIOError error) => Console.WriteLine(error.Message));
-                        s.WaitOne();
-                    }
-                    else
-                    {
-                        if (client != null)
-                        {
-                            int version = bdata.forceversion ? bdata.version : Convert.ToInt32(client.BigDB.Load("config", "config")["version"]);
-                            Connection = client.Multiplayer.CreateJoinRoom(MainForm.userdata.level, $"{bdata.normal_room}{version}", true, null, null);
-                            Connection.OnMessage += OnMessage;
-                            Connection.Send("init");
-                            NeedsInit = false;
-                            s.WaitOne();
+                            
                         }
-                        else
+                        else if (datas == 2)
                         {
-                            MessageBox.Show("Client is null");
-                        }
-                    }
-                }
-                else if (datas == 1)
-                {
-                    int w = 0;
-                    int h = 0;
-                    DatabaseObject dbo = client.BigDB.Load("Worlds", MainForm.userdata.level);
-                    if (dbo != null)
-                    {
-                        var name = dbo.Contains("name") ? dbo["name"].ToString() : "Untitled World";
-                        owner = dbo.Contains("owner") ? dbo["owner"].ToString() : "Unknown user";
-                        if (dbo.Contains("bg"))
-                        {
-                            EEditor.MainForm.userdata.useColor = true;
-                            EEditor.MainForm.userdata.thisColor = UIntToColor(Convert.ToUInt32(dbo["bg"]));
-                        }
-                        if (dbo.Contains("width") && dbo.Contains("height") && dbo.Contains("worlddata"))
-                        {
-                            uid2name(owner, name,Convert.ToInt32(dbo["width"]), Convert.ToInt32(dbo["height"]));
-                            //updateData(name, owner, Convert.ToInt32(dbo["width"]), Convert.ToInt32(dbo["height"]));
-                            MapFrame = new Frame(Convert.ToInt32(dbo["width"]), Convert.ToInt32(dbo["height"]));
-                        }
-                        else
-                        {
-                            if (dbo.Contains("type"))
+                            int w = 0;
+                            int h = 0;
+                            DatabaseObject dbo = client.BigDB.Load("Worlds", MainForm.userdata.level);
                             {
-                                switch (dbo["type"])
+                                if (dbo != null)
                                 {
-                                    case "world1":
-                                        w = 50;
-                                        h = 50;
-                                        break;
-                                    case "world2":
-                                        w = 100;
-                                        h = 100;
-                                        break;
-                                    default:
-                                    case "world3":
-                                        w = 200;
-                                        h = 200;
-                                        break;
-                                    case "world4":
-                                        w = 400;
-                                        h = 50;
-                                        break;
-                                    case "world5":
-                                        w = 400;
-                                        h = 200;
-                                        break;
-                                    case "world6":
-                                        w = 100;
-                                        h = 400;
-                                        break;
-                                    case "world7":
-                                        w = 636;
-                                        h = 50;
-                                        break;
-                                    case "world8":
-                                        w = 110;
-                                        h = 110;
-                                        break;
-                                    case "world11":
-                                        w = 300;
-                                        h = 300;
-                                        break;
-                                    case "world12":
-                                        w = 250;
-                                        h = 150;
-                                        break;
-                                    case "world13":
-                                        w = 150;
-                                        h = 150;
-                                        break;
-                                }
-                                if (dbo.Contains("worlddata"))
-                                {
-                                    MapFrame = new Frame(w, h);
-                                    uid2name(owner, name, w, h);
-                                    //updateData(name, owner, w,h);
-                                }
-                            }
-                            else
-                            {
-                                uid2name(owner, name, 200, 200);
-                                //updateData(name, owner, 200,200);
-                                MapFrame = new Frame(200, 200);
-                            }
-                        }
+                                    var name = dbo.Contains("name") ? dbo["name"].ToString() : "Untitled World";
+                                    owner = dbo.Contains("owner") ? dbo["owner"].ToString() : null;
+                                    if (dbo.Contains("width") && dbo.Contains("height") && dbo.Contains("worlddata"))
+                                    {
+                                        //uid2name(owner, name, Convert.ToInt32(dbo["width"]), Convert.ToInt32(dbo["height"]));
+                                        MapFrame = new Frame(Convert.ToInt32(dbo["width"]), Convert.ToInt32(dbo["height"]));
+                                    }
+                                    else
+                                    {
+                                        if (dbo.Contains("type"))
+                                        {
+                                            switch ((int)dbo["type"])
+                                            {
+                                                case 0:
+                                                    w = 25;
+                                                    h = 25;
+                                                    break;
+                                                case 1:
+                                                    w = 50;
+                                                    h = 50;
+                                                    break;
+                                                case 2:
+                                                    w = 100;
+                                                    h = 100;
+                                                    break;
+                                                default:
+                                                case 3:
+                                                    w = 200;
+                                                    h = 200;
+                                                    break;
+                                                case 4:
+                                                    w = 400;
+                                                    h = 50;
+                                                    break;
+                                                case 5:
+                                                    w = 400;
+                                                    h = 200;
+                                                    break;
+                                                case 6:
+                                                    w = 100;
+                                                    h = 400;
+                                                    break;
+                                                case 7:
+                                                    w = 636;
+                                                    h = 50;
+                                                    break;
+                                                case 8:
+                                                    w = 110;
+                                                    h = 110;
+                                                    break;
+                                                case 11:
+                                                    w = 300;
+                                                    h = 300;
+                                                    break;
+                                                case 12:
+                                                    w = 250;
+                                                    h = 150;
+                                                    break;
+                                                case 13:
+                                                    w = 150;
+                                                    h = 150;
+                                                    break;
+                                            }
+                                            //uid2name(owner, name, w, h);
+                                            MapFrame = new Frame(w, h);
 
-                        if (dbo.Contains("worlddata"))
-                        {
-                            MapFrame = Frame.FromMessage2(dbo);
-                            if (MapFrame != null)
-                            {
-                                SizeWidth = MapFrame.Width;
-                                SizeHeight = MapFrame.Height;
-                                NeedsInit = false;
-                                DialogResult = System.Windows.Forms.DialogResult.OK;
-                            }
-                            else
-                            {
-                                MessageBox.Show("Couldn't read mapdata", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                        }
-                        else
-                        {
-                            notsaved = true;
-                            DialogResult = System.Windows.Forms.DialogResult.Cancel;
-                        }
-                        Close();
-                    }
-                }
-                else if (datas == 2)
-                {
-                    int w = 0;
-                    int h = 0;
-                    DatabaseObject dbo = client.BigDB.Load("Worlds", MainForm.userdata.level);
-                    if (dbo != null)
-                    {
-                        var name = dbo.Contains("name") ? dbo["name"].ToString() : "Untitled World";
-                        owner = dbo.Contains("owner") ? dbo["owner"].ToString() : null;
-                        if (dbo.Contains("width") && dbo.Contains("height") && dbo.Contains("worlddata"))
-                        {
-                            uid2name(owner, name, Convert.ToInt32(dbo["width"]), Convert.ToInt32(dbo["height"]));
-                            MapFrame = new Frame(Convert.ToInt32(dbo["width"]), Convert.ToInt32(dbo["height"]));
-                        }
-                        else
-                        {
-                            if (dbo.Contains("type"))
-                            {
-                                switch ((int)dbo["type"])
-                                {
-                                    case 1:
-                                        w = 50;
-                                        h = 50;
-                                        break;
-                                    case 2:
-                                        w = 100;
-                                        h = 100;
-                                        break;
-                                    default:
-                                    case 3:
-                                        w = 200;
-                                        h = 200;
-                                        break;
-                                    case 4:
-                                        w = 400;
-                                        h = 50;
-                                        break;
-                                    case 5:
-                                        w = 400;
-                                        h = 200;
-                                        break;
-                                    case 6:
-                                        w = 100;
-                                        h = 400;
-                                        break;
-                                    case 7:
-                                        w = 636;
-                                        h = 50;
-                                        break;
-                                    case 8:
-                                        w = 110;
-                                        h = 110;
-                                        break;
-                                    case 11:
-                                        w = 300;
-                                        h = 300;
-                                        break;
-                                    case 12:
-                                        w = 250;
-                                        h = 150;
-                                        break;
-                                    case 13:
-                                        w = 150;
-                                        h = 150;
-                                        break;
+                                        }
+                                        else
+                                        {
+                                            //uid2name(owner, name, 200, 200);
+                                            MapFrame = new Frame(200, 200);
+                                        }
+                                    }
+                                    MapFrame.Reset(false);
+                                    SizeWidth = MapFrame.Width;
+                                    SizeHeight = MapFrame.Height;
+                                    NeedsInit = false;
+                                    DialogResult = System.Windows.Forms.DialogResult.OK;
+                                    Close();
                                 }
-                                MapFrame = new Frame(w, h);
-                                uid2name(owner, name, w, h);
-                            }
-                            else
-                            {
-                                uid2name(owner, name, 200, 200);
-                                MapFrame = new Frame(200, 200);
+
+
+
+                                else
+                                {
+                                    MessageBox.Show("Client is null");
+                                }
                             }
                         }
-                        MapFrame.Reset(false);
-                        SizeWidth = MapFrame.Width;
-                        SizeHeight = MapFrame.Height;
-                        NeedsInit = false;
-                        DialogResult = System.Windows.Forms.DialogResult.OK;
-                        Close();
                     }
                 }
             }
-            catch (PlayerIOError error)
+            else
             {
-                MessageBox.Show("An error occurred:" + error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine("no Account");
             }
         }
+
+
         private void uid2name(string uid, string title, int width, int height)
         {
             if (uid != null)
             {
-                client.BigDB.LoadRange("usernames", "owner", null, uid, null, 1, (DatabaseObject[] data) =>
+                if (client_ != null)
                 {
-                    if (data.Length == 1)
+                    client_.BigDB.LoadRange("usernames", "ByOwner", new object[] { uid }, null, null, 1, (DatabaseObject[] dbo) =>
                     {
-                        worldOwner = data[0].Key.ToString();
-                        MainForm.Text = $"({title}) [{worldOwner}] ({width}x{height}) - EERditor {bdata.programVersion}";
-                    }
-                    else
+                        if (dbo != null)
+                        {
+                            if (dbo.Length == 1)
+                            {
+                                worldOwner = dbo[0].Key.ToString();
+                                MainForm.Text = $"({title}) [{worldOwner}] ({width}x{height}) - EERditor {bdata.programVersion}";
+                            }
+                            else
+                            {
+                                MainForm.Text = $"({title}) [Unknown Owner] ({width}x{height}) - EERditor {bdata.programVersion}";
+                            }
+                        }
+                        else
+                        {
+                            MainForm.Text = $"({title}) [Unknown Owner] ({width}x{height}) - EERditor {bdata.programVersion}";
+                        }
+                    }, (PlayerIOError error) =>
                     {
                         MainForm.Text = $"({title}) [Unknown Owner] ({width}x{height}) - EERditor {bdata.programVersion}";
-                    }
-                }, (PlayerIOError error) => { MainForm.Text = $"({title}) [Unknown Owner] ({width}x{height}) - EERditor {bdata.programVersion}"; });
+                        Console.WriteLine($"Error: {error}");
+                    });
+                }
+                else
+                {
+                    MainForm.Text = $"({title}) [Unknown Owner] ({width}x{height}) - EERditor {bdata.programVersion}";
+                }
             }
             else
             {
@@ -560,7 +598,8 @@ namespace EEditor
                 MapFrame = Frame.FromMessage(e);
                 if (MapFrame != null)
                 {
-                    if (e.GetUInt(21) == 0) { EEditor.MainForm.userdata.thisColor = Color.Transparent; }
+                    Console.WriteLine(e);
+                    if (e.GetUInt(21) == 0) EEditor.MainForm.userdata.thisColor = Color.Transparent; 
                     else
                     {
                         EEditor.MainForm.userdata.useColor = true;

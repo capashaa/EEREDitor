@@ -339,7 +339,7 @@
             this.accountsComboBox,
             this.settingsButton,
             this.aboutButton});
-            this.settingsToolStrip.Location = new System.Drawing.Point(612, 0);
+            this.settingsToolStrip.Location = new System.Drawing.Point(643, 0);
             this.settingsToolStrip.Name = "settingsToolStrip";
             this.settingsToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.settingsToolStrip.Size = new System.Drawing.Size(156, 27);
@@ -803,6 +803,7 @@
             // 
             // delayTextBox
             // 
+            this.delayTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.delayTextBox.Name = "delayTextBox";
             this.delayTextBox.Size = new System.Drawing.Size(40, 25);
             this.delayTextBox.Text = "-Delay-";
@@ -832,11 +833,12 @@
             this.uploadToolStrip.Location = new System.Drawing.Point(402, 0);
             this.uploadToolStrip.Name = "uploadToolStrip";
             this.uploadToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.uploadToolStrip.Size = new System.Drawing.Size(210, 27);
+            this.uploadToolStrip.Size = new System.Drawing.Size(241, 27);
             this.uploadToolStrip.TabIndex = 6;
             // 
             // levelTextbox
             // 
+            this.levelTextbox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.levelTextbox.Name = "levelTextbox";
             this.levelTextbox.Size = new System.Drawing.Size(76, 27);
             this.levelTextbox.Text = "Level ID";
@@ -853,11 +855,11 @@
             this.refreshButton.Size = new System.Drawing.Size(24, 24);
             this.refreshButton.Text = "Refresh";
             this.refreshButton.ToolTipText = "Left click: load current level (F5)\r\nRight click: load saved level ";
-            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             this.refreshButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.refreshButton_MouseUp);
             // 
             // codeTextbox
             // 
+            this.codeTextbox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.codeTextbox.Name = "codeTextbox";
             this.codeTextbox.Size = new System.Drawing.Size(76, 27);
             this.codeTextbox.Text = "Code";
@@ -966,7 +968,7 @@
             this.flowLayoutPanel6.AutoScroll = true;
             this.flowLayoutPanel6.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel6.Location = new System.Drawing.Point(0, 523);
+            this.flowLayoutPanel6.Location = new System.Drawing.Point(0, 399);
             this.flowLayoutPanel6.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel6.Name = "flowLayoutPanel6";
             this.flowLayoutPanel6.Size = new System.Drawing.Size(1005, 124);
@@ -977,7 +979,7 @@
             this.flowLayoutPanel5.AutoScroll = true;
             this.flowLayoutPanel5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel5.Location = new System.Drawing.Point(0, 523);
+            this.flowLayoutPanel5.Location = new System.Drawing.Point(0, 275);
             this.flowLayoutPanel5.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel5.Name = "flowLayoutPanel5";
             this.flowLayoutPanel5.Size = new System.Drawing.Size(1005, 124);
@@ -988,7 +990,7 @@
             this.flowLayoutPanel4.AutoScroll = true;
             this.flowLayoutPanel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel4.Location = new System.Drawing.Point(0, 523);
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(0, 151);
             this.flowLayoutPanel4.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
             this.flowLayoutPanel4.Size = new System.Drawing.Size(1005, 124);
@@ -999,7 +1001,7 @@
             this.flowLayoutPanel2.AutoScroll = true;
             this.flowLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(0, 523);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(0, -97);
             this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Size = new System.Drawing.Size(1005, 124);
@@ -1009,7 +1011,7 @@
             // 
             this.flowLayoutPanel3.AutoScroll = true;
             this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(0, 523);
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(0, 27);
             this.flowLayoutPanel3.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
             this.flowLayoutPanel3.Size = new System.Drawing.Size(1005, 124);
@@ -1122,6 +1124,7 @@
             // 
             // filterTextBox
             // 
+            this.filterTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.filterTextBox.Name = "filterTextBox";
             this.filterTextBox.Size = new System.Drawing.Size(100, 27);
             this.filterTextBox.ToolTipText = "Filter blocks by pack (Enter to search)";
