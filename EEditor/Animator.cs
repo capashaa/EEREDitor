@@ -735,6 +735,17 @@ namespace EEditor
                             case "You are banned":
                                 OnStatusChanged("You have been kicked.", DateTime.MinValue, true, 0, 0);
                                 break;
+                            case "Server error":
+                                if (e.Count == 2)
+                                {
+                                    OnStatusChanged(e[1].ToString(), DateTime.MinValue, true, 0, 0);
+                                }
+                                else
+                                {
+                                    Console.WriteLine(e.ToString());
+                                }
+                                
+                                break;
                             default:
                                 Console.WriteLine(e.ToString());
                                 break;
