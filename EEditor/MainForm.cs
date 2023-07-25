@@ -52,7 +52,7 @@ namespace EEditor
         public static System.Windows.Forms.Timer refresh = new System.Windows.Forms.Timer();
 
         // public static List<unknownBlock> unknown = new List<unknownBlock>();
-        public static string loadData = null;
+        //public static string loadData = null;
 
         public static int loadBid = -1;
         public ToolStripLabel fg { get { return foregroundLabel; } set { foregroundLabel = value; } }
@@ -313,6 +313,9 @@ namespace EEditor
  {776, 258 }, {777, 259}, { 787, 272},
  //Magic Bricks
  { 778,  260},{ 779,  261},{ 780,  262},{ 781,  263},{ 782,  264},{ 783,  265},{ 784,  266},{ 785,  267},{ 786,  268},
+ //cave
+ { 788,269 },{ 789,270 },{ 790,271 },
+
             };
             for (int i = 0; i < bgInit.Length / 2; i++)
             {
@@ -483,7 +486,7 @@ namespace EEditor
                 { 1111, 280 },{ 1112, 281 },{ 1113, 282 },{ 1114, 283 },{ 1115, 284 }, { 1518, 285 }, { 1520, 286 },
                 { 1126, 287 },{ 1127, 288 },{ 1130, 289 },{ 1128, 291 },  { 1129, 290 },{ 1131, 292 }, { 1132, 293 }, { 1133, 294 },
                 { 1136, 295 },{ 1137, 296 },{ 1138, 297 },{ 1139, 298 }, { 1142, 299 }, /*{ 1143, 300 }, { 1144, 301 }, { 1145, 302 }, { 1146, 303 }, { 1147, 304 }, { 1148, 305 }, { 1149, 306 }, { 1563, 307 }*/
-                { 1150, 308 }, { 1151, 309}, { 1154, 310}, { 1156, 311}, /*{ 1157, 312}, { 1158, 313}, { 1159, 314},*/
+                { 1150, 308 }, { 1151, 309}, { 1168, 310}, { 1156, 311}, /*{ 1157, 312}, { 1158, 313}, { 1159, 314},*/
 
                 //Garden
                 { 1159,300 },{ 1160,301 }, { 1161,302 },{1146, 303 }, { 1162,304 },{1163, 305 }, { 1164,306 },{ 1165,307 },
@@ -2027,7 +2030,9 @@ namespace EEditor
             if (ihavethese.ContainsKey("brickautumn2014")) { AddToolStrip(backgroundBMD, 3, new int[] { 135, 136, 137 }, new uint[] { 0x695102, 0x692602, 0x690503 }, false, "Autumn 2014", 3, 2, true); } else { AddToolStrip(backgroundBMD, 3, new int[] { 135, 136, 137 }, new uint[] { 0x695102, 0x692602, 0x690503 }, false, "Autumn 2014", 3, 2, false); }
 
             //Cave background
-            if (ihavethese.ContainsKey("brickcave")) { AddToolStrip(backgroundBMD, 3, new int[] { 149, 150, 151, 152, 153, 154, 155, 156 }, new uint[] { 0x200426, 0x041E20, 0x030C1F, 0x2C051A, 0x081602, 0x240D05, 0x321A08, 0x330909 }, false, "Cave", 3, 2, true); } else { AddToolStrip(backgroundBMD, 3, new int[] { 149, 150, 151, 152, 153, 154, 155, 156 }, new uint[] { 0x200426, 0x041E20, 0x030C1F, 0x2C051A, 0x081602, 0x240D05, 0x321A08, 0x330909 }, false, "Cave", 3, 2, false); }
+            if (ihavethese.ContainsKey("brickcave")) { 
+                AddToolStrip(backgroundBMD, 3, new int[] { 269,270,271, 149, 150, 151, 152, 153, 154, 155, 156 }, new uint[] { 0x222222, 0x191919, 0x0b0b0b, 0x200426, 0x041E20, 0x030C1F, 0x2C051A, 0x081602, 0x240D05, 0x321A08, 0x330909 }, false, "Cave", 3, 2, true); 
+            } else { AddToolStrip(backgroundBMD, 3, new int[] { 269, 270, 271, 149, 150, 151, 152, 153, 154, 155, 156 }, new uint[] { 0x222222, 0x191919, 0x0b0b0b, 0x200426, 0x041E20, 0x030C1F, 0x2C051A, 0x081602, 0x240D05, 0x321A08, 0x330909 }, false, "Cave", 3, 2, false); }
 
             //Enviroment background
             AddToolStrip(backgroundBMD, 3, new int[] { 172, 173, 174, 175, 176 }, new uint[] { 0x571802, 0x245100, 0x754705, 0x2C3244, 0x551A08 }, false, "Environment", 3, 2, true);
@@ -4442,15 +4447,90 @@ namespace EEditor
         private void loaddata(int frm)
         {
             NewDialogForm form = new NewDialogForm(this);
-            if (frm == 0) form.LoadFromLevel(userdata.level, 0);
+            switch (frm)
+            {
+                case 0:
+                    form.LoadFromLevel(userdata.level, 0);
+                    if (form.DialogResult == DialogResult.OK)
+                    {
+                        editArea.Back = null;
+                        editArea.Back1 = null;
+                        if (form.MapFrame != null)
+                        {
+                            editArea.Init(form.MapFrame, false);
+                            Bitmap bmp1 = new Bitmap(Properties.Resources.refresh.Width, Properties.Resources.refresh.Height);
+                            Bitmap bmp = new Bitmap(Properties.Resources.refresh);
+                            for (int x = 0; x < bmp.Width; x++)
+                            {
+                                for (int y = 0; y < bmp.Height; y++)
+                                {
+                                    if (bmp.GetPixel(x, y).A > 80)
+                                    {
+                                        bmp1.SetPixel(x, y, themecolors.imageColors);
+                                    }
+                                    else
+                                    {
+                                        bmp1.SetPixel(x, y, themecolors.background);
+                                    }
+                                }
+                            }
+                            refreshButton.Image = bmp1;
+                            //updateImageColor();
+                        }
+                    }
+                    else
+                    {
+                    }
+                        break;
+                case 1:
+                    form.LoadFromLevel(userdata.level, 1);
+                    if (form.DialogResult == DialogResult.OK)
+                    {
+                        editArea.Back = null;
+                        editArea.Back1 = null;
+                        if (form.MapFrame != null)
+                        {
+                            editArea.Init(form.MapFrame, false);
+                            Bitmap bmp1 = new Bitmap(Properties.Resources.refresh.Width, Properties.Resources.refresh.Height);
+                            Bitmap bmp = new Bitmap(Properties.Resources.refresh);
+                            for (int x = 0; x < bmp.Width; x++)
+                            {
+                                for (int y = 0; y < bmp.Height; y++)
+                                {
+                                    if (bmp.GetPixel(x, y).A > 80)
+                                    {
+                                        bmp1.SetPixel(x, y, themecolors.imageColors);
+                                    }
+                                    else
+                                    {
+                                        bmp1.SetPixel(x, y, themecolors.background);
+                                    }
+                                }
+                            }
+                            refreshButton.Image = bmp1;
+                            //updateImageColor();
+                        }
+                    }
+                    else
+                    {
+                    }
+            
+            
+                    
+                    break;
+            }
+        }
+            /*if (frm == 0) form.LoadFromLevel(userdata.level, 0);
             if (frm == 1) form.LoadFromLevel(userdata.level, 1);
             if (form.DialogResult == DialogResult.OK)
             {
                 editArea.Back = null;
                 editArea.Back1 = null;
-                if (form.MapFrame != null)
+                Console.WriteLine(form.Frames.Width);
+                if (form.Frames != null)
                 {
-                    editArea.Init(form.MapFrame, false);
+                    Console.WriteLine("yes");
+                    editArea.Init(form.Frames, false);
                     Bitmap bmp1 = new Bitmap(Properties.Resources.refresh.Width, Properties.Resources.refresh.Height);
                     Bitmap bmp = new Bitmap(Properties.Resources.refresh);
                     for (int x = 0; x < bmp.Width; x++)
@@ -4470,11 +4550,15 @@ namespace EEditor
                     refreshButton.Image = bmp1;
                     //updateImageColor();
                 }
+                else
+                {
+                    Console.WriteLine("Frame null");
+                }
             }
             else
             {
             }
-        }
+        }*/
 
         //Upload
         private void uploadButton_Click(object sender, EventArgs e)
@@ -5186,29 +5270,29 @@ namespace EEditor
                     {
                         editArea.Init(frame, false);
                     }
-                    /*if (form.MapFrame != null)
-                    {
-                        editArea.Init(form.MapFrame, false);
-                        Bitmap bmp1 = new Bitmap(Properties.Resources.refresh.Width, Properties.Resources.refresh.Height);
-                        Bitmap bmp = new Bitmap(Properties.Resources.refresh);
-                        for (int x = 0; x < bmp.Width; x++)
+                        /*if (form.MapFrame != null)
                         {
-                            for (int y = 0; y < bmp.Height; y++)
+                            editArea.Init(form.MapFrame, false);
+                            Bitmap bmp1 = new Bitmap(Properties.Resources.refresh.Width, Properties.Resources.refresh.Height);
+                            Bitmap bmp = new Bitmap(Properties.Resources.refresh);
+                            for (int x = 0; x < bmp.Width; x++)
                             {
-                                if (bmp.GetPixel(x, y).A > 80)
+                                for (int y = 0; y < bmp.Height; y++)
                                 {
-                                    bmp1.SetPixel(x, y, themecolors.imageColors);
-                                }
-                                else
-                                {
-                                    bmp1.SetPixel(x, y, themecolors.background);
+                                    if (bmp.GetPixel(x, y).A > 80)
+                                    {
+                                        bmp1.SetPixel(x, y, themecolors.imageColors);
+                                    }
+                                    else
+                                    {
+                                        bmp1.SetPixel(x, y, themecolors.background);
+                                    }
                                 }
                             }
-                        }
-                        refreshButton.Image = bmp1;*/
-                    //updateImageColor();
-                    //}
-                }
+                            refreshButton.Image = bmp1;*/
+                        //updateImageColor();
+                        //}
+                    }
                 else
                 {
                 }
@@ -5499,7 +5583,6 @@ namespace EEditor
         {
             ToolStripButton button = e.Data.GetData(typeof(ToolStripButton))
                            as ToolStripButton;
-            Console.WriteLine(button.Name);
         }
 
         private void BlockPickerToolStrip_DragEnter(object sender, DragEventArgs e)
