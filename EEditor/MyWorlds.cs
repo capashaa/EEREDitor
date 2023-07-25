@@ -26,7 +26,7 @@ namespace EEditor
         private Semaphore s2 = new Semaphore(0, 1);
         private List<string> rooms = new List<string>();
         public static myWorlds myworlds = new myWorlds();
-        public Frame MapFrame { get; private set; }
+        //public Frame MapFrame { get; private set; }
         public string selectedworld = null;
         public bool loaddb = false;
         private Client client_, cl;
@@ -198,16 +198,20 @@ namespace EEditor
         {
             //client_ = client;
             int version = bdata.forceversion ? bdata.version : Convert.ToInt32(client.BigDB.Load("config", "config")["version"]);
-            client.Multiplayer.CreateJoinRoom(client.ConnectUserId, $"Lobby{version}", false, null, null, lobbyConnected, (PlayerIOError error) => { Console.WriteLine(error.Message); });
-        }
+            client.Multiplayer.CreateJoinRoom(client.ConnectUserId, $"Lobby{version}", false, null, null, lobbyConnected, lobbyError);
 
-        private void lobbyConnected(Connection con)
+    }
+    private void lobbyError(PlayerIOError value)
+    {
+        Console.WriteLine(value.ToString());
+    }
+
+    private void lobbyConnected(Connection con)
         {
             Dictionary<string, myWorlds> datta = new Dictionary<string, myWorlds>();
             datta.Clear();
             con.OnMessage += (s, m) =>
             {
-                Console.WriteLine(m);
                 switch (m.Type)
                 {
 
@@ -243,14 +247,13 @@ namespace EEditor
                         }
                         s1.Release();
                         LoadWorld();
-                        
                         break;
 
 
-                
-            }
+
+                }
             };
-    }
+        }
 
         private void LoadWorld()
         {
@@ -265,9 +268,13 @@ namespace EEditor
 
                     if (kvp.Value.size.Contains("x"))
                     {
+                        Console.WriteLine(kvp.Value.size.Split('x')[0]);
                         switch (kvp.Value.size.Split('x')[0])
                         {
-                           
+                            case "world0":
+                                w = 25;
+                                h = 25;
+                                break;
                             case "world1":
                                 w = 50;
                                 h = 50;
@@ -326,7 +333,6 @@ namespace EEditor
                     worlds[kvp.Key].size = $"{w}x{h}";
                     this.Invoke((MethodInvoker)delegate
                     {
-                        
                         if (incr >= 100)
                         {
                             progressBar1.Value = 100;
@@ -400,56 +406,56 @@ namespace EEditor
                 });*/
             }
         }
-    private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
-    {
-
-        if (e.Column == listviewsorter.SortColumn)
+        private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
         {
-            // Reverse the current sort direction for this column.
-            if (listviewsorter.Order == SortOrder.Ascending)
+
+            if (e.Column == listviewsorter.SortColumn)
             {
-                listviewsorter.Order = SortOrder.Descending;
+                // Reverse the current sort direction for this column.
+                if (listviewsorter.Order == SortOrder.Ascending)
+                {
+                    listviewsorter.Order = SortOrder.Descending;
+                }
+                else
+                {
+                    listviewsorter.Order = SortOrder.Ascending;
+                }
             }
             else
             {
+                // Set the column number that is to be sorted; default to ascending.
+                listviewsorter.SortColumn = e.Column;
                 listviewsorter.Order = SortOrder.Ascending;
             }
+            listView1.Sort();
         }
-        else
+
+
+        private void LoadWorldButton_Click(object sender, EventArgs e)
         {
-            // Set the column number that is to be sorted; default to ascending.
-            listviewsorter.SortColumn = e.Column;
-            listviewsorter.Order = SortOrder.Ascending;
+            if (selectedworld != null)
+            {
+                DialogResult = System.Windows.Forms.DialogResult.OK;
+                Close();
+            }
         }
-        listView1.Sort();
-    }
 
-
-    private void LoadWorldButton_Click(object sender, EventArgs e)
-    {
-        if (selectedworld != null)
+        private void cbDB_CheckedChanged(object sender, EventArgs e)
         {
-            DialogResult = System.Windows.Forms.DialogResult.OK;
-            Close();
+            loaddb = cbDB.Checked;
+        }
+
+        private string RandomString(int length)
+        {
+            const string chars = "abcdefghijlmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length).Select(s => s[new Random().Next(s.Length)]).ToArray());
         }
     }
-
-    private void cbDB_CheckedChanged(object sender, EventArgs e)
+    public class myWorlds
     {
-        loaddb = cbDB.Checked;
-    }
+        public string name { get; set; }
+        public string size { get; set; }
 
-    private string RandomString(int length)
-    {
-        const string chars = "abcdefghijlmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        return new string(Enumerable.Repeat(chars, length).Select(s => s[new Random().Next(s.Length)]).ToArray());
     }
-}
-public class myWorlds
-{
-    public string name { get; set; }
-    public string size { get; set; }
-
-}
 
 }
