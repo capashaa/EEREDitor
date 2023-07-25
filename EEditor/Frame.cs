@@ -380,6 +380,7 @@ namespace EEditor
                     frame = new Frame(width, height);
                     int width1 = width;
                     int height1 = height;
+                    frame.levelname = worlds.Contains("name") ? worlds.GetString("name") : "Untitled World";
                     for (int i = 0; i < worlddata.Count; i++)
                     {
                         if (worlddata[i] != null)
@@ -425,7 +426,6 @@ namespace EEditor
                                         if (Convert.ToInt32(worldinfo["type"]) == 374) frame.BlockData3[tmpyy, tmpxx] = worldinfo["target"].ToString();
                                         if (bid == 1000)
                                         {
-
                                             frame.Foreground[tmpyy, tmpxx] = (int)bid;
                                             if (worldinfo.Contains("text"))
                                             {
@@ -436,9 +436,9 @@ namespace EEditor
                                                 {
                                                     hexcolor = worldinfo.GetString("text_color");
                                                 }
-                                                if (worldinfo.Contains("id"))
+                                                if (worldinfo.Contains("wrapLength"))
                                                 {
-                                                    wrap = Convert.ToInt32(worldinfo["id"]);
+                                                    wrap = Convert.ToInt32(worldinfo["wrapLength"]);
                                                 }
                                                 frame.BlockData4[tmpyy, tmpxx] = hexcolor;
                                                 frame.BlockData[tmpyy, tmpxx] = wrap;
@@ -496,9 +496,9 @@ namespace EEditor
                                                 {
                                                     hexcolor = worldinfo.GetString("text_color");
                                                 }
-                                                if (worldinfo.Contains("id"))
+                                                if (worldinfo.Contains("wrapLength"))
                                                 {
-                                                    wrap = Convert.ToInt32(worldinfo["id"]);
+                                                    wrap = Convert.ToInt32(worldinfo["wrapLength"]);
                                                 }
                                                 frame.BlockData4[tmpyy0, tmpxx0] = hexcolor;
                                                 frame.BlockData[tmpyy0, tmpxx0] = wrap;
