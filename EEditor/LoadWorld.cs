@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -21,7 +22,6 @@ namespace EEditor
             Client sel = SelectAccount();
             MainForm.userdata.level = roomid;
             MainForm.editArea.MainForm.updateId.Text = roomid;
-            Console.WriteLine(roomid);
             if (sel != null)
             {
 
@@ -29,10 +29,9 @@ namespace EEditor
                 {
                     var world = new World(InputType.BigDB, roomid, sel);
                     frame = new Frame(world.Width, world.Height);
-                    frame.nickname = world.OwnerUsername;
-                    frame.levelname = world.Title;
-                    frame.owner = world.Owner;
-                    if (world.BackgroundColorUint != 0)
+                    frame.nickname = world.Owner;
+                    frame.levelname = world.Name;
+                    if (world.BackgroundColor != Color.FromArgb(255,0,0,0))
                     {
                         MainForm.userdata.useColor = true;
                         MainForm.userdata.thisColor = world.BackgroundColor;
@@ -40,7 +39,7 @@ namespace EEditor
                     foreach (var item in world.Blocks)
                     {
                         int layer = item.Layer;
-                        int bid = item.Type;
+                        int bid = Convert.ToInt32(item.Type);
                         foreach (var pos in item.Locations)
                         {
                             if (layer == 0)
@@ -74,13 +73,13 @@ namespace EEditor
                                         int wrap = 200;
                                         string hexcolor = "#FFFFFF";
                                         frame.BlockData3[pos.Y, pos.X] = item.Text;
-                                        if (item.Hex != null)
+                                        if (item.TextColor != null)
                                         {
-                                            hexcolor = item.Hex;
+                                            hexcolor = item.TextColor;
                                         }
-                                        if (item.Wrap.ToString() != null)
+                                        if (item.TextWrap.ToString() != null)
                                         {
-                                            wrap = item.Wrap;
+                                            wrap = Convert.ToInt32(item.TextWrap);
                                         }
                                         frame.BlockData4[pos.Y, pos.X] = hexcolor;
                                         frame.BlockData[pos.Y, pos.X] = wrap;
