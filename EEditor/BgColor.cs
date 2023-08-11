@@ -69,6 +69,7 @@ namespace EEditor
         {
             if (cbEnable.Checked)
             {
+                if (setCol.IsEmpty) setCol = Color.Transparent;
                 MainForm.userdata.useColor = true;
                 DialogResult = DialogResult.OK;
                 Close();
