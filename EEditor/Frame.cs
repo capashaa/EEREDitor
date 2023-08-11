@@ -10,6 +10,8 @@ using Newtonsoft.Json.Linq;
 using EELVL;
 using static System.Windows.Forms.MonthCalendar;
 using SharpCompress.Writers;
+using static EELVL.Blocks;
+using System.Threading;
 
 namespace EEditor
 {
@@ -29,6 +31,9 @@ namespace EEditor
 
         public int[] editBlock { get; set; }
         public string nickname { get; set; }
+        public bool toobig { get; set; }
+
+        public uint backgroundColor { get; set; }
         public string owner { get; set; }
         public string levelname { get; set; }
         public static byte[] xx;
@@ -36,7 +41,7 @@ namespace EEditor
         public static byte[] xx1;
         public static byte[] yy1;
         public static string[] split1;
-        
+
 
 
         public Frame(int width, int height)
@@ -189,7 +194,7 @@ namespace EEditor
             foreach (var chunk in chunks)
             {
                 //Console.WriteLine("Bid: " + chunk.Type + " Length: " + chunk.Args.Length);
-                
+
 
                 foreach (var pos in chunk.Locations)
                 {
@@ -220,7 +225,8 @@ namespace EEditor
                             {
                                 frame.Foreground[pos.Y, pos.X] = Convert.ToInt32(chunk.Type);
                                 frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[0]);
-                                if ((int)chunk.Type == 1141 || (int)chunk.Type == 1140) {
+                                if ((int)chunk.Type == 1141 || (int)chunk.Type == 1140)
+                                {
                                     Console.WriteLine(chunk.Args[0]);
                                 }
                             }
@@ -316,7 +322,8 @@ namespace EEditor
                                 frame.BlockData3[pos.Y, pos.X] = Convert.ToString(chunk.Args[0]);
                             }
                         }
-                        else if ((int)chunk.Type == 374) {
+                        else if ((int)chunk.Type == 374)
+                        {
                             if (Convert.ToString(chunk.Args[0]) != "we")
                             {
                                 frame.Foreground[pos.Y, pos.X] = Convert.ToInt32(chunk.Type);
@@ -364,7 +371,7 @@ namespace EEditor
             byte r = (byte)(color >> 16);
             byte g = (byte)(color >> 8);
             byte b = (byte)(color >> 0);
-            return Color.FromArgb(a, r, g, b);
+            return Color.FromArgb(255, r, g, b);
         }
 
         #region read from database
@@ -694,7 +701,8 @@ namespace EEditor
         }
         public void SaveLVL(FileStream file)
         {
-            Level savelvl = Level.Open(file);
+            EELVL.Level savelvl = new Level(Width, Height, 0);
+            if (MainForm.userdata.useColor) savelvl.BackgroundColor = ColorToUInt(MainForm.userdata.thisColor);
             for (int y = 0; y < Height; ++y)
             {
                 for (int x = 0; x < Width; ++x)
@@ -746,6 +754,10 @@ namespace EEditor
                     {
                         savelvl[1, x, y] = new Blocks.Block(bid);
                     }
+                    if (Blocks.IsType(fid, Blocks.BlockType.Label))
+                    {
+                        savelvl[0, x, y] = new Blocks.LabelBlock(fid, BlockData3[y, x], BlockData4[y, x], BlockData[y, x]);
+                    }
                 }
             }
             savelvl.Save(file);
@@ -755,6 +767,7 @@ namespace EEditor
         {
             writer.Write(Width);
             writer.Write(Height);
+            writer.Write(MainForm.userdata.useColor ? ColorToUInt(MainForm.userdata.thisColor) : 0);
             for (int y = 0; y < Height; ++y)
                 for (int x = 0; x < Width; ++x)
                 {
@@ -1098,78 +1111,110 @@ namespace EEditor
                 Frame f = new Frame(lvl.Width, lvl.Height);
                 f.levelname = lvl.WorldName;
                 f.nickname = lvl.OwnerName;
-                for (int x = 0; x < lvl.Width; ++x)
+                if (lvl.BackgroundColor != 0)
                 {
-                    for (int y = 0; y < lvl.Height; ++y)
+                    MainForm.userdata.useColor = true;
+                    MainForm.userdata.thisColor = UIntToColor(lvl.BackgroundColor);
+                }
+                else
+                {
+                    MainForm.userdata.useColor = false;
+                    MainForm.userdata.thisColor = Color.Transparent;
+                }
+                if (lvl.Width <= 637 && lvl.Height <= 460 || lvl.Width <= 460 && lvl.Height <= 637)
+                {
+                    for (int x = 0; x < lvl.Width; ++x)
                     {
-                        if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Normal))
+                        for (int y = 0; y < lvl.Height; ++y)
                         {
-                            f.Foreground[y, x] = lvl[0, x, y].BlockID;
-                        }
-                        if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Rotatable) || Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.RotatableButNotReally))
-                        {
-                            f.Foreground[y, x] = lvl[0, x, y].BlockID;
-                            f.BlockData[y, x] = ((Blocks.RotatableBlock)lvl[0, x, y]).Rotation;
-                        }
-                        if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.NPC))
-                        {
+                            if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Normal))
+                            {
+                                f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                            }
+                            if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Rotatable) || Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.RotatableButNotReally))
+                            {
+                                f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                f.BlockData[y, x] = ((Blocks.RotatableBlock)lvl[0, x, y]).Rotation;
+                            }
+                            if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.NPC))
+                            {
 
-                            f.Foreground[y, x] = lvl[0, x, y].BlockID;
-                            f.BlockData3[y, x] = ((Blocks.NPCBlock)lvl[0, x, y]).Name;
-                            f.BlockData4[y, x] = ((Blocks.NPCBlock)lvl[0, x, y]).Message1;
-                            f.BlockData5[y, x] = ((Blocks.NPCBlock)lvl[0, x, y]).Message2;
-                            f.BlockData6[y, x] = ((Blocks.NPCBlock)lvl[0, x, y]).Message3;
-                        }
-                        if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Sign))
-                        {
-                            f.Foreground[y, x] = lvl[0, x, y].BlockID;
-                            f.BlockData3[y, x] = ((Blocks.SignBlock)lvl[0, x, y]).Text;
-                            f.BlockData[y, x] = ((Blocks.SignBlock)lvl[0, x, y]).Morph;
-                        }
-                        if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Portal))
-                        {
-                            f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                f.BlockData3[y, x] = ((Blocks.NPCBlock)lvl[0, x, y]).Name;
+                                f.BlockData4[y, x] = ((Blocks.NPCBlock)lvl[0, x, y]).Message1;
+                                f.BlockData5[y, x] = ((Blocks.NPCBlock)lvl[0, x, y]).Message2;
+                                f.BlockData6[y, x] = ((Blocks.NPCBlock)lvl[0, x, y]).Message3;
+                            }
+                            if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Sign))
+                            {
+                                f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                f.BlockData3[y, x] = ((Blocks.SignBlock)lvl[0, x, y]).Text;
+                                f.BlockData[y, x] = ((Blocks.SignBlock)lvl[0, x, y]).Morph;
+                            }
+                            if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Portal))
+                            {
+                                f.Foreground[y, x] = lvl[0, x, y].BlockID;
 
-                            f.BlockData[y, x] = ((Blocks.PortalBlock)lvl[0, x, y]).Rotation;
-                            f.BlockData1[y, x] = ((Blocks.PortalBlock)lvl[0, x, y]).ID;
-                            f.BlockData2[y, x] = ((Blocks.PortalBlock)lvl[0, x, y]).Target;
-                        }
-                        if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Morphable))
-                        {
-                            f.Foreground[y, x] = lvl[0, x, y].BlockID;
-                            f.BlockData[y, x] = ((Blocks.MorphableBlock)lvl[0, x, y]).Morph;
-                        }
-                        if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Number))
-                        {
-                            f.Foreground[y, x] = lvl[0, x, y].BlockID;
-                            f.BlockData[y, x] = ((Blocks.NumberBlock)lvl[0, x, y]).Number;
-                        }
-                        if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Enumerable))
-                        {
-                            f.Foreground[y, x] = lvl[0, x, y].BlockID;
-                            f.BlockData[y, x] = ((Blocks.EnumerableBlock)lvl[0, x, y]).Variant;
-                        }
-                        if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.WorldPortal))
-                        {
-                            f.Foreground[y, x] = lvl[0, x, y].BlockID;
-                            f.BlockData[y, x] = ((Blocks.WorldPortalBlock)lvl[0, x, y]).Spawn;
-                            f.BlockData3[y, x] = ((Blocks.WorldPortalBlock)lvl[0, x, y]).Target;
-                        }
-                        if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Music))
-                        {
-                            f.Foreground[y, x] = lvl[0, x, y].BlockID;
-                            int temp = ((Blocks.MusicBlock)lvl[0, x, y]).Note;
-                            f.BlockData[y, x] = temp;
-                        }
-                        if (Blocks.IsType(lvl[1, x, y].BlockID, Blocks.BlockType.Normal))
-                        {
-                            f.Background[y, x] = lvl[1, x, y].BlockID;
-                        }
+                                f.BlockData[y, x] = ((Blocks.PortalBlock)lvl[0, x, y]).Rotation;
+                                f.BlockData1[y, x] = ((Blocks.PortalBlock)lvl[0, x, y]).ID;
+                                f.BlockData2[y, x] = ((Blocks.PortalBlock)lvl[0, x, y]).Target;
+                            }
+                            if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Morphable))
+                            {
+                                f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                f.BlockData[y, x] = ((Blocks.MorphableBlock)lvl[0, x, y]).Morph;
+                            }
+                            if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Number))
+                            {
+                                f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                f.BlockData[y, x] = ((Blocks.NumberBlock)lvl[0, x, y]).Number;
+                            }
+                            if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Enumerable))
+                            {
+                                f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                f.BlockData[y, x] = ((Blocks.EnumerableBlock)lvl[0, x, y]).Variant;
+                            }
+                            if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.WorldPortal))
+                            {
+                                f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                f.BlockData[y, x] = ((Blocks.WorldPortalBlock)lvl[0, x, y]).Spawn;
+                                f.BlockData3[y, x] = ((Blocks.WorldPortalBlock)lvl[0, x, y]).Target;
+                            }
+                            if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Music))
+                            {
+                                f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                int temp = ((Blocks.MusicBlock)lvl[0, x, y]).Note;
+                                f.BlockData[y, x] = temp;
+                            }
+                            if (Blocks.IsType(lvl[1, x, y].BlockID, Blocks.BlockType.Normal))
+                            {
+                                f.Background[y, x] = lvl[1, x, y].BlockID;
+                            }
+                            if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Label))
+                            {
+                                f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                f.BlockData[y, x] = ((Blocks.LabelBlock)lvl[0, x, y]).Wrap;
+                                f.BlockData3[y, x] = ((Blocks.LabelBlock)lvl[0, x, y]).Text;
+                                f.BlockData4[y, x] = ((Blocks.LabelBlock)lvl[0, x, y]).Color;
+                            }
 
+                        }
                     }
+
+                    f.toobig = false;
+                }
+                else
+                {
+                    f.toobig = true;
                 }
                 return f;
             }
+        }
+
+        private uint ColorToUInt(Color color)
+        {
+            return (uint)((color.A << 24) | (color.R << 16) |
+                          (color.G << 8) | (color.B << 0));
         }
         public static Frame Load(System.IO.BinaryReader reader, int num)
         {
@@ -1422,6 +1467,200 @@ namespace EEditor
                 return null;
             }
         }
+        public static Frame LoadSav(string filename)
+        {
+            FileStream fs = new FileStream(filename, FileMode.Open);
+            BinaryReader reader = new BinaryReader(fs);
+            char[] filetype = reader.ReadChars(16);
+            string version = new string(filetype);
+            Console.WriteLine(version);
+            if (version == "ANIMATOR SAV V05")
+            {
+                reader.ReadInt16();
+                int LayerCount = Convert.ToInt16(reader.ReadInt16());
+                int width = Convert.ToInt16(reader.ReadInt16());
+                int height = Convert.ToInt16(reader.ReadInt16());
+                Frame f = new Frame(width, height);
+                for (int z = 1; z >= 0; z += -1)
+                {
+                    for (int y = 0; y <= height - 1; y++)
+                    {
+                        for (int x = 0; x <= width - 1; x++)
+                        {
+                            int bid = eeanimator2blocks(Convert.ToInt16(reader.ReadInt16()));
+                            if (bid >= 500 && bid <= 900)
+                            {
+                                f.Background[y, x] = bid;
+                            }
+                            else
+                            {
+                                f.Foreground[y, x] = bid;
+                            }
+                        }
+                    }
+                }
+                return f;
+            }
+            /*else if (version == "ANIMATOR SAV V01")
+            {
+                int jk = 0;
+                int height = 200;
+                int width = 200;
+                int ind = 0;
+                int innum = 0;
+                width = reader.ReadInt32();
+                height = reader.ReadInt32();
+                int frame = reader.ReadInt32();
+                Console.WriteLine(frame);
+                int[,] world = new int[width, height];
+                //for (jk = 0; jk < frame_cnt2; jk++)
+                //{
+                //world = new int[200, 200];
+                for (int i = 1; i <= height - 2; i += 1)
+                {
+                    for (int ii = 1; ii <= width - 2; ii += 1)
+                    {
+                        if (innum == 0)
+                        {
+                            ind = reader.ReadByte();
+                            if (ind == 171) ind = 172;
+                            if (ind == 4) ind = reader.ReadByte() + 0x400;
+                            if (ind == 3)
+                            {
+                                innum = reader.ReadByte() + (reader.ReadByte() << 8);
+                                innum -= 1;
+                                ind = reader.ReadByte();
+
+                                if (ind == 4) ind = reader.ReadByte() + 0x400;
+                                if (ind == 5) ind = reader.ReadByte() + reader.ReadByte() << 8 + 0x50000;
+                                world[ii, i] = ind;
+                            }
+                            else
+                            {
+                                world[ii, i] = ind;
+                            }
+
+                        }
+                        else
+                        {
+                            innum -= 1;
+                            world[ii, i] = ind;
+                        }
+                    }
+
+                }
+                //}
+                var f = new Frame(width, height);
+                for (int y = 0; y < width; y++)
+                {
+                    for (int x = 0; x < height; x++)
+                    {
+                        f.Foreground[y, x] = eeanimator2blocks1(world[x, y]);
+                        Console.WriteLine(world[x, y]);
+                    }
+                }
+                return f;
+            }*/
+            else
+            {
+                int jk = 0;
+                int height = 200;
+                int width = 200;
+                int ind = 0;
+                int innum = 0;
+                reader.Close();
+                reader.Dispose();
+                fs = new FileStream(filename, FileMode.Open);
+                reader = new BinaryReader(fs);
+                //var frame_cnt2 = reader.ReadInt16();
+                int[,] world = new int[200, 200];
+                //for (jk = 0; jk < frame_cnt2; jk++)
+                //{
+                //world = new int[200, 200];
+                for (int i = 1; i <= height - 2; i += 1)
+                {
+                    for (int ii = 1; ii <= width - 2; ii += 1)
+                    {
+                        if (innum == 0)
+                        {
+                            ind = reader.ReadByte();
+                            if (ind == 171) ind = 172;
+                            if (ind == 4) ind = reader.ReadByte() + 0x400;
+                            if (ind == 3)
+                            {
+                                innum = reader.ReadByte() + (reader.ReadByte() << 8);
+                                innum -= 1;
+                                ind = reader.ReadByte();
+
+                                if (ind == 4) ind = reader.ReadByte() + 0x400;
+                                if (ind == 5) ind = reader.ReadByte() + reader.ReadByte() << 8 + 0x50000;
+                                world[ii, i] = ind;
+                            }
+                            else
+                            {
+                                world[ii, i] = ind;
+                            }
+
+                        }
+                        else
+                        {
+                            innum -= 1;
+                            world[ii, i] = ind;
+                        }
+                    }
+
+                }
+                //}
+                var f = new Frame(200, 200);
+                for (int y = 0; y < 200; y++)
+                {
+                    for (int x = 0; x < 200; x++)
+                    {
+                        f.Foreground[y, x] = eeanimator2blocks0(world[x, y]);
+                    }
+                }
+                return f;
+            }
+        }
+
+        static int eeanimator2blocks0(int id)
+        {
+            if (id == 127)
+            {
+                return 0;
+            }
+            else if (id - 128 >= 0 && id - 128 <= 63)
+            {
+                return id - 128;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        static int eeanimator2blocks1(int id)
+        {
+            if (id == 127)
+            {
+                return 0;
+            }
+            else if (id - 128 >= 0 && id - 128 <= 63)
+            {
+                return id - 128;
+            }
+            else
+            {
+                if (id - 128 != -128)
+                {
+                    return id - 128;
+                }
+                else
+                {
+                    return 9;
+                }
+            }
+        }
 
         static int eeanimator2blocks(int id)
         {
@@ -1462,6 +1701,8 @@ namespace EEditor
                 { 75, 233 }, { 76, 234 }, { 77, 235 }, { 78, 236 }, { 79, 237 }, { 80, 238 }, { 81, 239 }, { 82, 240 },
         };
     }
+
+
     /*public class blockData : IEquatable<blockData>
     {
         public int X;
