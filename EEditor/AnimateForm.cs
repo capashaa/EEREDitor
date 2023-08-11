@@ -109,14 +109,16 @@ namespace EEditor
                             }
                             if (MainForm.userdata.level.StartsWith("OW"))
                             {
-                                client.Multiplayer.ListRooms(bdata.normal_room + bdata.version, null, 0, 0,
+                                int version = bdata.forceversion ? bdata.version : Convert.ToInt32(client.BigDB.Load("config", "config")["version"]);
+                                client.Multiplayer.ListRooms(bdata.normal_room + version, null, 0, 0,
                                 (RoomInfo[] rinfo) => {
                                     foreach (var val in rinfo) {
                                         if (val.Id.StartsWith("OW")) {
                                             if (val.Id.Length == MainForm.userdata.level.Length) {
                                                 MainForm.userdata.level = val.Id;
                                                 levelTextBox.Text = val.Id;
-                                                conn = client.Multiplayer.CreateJoinRoom(MainForm.userdata.level, MainForm.userdata.level.StartsWith("BW") ? "Beta" : bdata.normal_room + bdata.version, true, null, null);
+                                                
+                                                conn = client.Multiplayer.CreateJoinRoom(MainForm.userdata.level, MainForm.userdata.level.StartsWith("BW") ? "Beta" : bdata.normal_room + version, true, null, null);
                                                 Animator anim = new Animator(frames, conn, levelPassTextBox.Text, shuffleCheckBox.Checked, checkBoxReverse.Checked, checkBoxRandom.Checked);
                                                 conn.OnDisconnect += Conn_OnDisconnect;
                                                 Animator.pb = uploadProgressBar; //Make Animator.cs work with this form's progressbar
@@ -133,7 +135,8 @@ namespace EEditor
                             }
                             else
                             {
-                                conn = client.Multiplayer.CreateJoinRoom(MainForm.userdata.level,bdata.normal_room + bdata.version, true, null, null);
+                                int version = bdata.forceversion ? bdata.version : Convert.ToInt32(client.BigDB.Load("config", "config")["version"]);
+                                conn = client.Multiplayer.CreateJoinRoom(MainForm.userdata.level,bdata.normal_room + version, true, null, null);
                                 Animator anim = new Animator(frames, conn, levelPassTextBox.Text, shuffleCheckBox.Checked, checkBoxReverse.Checked, checkBoxRandom.Checked);
                                 conn.OnDisconnect += Conn_OnDisconnect;
                                 Animator.pb = uploadProgressBar; //Make Animator.cs work with this form's progressbar
