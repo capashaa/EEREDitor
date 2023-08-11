@@ -15,7 +15,7 @@ namespace EEditor
         public About(MainForm F)
         {
             InitializeComponent();
-            this.Text = "About EEditor " + this.ProductVersion;
+            this.Text = "About EERditor " + this.ProductVersion;
             Frm1 = F;
         }
 
