@@ -12,6 +12,8 @@ using Microsoft.Win32;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
+using System.Reflection.Emit;
+using System.Security.Cryptography;
 
 namespace EEditor
 {
@@ -59,7 +61,9 @@ namespace EEditor
         public ToolStripLabel bg { get { return backgroundLabel; } set { backgroundLabel = value; } }
         public ToolStripLabel pos { get { return positionLabel; } set { positionLabel = value; } }
         public ToolStripLabel rot { get { return rotationLabel; } set { rotationLabel = value; } }
-        public ToolStripLabel idtarget { get { return idtargetLabel; } set { idtargetLabel = value; } }
+        public ToolStripLabel id { get { return idLabel; } set { idLabel = value; } }
+
+        public ToolStripLabel target { get { return targetLabel; } set { targetLabel = value; } }
         public ToolStripLabel txt { get { return textLabel; } set { textLabel = value; } }
         public ToolStripComboBox tsc { get { return frameSelector; } set { frameSelector = value; } }
         public static bool selectionTool = false;
@@ -257,7 +261,7 @@ namespace EEditor
 
             userdata.lastSelectedBlockbar = 0;
 
-            this.worldArchiveMenu = new WorldArchiveMenu(this);
+            //this.worldArchiveMenu = new WorldArchiveMenu(this);
 
             //Should be set to current acc index actually
 
@@ -512,7 +516,7 @@ namespace EEditor
             DetectBlocks();
 
             delay = new List<int>();
-            editArea.Init(25, 25);
+            executeInitArea();
             frameSelector.SelectedIndex = 0;
 
             this.Text = $"EERditor: {bdata.programVersion}";
@@ -624,6 +628,11 @@ namespace EEditor
         }
 
         #endregion Generate topbar images to tile
+
+        private void executeInitArea()
+        {
+            editArea.Init(25, 25);
+        }
         public void updateTheme()
         {
             if (userdata.darkTheme)
@@ -637,6 +646,7 @@ namespace EEditor
                     link = Color.Orange,
                     activelink = Color.Yellow,
                     visitedlink = Color.Orange,
+                    groupbox = ColorTranslator.FromHtml("#FDB484"),
 
                 };
             }
@@ -651,7 +661,7 @@ namespace EEditor
                     link = Color.FromArgb(0, 0, 255),
                     visitedlink = Color.FromArgb(128, 0, 128),
                     activelink = Color.Red,
-
+                    groupbox = SystemColors.ControlText,
 
                 };
             }
@@ -1162,7 +1172,7 @@ namespace EEditor
                     flowLayoutPanel3.Visible = false;
                     flowLayoutPanel4.Visible = false;
                     flowLayoutPanel5.Visible = false;
-                    flowLayoutPanel6.Visible = true;
+                    flowLayoutPanel6.Visible = false;
 
                     showBlocksButton.Checked = false;
                     showActionsButton.Checked = false;
@@ -1299,8 +1309,8 @@ namespace EEditor
             if (ihavethese.ContainsKey("brickhw2011")) { AddToolStrip(foregroundBMD, 0, new int[] { 68, 69 }, new uint[] { 0x685454, 0x5E6E74 }, false, "Halloween 2011", 0, 0, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 68, 69 }, new uint[] { 0x685454, 0x5E6E74 }, false, "Halloween 2011", 0, 0, false); }
 
             //Scifi blocks
-            if (ihavethese.ContainsKey("brickscifi")) { AddToolStrip(foregroundBMD, 0, new int[] { 84, 85, 308, 309, 315, 316, 319, 320, 86, 87, 88, 89, 90, 91, 234, 317, 318,321,322 }, new uint[] { 0x9f4340, 0x3b729d, 0x3c8e38, 0xa58337, 0x9237a4, 0x409191, 0xa8a8a8, 0x5e5e5e, 0x868686, 0xb0b0b0, 0x6c4f2c, 0xb8656a, 0x656fb8, 0x60b467, 0xbb724c, 0xa765b8, 0x63b3a6, 0xe5e5e5, 0x675d6b }, false, "scifi", 0, 1, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 84, 85, 308, 309, 315, 316, 319, 320, 86, 87, 88, 89, 90, 91, 234, 317, 318, 321, 322 }, new uint[] { 0x9f4340, 0x3b729d, 0x3c8e38, 0xa58337, 0x9237a4, 0x409191, 0xa8a8a8, 0x5e5e5e, 0x868686, 0xb0b0b0, 0x6c4f2c, 0xb8656a, 0x656fb8, 0x60b467, 0xbb724c, 0xa765b8, 0x63b3a6, 0xe5e5e5, 0x675d6b }, false, "scifi", 0, 1, false); }
-            
+            if (ihavethese.ContainsKey("brickscifi")) { AddToolStrip(foregroundBMD, 0, new int[] { 84, 85, 308, 309, 315, 316, 319, 320, 86, 87, 88, 89, 90, 91, 234, 317, 318, 321, 322 }, new uint[] { 0x9f4340, 0x3b729d, 0x3c8e38, 0xa58337, 0x9237a4, 0x409191, 0xa8a8a8, 0x5e5e5e, 0x868686, 0xb0b0b0, 0x6c4f2c, 0xb8656a, 0x656fb8, 0x60b467, 0xbb724c, 0xa765b8, 0x63b3a6, 0xe5e5e5, 0x675d6b }, false, "scifi", 0, 1, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 84, 85, 308, 309, 315, 316, 319, 320, 86, 87, 88, 89, 90, 91, 234, 317, 318, 321, 322 }, new uint[] { 0x9f4340, 0x3b729d, 0x3c8e38, 0xa58337, 0x9237a4, 0x409191, 0xa8a8a8, 0x5e5e5e, 0x868686, 0xb0b0b0, 0x6c4f2c, 0xb8656a, 0x656fb8, 0x60b467, 0xbb724c, 0xa765b8, 0x63b3a6, 0xe5e5e5, 0x675d6b }, false, "scifi", 0, 1, false); }
+
             //Prison blocks
             AddToolStrip(foregroundBMD, 0, new int[] { 92 }, new uint[] { 0x808080 }, false, "Prison", 0, 1, true);
 
@@ -1449,9 +1459,9 @@ namespace EEditor
             }
 
             //Garden blocks
-            if (ihavethese.ContainsKey("brickgarden")) { AddToolStrip(foregroundBMD, 0, new int[] { 300, 301, 302, 304, 305, 306 }, new uint[] { 0x695138, 0x536A22, 0x529E1F,0,0,0 }, false, "Garden", 0, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 300, 301, 302, 304, 305, 306 }, new uint[] { 0x695138, 0x536A22, 0x529E1F,0,0,0 }, false, "Garden", 0, 2, false); }
+            if (ihavethese.ContainsKey("brickgarden")) { AddToolStrip(foregroundBMD, 0, new int[] { 300, 301, 302, 304, 305, 306 }, new uint[] { 0x695138, 0x536A22, 0x529E1F, 0, 0, 0 }, false, "Garden", 0, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 300, 301, 302, 304, 305, 306 }, new uint[] { 0x695138, 0x536A22, 0x529E1F, 0, 0, 0 }, false, "Garden", 0, 2, false); }
 
- 
+
 
             //Toxic blocks (Doesn't exist)
             //if (ihavethese.ContainsKey("bricktoxic")) { AddToolStrip(miscBMD, 1, new int[] { 466 }, null, false, "Toxic", 0, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 466 }, null, false, "Toxic", 0, 2, false); }
@@ -1496,7 +1506,7 @@ namespace EEditor
             if (ihavethese.ContainsKey("brickdesigntrophygold") || accs[userdata.username].admin) { AddToolStrip(decosBMD, 2, new int[] { 247 }, null, false, "Prizes", 2, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 247 }, null, false, "Prizes", 2, 0, false); }
 
             //Easter 2012 decorations
-            if (ihavethese.ContainsKey("brickeaster2012")) { AddToolStrip(decosBMD, 2, new int[] { 39, 40, 41, 42, 43,283 }, null, false, "Easter 2012", 2, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 39, 40, 41, 42, 43,283 }, null, false, "Easter 2012", 2, 0, false); }
+            if (ihavethese.ContainsKey("brickeaster2012")) { AddToolStrip(decosBMD, 2, new int[] { 39, 40, 41, 42, 43, 283 }, null, false, "Easter 2012", 2, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 39, 40, 41, 42, 43, 283 }, null, false, "Easter 2012", 2, 0, false); }
 
             //Candy decorations
             if (ihavethese.ContainsKey("brickcandy")) { AddToolStrip(decosBMD, 2, new int[] { 10, 184, 185, 186, 187 }, null, false, "Candy", 2, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 10, 184, 185, 186, 187 }, null, false, "Candy", 2, 0, false); }
@@ -1567,7 +1577,7 @@ namespace EEditor
                 AddToolStrip(miscBMD, 1, new int[] { 117, 129, 125, 157, 121 }, null, false, "Medieval", 2, 1, false);
             }
             //Outer Space decorations
-            AddToolStrip(decosBMD, 2, new int[] { 114, 115, 116, 263, 264, 266, 267,268,269, 117, 181, 182, 183, 113 }, null, false, "Outer Space", 2, 1, true);
+            AddToolStrip(decosBMD, 2, new int[] { 114, 115, 116, 263, 264, 266, 267, 268, 269, 117, 181, 182, 183, 113 }, null, false, "Outer Space", 2, 1, true);
 
             //Deset decorations
             AddToolStrip(decosBMD, 2, new int[] { 118, 178, 179, 180 }, null, false, "Desert", 2, 1, true);
@@ -1633,7 +1643,7 @@ namespace EEditor
             //Domestic decorations
             if (ihavethese.ContainsKey("brickdomestic"))
             {
-                AddToolStrip(decosBMD, 2, new int[] { 196, 246,284 }, null, false, "Domestic", 2, 2, true);
+                AddToolStrip(decosBMD, 2, new int[] { 196, 246, 284 }, null, false, "Domestic", 2, 2, true);
                 AddToolStrip(miscBMD, 1, new int[] { 179, 183, 409, 411, 187, 191, 195, 199, 415 }, null, false, "Domestic", 2, 2, true);
             }
             else
@@ -1758,7 +1768,7 @@ namespace EEditor
             if (ihavethese.ContainsKey("brickvalentines2023")) { AddToolStrip(decosBMD, 2, new int[] { 270, 271, 272, 273, 274, 275, 276, 278, 279 }, null, false, "Valentines 2023", 2, 2, true); } else { AddToolStrip(decosBMD, 2, new int[] { 270, 271, 272, 273, 274, 275, 276, 278, 279 }, null, false, "Valentines 2023", 2, 2, false); }
 
             //Towels decorations
-            if (ihavethese.ContainsKey("bricktowel")) { AddToolStrip(decosBMD, 2, new int[] { 286,287,288,289,290,291,292,293,294 }, null, false, "Towels", 2, 2, true); } else { AddToolStrip(decosBMD, 2, new int[] { 286, 287, 288, 289, 290, 291, 292, 293, 294 }, null, false, "Towels", 2, 2, false); }
+            if (ihavethese.ContainsKey("bricktowel")) { AddToolStrip(decosBMD, 2, new int[] { 286, 287, 288, 289, 290, 291, 292, 293, 294 }, null, false, "Towels", 2, 2, true); } else { AddToolStrip(decosBMD, 2, new int[] { 286, 287, 288, 289, 290, 291, 292, 293, 294 }, null, false, "Towels", 2, 2, false); }
             //Decorations 3
 
             #endregion Decoration
@@ -1780,7 +1790,7 @@ namespace EEditor
             AddToolStrip(foregroundBMD, 0, new int[] { 26, 27, 28, 195, 196, 197 }, new uint[] { 0x9C2D46, 0x379C30, 0x2D449C, 0x2D8D99, 0x912D99, 0x97922D }, false, "Gates", 1, 0, true);
             //keys doors action
             AddToolStrip(foregroundBMD, 0, new int[] { 23, 24, 25, 192, 193, 194 }, new uint[] { 0x9C2D46, 0x379C30, 0x2D449C, 0x2D8D99, 0x912D99, 0x97922D }, false, "Doors", 1, 0, true);
-            
+
             //Yellow/Blue coin action
             AddToolStrip(miscBMD, 1, new int[] { 174, 175 }, null, false, "Coins", 1, 0, true);
 
@@ -1788,8 +1798,8 @@ namespace EEditor
             AddToolStrip(foregroundBMD, 0, new int[] { 139, 43 }, new uint[] { 0xB88E15, 0xB88E15 }, false, "Yellow coin doors/gates", 1, 0, true);
             //Blue coin door/gate action
             AddToolStrip(foregroundBMD, 0, new int[] { 186, 185 }, new uint[] { 0x1C60F4, 0x1C60F4 }, false, "Blue coin doors/gates", 1, 0, true);
-            
-            
+
+
             //Spawn action
             AddToolStrip(decosBMD, 2, new int[] { 38 }, null, false, "SpawnPoint", 1, 0, true);
             //Checkpoint action
@@ -1799,26 +1809,26 @@ namespace EEditor
 
             //God block action
             if (ihavethese.ContainsKey("brickgodblock")) { AddToolStrip(decosBMD, 2, new int[] { 231 }, null, false, "Godmode", 1, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 231 }, null, false, "Godmode", 1, 0, false); }
-           
+
             //Minimap block action
             if (ihavethese.ContainsKey("brickmapblock")) { AddToolStrip(decosBMD, 2, new int[] { 281 }, null, false, "Minimap", 1, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 281 }, null, false, "Minimap", 1, 0, false); }
-            
+
             //Edit block action
             if (ihavethese.ContainsKey("brickeditblock")) { AddToolStrip(decosBMD, 2, new int[] { 280 }, null, false, "Edit", 1, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 280 }, null, false, "Edit", 1, 0, false); }
-            
+
             //Crown action
             AddToolStrip(foregroundBMD, 0, new int[] { 5 }, new uint[] { 0x43391F }, false, "Crown", 1, 0, true);
-            
+
             //Crown door action
             if (ihavethese.ContainsKey("brickcrowndoor")) { AddToolStrip(miscBMD, 1, new int[] { 341, 340 }, null, false, "Crown Doors", 1, 0, true); } else { AddToolStrip(miscBMD, 1, new int[] { 341, 340 }, null, false, "Crown Doors", 1, 0, false); }
-            
+
             //Trophy action
             AddToolStrip(miscBMD, 1, new int[] { 8 }, null, false, "Crown", 1, 0, true);
             //if (ihavethese.ContainsKey("brickcrowndoor")) AddToolStrip(miscBMD, 1, new int[] { 454, 455 }, null, false, "Trophy Doors", 1, 0, true);
 
             //Boost action
             if (ihavethese.ContainsKey("brickboost")) { AddToolStrip(foregroundBMD, 0, new int[] { 157, 158, 159, 160 }, null, false, "Boost", 1, 0, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 157, 158, 159, 160 }, null, false, "Boost", 1, 0, false); }
-            
+
             //Ninja ladder action
             if (ihavethese.ContainsKey("ninjaladder")) { AddToolStrip(foregroundBMD, 0, new int[] { 98 }, null, false, "Climbable", 1, 0, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 98 }, null, false, "Climbable", 1, 0, false); }
             //Industrial laddder action
@@ -1841,7 +1851,7 @@ namespace EEditor
 
             //Death doors/gates action
             if (ihavethese.ContainsKey("brickdeathdoor")) { AddToolStrip(foregroundBMD, 0, new int[] { 198, 199 }, new uint[] { 0xA9A9A9, 0xA9A9A9 }, false, "Death", 1, 0, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 198, 199 }, new uint[] { 0xA9A9A9, 0xA9A9A9 }, false, "Death", 1, 0, false); }
-            
+
             //Effect Zombie action
             if (ihavethese.ContainsKey("brickeffectzombie")) { AddToolStrip(miscBMD, 1, new int[] { 79, 32, 31 }, null, false, "Zombie", 1, 0, true); } else { AddToolStrip(miscBMD, 1, new int[] { 79, 32, 31 }, null, false, "Zombie", 1, 0, false); }
             //Effect Team action
@@ -1861,7 +1871,7 @@ namespace EEditor
 
             //Text block action
             if (accs[userdata.username].admin) { AddToolStrip(decosBMD, 2, new int[] { 176 }, null, false, "Label", 1, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 176 }, null, false, "Label", 1, 0, false); }
-            
+
             //Fire action
             if (ihavethese.ContainsKey("brickfire")) { AddToolStrip(miscBMD, 1, new int[] { 28 }, null, false, "Hazards", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 28 }, null, false, "Hazards", 1, 2, false); }
             //water action
@@ -1871,21 +1881,21 @@ namespace EEditor
             if (ihavethese.ContainsKey("bricklava")) { AddToolStrip(miscBMD, 1, new int[] { 107 }, null, false, "Liquids", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 107 }, null, false, "Liquids", 1, 2, false); }
             //Swamp liquid action
             if (ihavethese.ContainsKey("brickswamp")) { AddToolStrip(miscBMD, 1, new int[] { 29 }, null, false, "Liquids", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 29 }, null, false, "Liquids", 1, 2, false); }
-            
+
             //Portal Invisible action
             if (ihavethese.ContainsKey("brickinvisibleportal")) { AddToolStrip(miscBMD, 1, new int[] { 112 }, null, false, "Portals", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 112 }, null, false, "Portals", 1, 2, false); }
             //Portal action
             if (ihavethese.ContainsKey("brickportal")) { AddToolStrip(miscBMD, 1, new int[] { 108 }, new uint[] { 0x7BA7C7 }, false, "Portals", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 108 }, new uint[] { 0x7BA7C7 }, false, "Portals", 1, 2, false); }
             //Portal world action
             if (ihavethese.ContainsKey("brickworldportal")) { AddToolStrip(miscBMD, 1, new int[] { 33 }, new uint[] { 0xB96D6D }, false, "Portals", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 33 }, new uint[] { 0xB96D6D }, false, "Portals", 1, 2, false); }
-            
+
             //Diamond block action
             if (ihavethese.ContainsKey("brickdiamond")) { AddToolStrip(miscBMD, 1, new int[] { 221 }, null, false, "Diamond", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 221 }, null, false, "Diamond", 1, 2, false); }
             //Cake block action
             if (ihavethese.ContainsKey("brickcake")) { AddToolStrip(miscBMD, 1, new int[] { 2 }, null, false, "Cake", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 2 }, null, false, "Cake", 1, 2, false); }
             //Hologram block action
             if (ihavethese.ContainsKey("brickhologram")) { AddToolStrip(miscBMD, 1, new int[] { 53 }, null, false, "Hologram", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 53 }, null, false, "Hologram", 1, 2, false); }
-            
+
             //Sign for free?
             AddToolStrip(miscBMD, 1, new int[] { 255 }, null, false, "Sign", 1, 2, true);
 
@@ -1907,7 +1917,7 @@ namespace EEditor
             if (ihavethese.ContainsKey("brickeffectgravity")) { AddToolStrip(miscBMD, 1, new int[] { 355 }, null, false, "Effects", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 355 }, null, false, "Effects", 1, 2, false); }
             //Effect reset action
             if (ihavethese.ContainsKey("brickeffectreset")) { AddToolStrip(miscBMD, 1, new int[] { 550 }, null, false, "Effects", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 550 }, null, false, "Effects", 1, 2, false); }
-            
+
             //Gold member door/gate action
             if (ihavethese.ContainsKey("goldmember")) { AddToolStrip(miscBMD, 1, new int[] { 12, 13 }, new uint[] { 0x281C00, 0xBA983B }, false, "Gold Membership", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 12, 13 }, new uint[] { 0x281C00, 0xBA983B }, false, "Gold Membership", 1, 2, false); }
 
@@ -2030,9 +2040,11 @@ namespace EEditor
             if (ihavethese.ContainsKey("brickautumn2014")) { AddToolStrip(backgroundBMD, 3, new int[] { 135, 136, 137 }, new uint[] { 0x695102, 0x692602, 0x690503 }, false, "Autumn 2014", 3, 2, true); } else { AddToolStrip(backgroundBMD, 3, new int[] { 135, 136, 137 }, new uint[] { 0x695102, 0x692602, 0x690503 }, false, "Autumn 2014", 3, 2, false); }
 
             //Cave background
-            if (ihavethese.ContainsKey("brickcave")) { 
-                AddToolStrip(backgroundBMD, 3, new int[] { 269,270,271, 149, 150, 151, 152, 153, 154, 155, 156 }, new uint[] { 0x222222, 0x191919, 0x0b0b0b, 0x200426, 0x041E20, 0x030C1F, 0x2C051A, 0x081602, 0x240D05, 0x321A08, 0x330909 }, false, "Cave", 3, 2, true); 
-            } else { AddToolStrip(backgroundBMD, 3, new int[] { 269, 270, 271, 149, 150, 151, 152, 153, 154, 155, 156 }, new uint[] { 0x222222, 0x191919, 0x0b0b0b, 0x200426, 0x041E20, 0x030C1F, 0x2C051A, 0x081602, 0x240D05, 0x321A08, 0x330909 }, false, "Cave", 3, 2, false); }
+            if (ihavethese.ContainsKey("brickcave"))
+            {
+                AddToolStrip(backgroundBMD, 3, new int[] { 269, 270, 271, 149, 150, 151, 152, 153, 154, 155, 156 }, new uint[] { 0x222222, 0x191919, 0x0b0b0b, 0x200426, 0x041E20, 0x030C1F, 0x2C051A, 0x081602, 0x240D05, 0x321A08, 0x330909 }, false, "Cave", 3, 2, true);
+            }
+            else { AddToolStrip(backgroundBMD, 3, new int[] { 269, 270, 271, 149, 150, 151, 152, 153, 154, 155, 156 }, new uint[] { 0x222222, 0x191919, 0x0b0b0b, 0x200426, 0x041E20, 0x030C1F, 0x2C051A, 0x081602, 0x240D05, 0x321A08, 0x330909 }, false, "Cave", 3, 2, false); }
 
             //Enviroment background
             AddToolStrip(backgroundBMD, 3, new int[] { 172, 173, 174, 175, 176 }, new uint[] { 0x571802, 0x245100, 0x754705, 0x2C3244, 0x551A08 }, false, "Environment", 3, 2, true);
@@ -2135,7 +2147,7 @@ namespace EEditor
                 if (starting)
                 {
                     starting = false;
-                    this.Invoke((MethodInvoker)delegate { editArea.Init(25, 25); });
+                    this.Invoke((MethodInvoker)delegate { executeInitArea(); });
                 }
             }
             else
@@ -3083,26 +3095,26 @@ namespace EEditor
                             if (MainForm.pressed == 0)
                             {
                                 lastSelectedBlocksUpdate(cur);
-                               /* if (cur.ID == 1550)
-                                {
-                                    using (NPC co = new NPC())
-                                    {
-                                        if (editArea.Tool.NPCtempMessage1 != null) { co.message1.Text = editArea.Tool.NPCtempMessage1; }
-                                        if (editArea.Tool.NPCtempMessage2 != null) { co.message2.Text = editArea.Tool.NPCtempMessage2; }
-                                        if (editArea.Tool.NPCtempMessage3 != null) { co.message3.Text = editArea.Tool.NPCtempMessage3; }
-                                        if (editArea.Tool.NPCtempMessage4 != null) { co.nickname.Text = editArea.Tool.NPCtempMessage4; }
-                                        if (editArea.Tool.NPCId.ToString() != null)
-                                            if (co.ShowDialog() == DialogResult.OK)
-                                            {
-                                                editArea.Tool.PenID = co.blockID;
-                                                editArea.Tool.NPCtempMessage1 = co.message1.Text;
-                                                editArea.Tool.NPCtempMessage2 = co.message2.Text;
-                                                editArea.Tool.NPCtempMessage3 = co.message3.Text;
-                                                editArea.Tool.NPCtempMessage4 = co.nickname.Text;
+                                /* if (cur.ID == 1550)
+                                 {
+                                     using (NPC co = new NPC())
+                                     {
+                                         if (editArea.Tool.NPCtempMessage1 != null) { co.message1.Text = editArea.Tool.NPCtempMessage1; }
+                                         if (editArea.Tool.NPCtempMessage2 != null) { co.message2.Text = editArea.Tool.NPCtempMessage2; }
+                                         if (editArea.Tool.NPCtempMessage3 != null) { co.message3.Text = editArea.Tool.NPCtempMessage3; }
+                                         if (editArea.Tool.NPCtempMessage4 != null) { co.nickname.Text = editArea.Tool.NPCtempMessage4; }
+                                         if (editArea.Tool.NPCId.ToString() != null)
+                                             if (co.ShowDialog() == DialogResult.OK)
+                                             {
+                                                 editArea.Tool.PenID = co.blockID;
+                                                 editArea.Tool.NPCtempMessage1 = co.message1.Text;
+                                                 editArea.Tool.NPCtempMessage2 = co.message2.Text;
+                                                 editArea.Tool.NPCtempMessage3 = co.message3.Text;
+                                                 editArea.Tool.NPCtempMessage4 = co.nickname.Text;
 
-                                            }
-                                    }
-                                }*/
+                                             }
+                                     }
+                                 }*/
                             }
                         }
                         MainForm.pressed += 1;
@@ -3122,7 +3134,7 @@ namespace EEditor
                 if (MainForm.editArea.MainForm.lastUsedBlockButton0.Name != cur.ID.ToString() && MainForm.editArea.MainForm.lastUsedBlockButton1.Name != cur.ID.ToString() && MainForm.editArea.MainForm.lastUsedBlockButton2.Name != cur.ID.ToString() && MainForm.editArea.MainForm.lastUsedBlockButton3.Name != cur.ID.ToString() && MainForm.editArea.MainForm.lastUsedBlockButton4.Name != cur.ID.ToString())
                 {
                     Bitmap img4 = new Bitmap(16, 16); ;
-                    if (cur.ID < 500 || cur.ID >= 1001)
+                    if (cur.ID < 500 || cur.ID >= 1000)
                     {
                         if (cur.mode == 0 && foregroundBMI[bid] != 0)
                         {
@@ -3584,27 +3596,18 @@ namespace EEditor
                 codeTextbox.Text = userdata.levelPass;
                 InsertImageForm.Background.Clear();
                 InsertImageForm.Blocks.Clear();
+                MainForm.userdata.useColor = false;
+                MainForm.userdata.thisColor = Color.Transparent;
                 MainForm.editArea.Back = null;
                 MainForm.editArea.Back1 = null;
                 rebuildGUI(true);
                 if (form.MapFrame != null)
                 {
-                    if (form.NeedsInit)
-                    {
-                        editArea.Init(form.SizeWidth, form.SizeHeight);
-                        //editArea.Init(form.SizeWidth, form.SizeHeight);
-                    }
-                    else
-                    {
-                        editArea.Init(form.MapFrame, false);
-                    }
+                    ExecuteInitFrame(form.MapFrame, false);
                 }
                 else
                 {
-                    if (form.NeedsInit)
-                    {
-                        editArea.Init(form.SizeWidth, form.SizeHeight);
-                    }
+                    ExecuteInitWH(form.SizeWidth, form.SizeHeight);
                 }
             }
             else
@@ -3646,7 +3649,7 @@ namespace EEditor
                     if (frame != null)
                     {
                         this.Text = $"({Path.GetFileName(ofd.FileName)}) [Unknown] ({frame.Width}x{frame.Height}) - EERditor {bdata.programVersion}";
-                        editArea.Init(frame, false);
+                        ExecuteInitFrame(frame, false);
                     }
                     else MessageBox.Show("The selected EELevel is either invalid or corrupt.", "Invalid EELevel", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -3655,6 +3658,15 @@ namespace EEditor
             {
                 MessageBox.Show("An error has occured: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void ExecuteInitFrame(Frame mapframe, bool frame)
+        {
+            editArea.Init(mapframe, frame);
+        }
+        private void ExecuteInitWH(int width, int height)
+        {
+            editArea.Init(width, height);
         }
 
         private void loadNewMenuItem_Click(object sender, EventArgs e)
@@ -3682,7 +3694,7 @@ namespace EEditor
                 if (frame != null)
                 {
                     this.Text = $"({Path.GetFileName(ofd.FileName)}) [Unknown] ({frame.Width}x{frame.Height}) - EERditor {bdata.programVersion}";
-                    editArea.Init(frame, false);
+                    ExecuteInitFrame(frame, false);
                 }
                 else MessageBox.Show("The selected EELevel is either invalid or corrupt.", "Invalid EELevel", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -3716,7 +3728,7 @@ namespace EEditor
                 if (frame != null)
                 {
                     this.Text = $"({Path.GetFileName(ofd.FileName)}) [Unknown] ({frame.Width}x{frame.Height}) - EERditor {bdata.programVersion}";
-                    editArea.Init(frame, false);
+                    ExecuteInitFrame(frame, false);
                 }
                 else MessageBox.Show("The selected EELevel is either invalid or corrupt.", "Invalid EELevel", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -3750,7 +3762,7 @@ namespace EEditor
                 if (frame != null)
                 {
                     this.Text = $"({Path.GetFileName(ofd.FileName)}) [Unknown] ({frame.Width}x{frame.Height}) - EERditor {bdata.programVersion}";
-                    editArea.Init(frame, false);
+                    ExecuteInitFrame(frame, false);
                 }
                 else MessageBox.Show("The selected EELevel is either invalid or corrupt.", "Invalid EELevel", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -3776,19 +3788,55 @@ namespace EEditor
                     CheckFileExists = true
                 };
 
-                if (ofd.ShowDialog() != DialogResult.OK) return;
-                string path = ofd.FileName;
-                FileStream fs = new FileStream(path, FileMode.Open);
-                BinaryReader reader = new BinaryReader(fs);
-                Frame frame = Frame.Load(reader, 3);
-                reader.Close();
-                fs.Close();
-                if (frame != null)
+                if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    this.Text = $"({Path.GetFileName(ofd.FileName)}) [Unknown] ({frame.Width}x{frame.Height}) - EERditor {bdata.programVersion}";
-                    editArea.Init(frame, false);
+                    string path = ofd.FileName;
+                    FileStream fs = new FileStream(ofd.FileName, FileMode.Open);
+                    BinaryReader reader = new BinaryReader(fs);
+                    char[] filetype = reader.ReadChars(16);
+                    string version = new string(filetype);
+                    if (version == "ANIMATOR SAV V04" || version == "ANIMATOR SAV V03" || version == "ANIMATOR SAV V02" || version == "ANIMATOR SAV V01")
+                    {
+                        fs.Close();
+                        reader.Close();
+                        MessageBox.Show($"The selected file was made by: {version} And is not supported.", "Not Supported", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else if (version == "ANIMATOR SAV V05")
+                    {
+                        fs.Close();
+                        reader.Close();
+                        Frame frame = Frame.LoadSav(path);
+                        if (frame != null)
+                        {
+                            this.Text = $"({Path.GetFileName(ofd.FileName)}) [Unknown] ({frame.Width}x{frame.Height}) - EEOditor {this.ProductVersion}";
+                            ExecuteInitFrame(frame, false);
+                        }
+                        else
+                        {
+                            MessageBox.Show("The selected file was made by an unknown EEAnimator version.", "Unknown version", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        fs.Close();
+                        reader.Close();
+                        Frame frame = Frame.LoadSav(path);
+                        if (frame != null)
+                        {
+                            this.Text = $"({Path.GetFileName(ofd.FileName)}) [Unknown] ({frame.Width}x{frame.Height}) - EEOditor {this.ProductVersion}";
+                            ExecuteInitFrame(frame, false);
+                        }
+                        else
+                        {
+                            MessageBox.Show("The selected file was made by an unknown EEAnimator version.", "Unknown version", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    ofd.Dispose();
                 }
-                else MessageBox.Show("The selected file was made by an unknown EEAnimator version.", "Unknown version", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else
+                {
+                    ofd.Dispose();
+                }
             }
             catch (Exception ex)
             {
@@ -4481,7 +4529,7 @@ namespace EEditor
                     else
                     {
                     }
-                        break;
+                    break;
                 case 1:
                     form.LoadFromLevel(userdata.level, 1);
                     if (form.DialogResult == DialogResult.OK)
@@ -4514,51 +4562,51 @@ namespace EEditor
                     else
                     {
                     }
-            
-            
-                    
+
+
+
                     break;
             }
         }
-            /*if (frm == 0) form.LoadFromLevel(userdata.level, 0);
-            if (frm == 1) form.LoadFromLevel(userdata.level, 1);
-            if (form.DialogResult == DialogResult.OK)
+        /*if (frm == 0) form.LoadFromLevel(userdata.level, 0);
+        if (frm == 1) form.LoadFromLevel(userdata.level, 1);
+        if (form.DialogResult == DialogResult.OK)
+        {
+            editArea.Back = null;
+            editArea.Back1 = null;
+            Console.WriteLine(form.Frames.Width);
+            if (form.Frames != null)
             {
-                editArea.Back = null;
-                editArea.Back1 = null;
-                Console.WriteLine(form.Frames.Width);
-                if (form.Frames != null)
+                Console.WriteLine("yes");
+                editArea.Init(form.Frames, false);
+                Bitmap bmp1 = new Bitmap(Properties.Resources.refresh.Width, Properties.Resources.refresh.Height);
+                Bitmap bmp = new Bitmap(Properties.Resources.refresh);
+                for (int x = 0; x < bmp.Width; x++)
                 {
-                    Console.WriteLine("yes");
-                    editArea.Init(form.Frames, false);
-                    Bitmap bmp1 = new Bitmap(Properties.Resources.refresh.Width, Properties.Resources.refresh.Height);
-                    Bitmap bmp = new Bitmap(Properties.Resources.refresh);
-                    for (int x = 0; x < bmp.Width; x++)
+                    for (int y = 0; y < bmp.Height; y++)
                     {
-                        for (int y = 0; y < bmp.Height; y++)
+                        if (bmp.GetPixel(x, y).A > 80)
                         {
-                            if (bmp.GetPixel(x, y).A > 80)
-                            {
-                                bmp1.SetPixel(x, y, themecolors.imageColors);
-                            }
-                            else
-                            {
-                                bmp1.SetPixel(x, y, themecolors.background);
-                            }
+                            bmp1.SetPixel(x, y, themecolors.imageColors);
+                        }
+                        else
+                        {
+                            bmp1.SetPixel(x, y, themecolors.background);
                         }
                     }
-                    refreshButton.Image = bmp1;
-                    //updateImageColor();
                 }
-                else
-                {
-                    Console.WriteLine("Frame null");
-                }
+                refreshButton.Image = bmp1;
+                //updateImageColor();
             }
             else
             {
+                Console.WriteLine("Frame null");
             }
-        }*/
+        }
+        else
+        {
+        }
+    }*/
 
         //Upload
         private void uploadButton_Click(object sender, EventArgs e)
@@ -5236,7 +5284,7 @@ namespace EEditor
                     if (frame != null)
                     {
                         this.Text = $"({Path.GetFileName(ofd.FileName)}) [Unknown] ({frame.Width}x{frame.Height}) - EERditor {bdata.programVersion}";
-                        editArea.Init(frame, false);
+                        ExecuteInitFrame(frame, false);
                     }
                     else MessageBox.Show("The selected EELevel is either invalid or corrupt.", "Invalid EELevel", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     ofd.Dispose();
@@ -5270,29 +5318,29 @@ namespace EEditor
                     {
                         editArea.Init(frame, false);
                     }
-                        /*if (form.MapFrame != null)
+                    /*if (form.MapFrame != null)
+                    {
+                        editArea.Init(form.MapFrame, false);
+                        Bitmap bmp1 = new Bitmap(Properties.Resources.refresh.Width, Properties.Resources.refresh.Height);
+                        Bitmap bmp = new Bitmap(Properties.Resources.refresh);
+                        for (int x = 0; x < bmp.Width; x++)
                         {
-                            editArea.Init(form.MapFrame, false);
-                            Bitmap bmp1 = new Bitmap(Properties.Resources.refresh.Width, Properties.Resources.refresh.Height);
-                            Bitmap bmp = new Bitmap(Properties.Resources.refresh);
-                            for (int x = 0; x < bmp.Width; x++)
+                            for (int y = 0; y < bmp.Height; y++)
                             {
-                                for (int y = 0; y < bmp.Height; y++)
+                                if (bmp.GetPixel(x, y).A > 80)
                                 {
-                                    if (bmp.GetPixel(x, y).A > 80)
-                                    {
-                                        bmp1.SetPixel(x, y, themecolors.imageColors);
-                                    }
-                                    else
-                                    {
-                                        bmp1.SetPixel(x, y, themecolors.background);
-                                    }
+                                    bmp1.SetPixel(x, y, themecolors.imageColors);
+                                }
+                                else
+                                {
+                                    bmp1.SetPixel(x, y, themecolors.background);
                                 }
                             }
-                            refreshButton.Image = bmp1;*/
-                        //updateImageColor();
-                        //}
-                    }
+                        }
+                        refreshButton.Image = bmp1;*/
+                    //updateImageColor();
+                    //}
+                }
                 else
                 {
                 }
@@ -5326,7 +5374,7 @@ namespace EEditor
                 {
 
                     this.Text = $"({Path.GetFileName(ofd.FileName)}) [Unknown] ({frame.Width}x{frame.Height}) - EERditor {bdata.programVersion}";
-                    editArea.Init(frame, false);
+                    ExecuteInitFrame(frame, false);
                 }
                 else MessageBox.Show("The selected EELevel is either invalid or corrupt.", "Invalid EELevel", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 ofd.Dispose();
@@ -5421,13 +5469,31 @@ namespace EEditor
                     RestoreDirectory = true
                 };
 
-                if (ofd.ShowDialog() != DialogResult.OK) return;
-                string path = ofd.FileName;
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    Frame frame = Frame.LoadFromEELVL(ofd.FileName);
+                    if (frame.toobig)
+                    {
+                        MessageBox.Show("Can't load this world. It's too big. Max size: 637x460 or 460x637", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        ofd.Dispose();
+                    }
+                    else
+                    {
+                        if (frame != null)
+                        {
+                            this.Text = $".eelvl - ({frame.levelname}) [{frame.nickname}] ({frame.Width}x{frame.Height}) - EERditor {this.ProductVersion}";
+                            ExecuteInitFrame(frame, false);
+                        }
+                        else MessageBox.Show("The selected EELVL is either invalid or corrupt.", "Invalid EELVL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        ofd.Dispose();
+                    }
+                }
+                else
+                {
+                    ofd.Dispose();
+                }
+            
 
-                FileStream fs = new FileStream(path, FileMode.OpenOrCreate);
-                editArea.CurFrame.SaveLVL(fs);
-                fs.Close();
-                ofd.Dispose();
             }
             catch (Exception ex)
             {
@@ -5692,6 +5758,8 @@ namespace EEditor
         public Color visitedlink { get; set; }
 
         public Color activelink { get; set; }
+
+        public Color groupbox { get; set; }
     }
     public class removeBadRenderer : ToolStripSystemRenderer
     {
