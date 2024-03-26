@@ -108,7 +108,7 @@ namespace EELVL
 				BlockType.Music => new MusicBlock(bid, reader.ReadInt()),
 				BlockType.Portal => new PortalBlock(bid, reader.ReadInt(), reader.ReadInt(), reader.ReadInt()),
 				BlockType.Sign => new SignBlock(bid, reader.ReadString(), reader.ReadInt()),
-				BlockType.WorldPortal => new WorldPortalBlock(bid, reader.ReadString(), reader.ReadInt()),
+				BlockType.WorldPortal => new WorldPortalBlock(bid, reader.ReadString()),
 				BlockType.Label => new LabelBlock(bid, reader.ReadString(), reader.ReadString(), reader.ReadInt()),
 				BlockType.NPC => new NPCBlock(bid, reader.ReadString(), reader.ReadString(), reader.ReadString(), reader.ReadString()),
 				_ => throw new Exception("This shouldn't happen")
@@ -128,7 +128,7 @@ namespace EELVL
 			{
 				case NPCBlock b: writer.WriteString(b.Name); writer.WriteString(b.Message1); writer.WriteString(b.Message2); writer.WriteString(b.Message3); break;
 				case LabelBlock b: writer.WriteString(b.Text); writer.WriteString(b.Color); writer.WriteInt(b.Wrap); break;
-				case WorldPortalBlock b: writer.WriteString(b.Target); writer.WriteInt(b.Spawn); break;
+				case WorldPortalBlock b: writer.WriteString(b.Target); break;
 				case SignBlock b: writer.WriteString(b.Text); writer.WriteInt(b.Morph); break;
 				case PortalBlock b: writer.WriteInt(b.Rotation); writer.WriteInt(b.ID); writer.WriteInt(b.Target); break;
 				case MusicBlock b: writer.WriteInt(b.Note); break;
@@ -310,24 +310,21 @@ namespace EELVL
 		public class WorldPortalBlock : Block
 		{
 			public string Target { get; }
-			public int Spawn { get; }
 
-			internal WorldPortalBlock(BlockType type, int bid, string target, int spawn) : base(type, bid)
+			internal WorldPortalBlock(BlockType type, int bid, string target) : base(type, bid)
 			{
 				Target = target;
-				Spawn = spawn;
+
 			}
 
-			public WorldPortalBlock(int bid, string target, int spawn)
-				: this(BlockType.WorldPortal, bid, target, spawn) { }
+			public WorldPortalBlock(int bid, string target)
+				: this(BlockType.WorldPortal, bid, target) { }
 
 			public override bool Equals(object obj)
-				=> obj is WorldPortalBlock b && base.Equals(b)
-				&& b.Target == Target
-				&& b.Spawn == Spawn;
+				=> obj is WorldPortalBlock b && base.Equals(b) && b.Target == Target;
 
 			public override int GetHashCode()
-				=> (base.GetHashCode() * 1619 + Target.GetHashCode()) * 1619 + Spawn;
+				=> base.GetHashCode() * 1619 + Target.GetHashCode();
 		}
 
 		public class LabelBlock : Block
