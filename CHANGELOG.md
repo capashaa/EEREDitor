@@ -1,3 +1,8 @@
+## Beta 4 (0.0.4)
+* Fixed: World Portal
+* Added: All new blocks.
+
+
 ## Beta 3 (0.0.3)  
 * Added: all background blocks.  
 * Added: All new blocks in EER.  
