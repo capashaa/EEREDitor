@@ -1,6 +1,6 @@
 ## EEREditor - Everybody Edits Offline Editor
    
-Welcome to the EEOditor GitHub page! Here we host sourcecode and latest version of EEREditor.  
+Welcome to the EEREditor GitHub page! Here we host sourcecode and latest version of EEREditor.  
 
 ## **About EEREditor**
 
@@ -14,6 +14,9 @@ Select the correct archive: EERditor.zip. If you don't find this, click on Asset
 Extract the archive. Then Run EERditor.exe. 
 Files will be placed in the folder such as settings.json, and a folder named blueprints.  
 if you never have used this tool before. settings.json store all settings. Folder blueprints saves blueprints.  
+### Get started:
+[How to add your account in EEREditor](https://github.com/capashaa/EEREDitor/wiki/Making-and-using-accounts)  
+How to use the tool: [Read the Interface summary](https://github.com/capashaa/EEOEditor/wiki/interface-summary)  
 
 ## **System requirements**  
 
@@ -24,9 +27,7 @@ If you don't have .NET Framework 4.8 Runtime installed on your computer.
 You need to install this. Without the 4.8 Runtime the tool won't work.  
 You need to install [.NET Framework 4.8 Runtime](https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net48-offline-installer)  
 
-## Other
-
-Are you new or just want to understand how the interface works? [Read the Interface summary](https://github.com/capashaa/EEOEditor/wiki/interface-summary).   
+## Other 
 
 Have a feature to request or bug to report or just want to ask questions? Use the [EER Discord](https://discord.gg/JaPmVUXXC4), or issues on GitHub.   
 
