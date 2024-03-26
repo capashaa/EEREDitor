@@ -6,12 +6,10 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Drawing;
 using System.IO;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using EELVL;
-using static System.Windows.Forms.MonthCalendar;
-using SharpCompress.Writers;
-using static EELVL.Blocks;
-using System.Threading;
+using System.Diagnostics.Eventing.Reader;
 
 namespace EEditor
 {
@@ -259,6 +257,10 @@ namespace EEditor
                                         int x = pos.X;
                                         int y = pos.Y;
                                         frame.Foreground[y, x] = Convert.ToInt32(chunk.Type);
+                                        if (chunk.Type == 1584)
+                                        {
+                                            frame.editBlock = new int[] { x, y, 1 };
+                                        }
                                     }
                                 }
                             }
@@ -276,6 +278,10 @@ namespace EEditor
                                 int x = pos.X;
                                 int y = pos.Y;
                                 frame.Foreground[y, x] = Convert.ToInt32(chunk.Type);
+                                if (chunk.Type == 1584)
+                                {
+                                    frame.editBlock = new int[] { x, y, 1 };
+                                }
                             }
                         }
                     }
@@ -430,7 +436,7 @@ namespace EEditor
                                             }
                                         }
                                         if (Convert.ToInt32(worldinfo["type"]) == 242 || Convert.ToInt32(worldinfo["type"]) == 381) frame.BlockData2[tmpyy, tmpxx] = Convert.ToInt32(worldinfo["target"]);
-                                        if (Convert.ToInt32(worldinfo["type"]) == 374) frame.BlockData3[tmpyy, tmpxx] = worldinfo["target"].ToString();
+                                        if (Convert.ToInt32(worldinfo["type"]) == 374) frame.BlockData3[tmpyy, tmpxx] = worldinfo["target"].ToString() == null ? "PW01" : worldinfo["target"].ToString();
                                         if (bid == 1000)
                                         {
                                             frame.Foreground[tmpyy, tmpxx] = (int)bid;
@@ -489,7 +495,7 @@ namespace EEditor
                                             }
                                         }
                                         if (Convert.ToInt32(worldinfo["type"]) == 242 || Convert.ToInt32(worldinfo["type"]) == 381) frame.BlockData2[tmpyy0, tmpxx0] = Convert.ToInt32(worldinfo["target"]);
-                                        if (Convert.ToInt32(worldinfo["type"]) == 374) frame.BlockData3[tmpyy0, tmpxx0] = worldinfo["target"].ToString();
+                                        if (Convert.ToInt32(worldinfo["type"]) == 374) frame.BlockData3[tmpyy0, tmpxx0] = worldinfo["target"].ToString() == null ? "PW01" : worldinfo["target"].ToString();
                                         if (bid == 1000)
                                         {
 
@@ -701,7 +707,7 @@ namespace EEditor
         }
         public void SaveLVL(FileStream file)
         {
-            EELVL.Level savelvl = new Level(Width, Height, 0);
+            EELVL.Level savelvl = new Level(Width, Height);
             if (MainForm.userdata.useColor) savelvl.BackgroundColor = ColorToUInt(MainForm.userdata.thisColor);
             for (int y = 0; y < Height; ++y)
             {
@@ -716,10 +722,6 @@ namespace EEditor
                     if (Blocks.IsType(fid, Blocks.BlockType.Number))
                     {
                         savelvl[0, x, y] = new Blocks.NumberBlock(fid, BlockData[y, x]);
-                    }
-                    if (Blocks.IsType(fid, Blocks.BlockType.NPC))
-                    {
-                        savelvl[0, x, y] = new Blocks.NPCBlock(fid, BlockData3[y, x], BlockData4[y, x], BlockData5[y, x], BlockData6[y, x]);
                     }
                     if (Blocks.IsType(fid, Blocks.BlockType.Morphable))
                     {
@@ -744,7 +746,7 @@ namespace EEditor
                     }
                     if (Blocks.IsType(fid, Blocks.BlockType.WorldPortal))
                     {
-                        savelvl[0, x, y] = new Blocks.WorldPortalBlock(fid, BlockData3[y, x], BlockData[y, x]);
+                        savelvl[0, x, y] = new Blocks.WorldPortalBlock(fid, BlockData3[y, x]);
                     }
                     if (Blocks.IsType(fid, Blocks.BlockType.Music))
                     {
@@ -1103,113 +1105,219 @@ namespace EEditor
             }
         }
 
-        public static Frame LoadFromEELVL(string file)
+        public static Frame LoadFromEELVL(string file, bool eeoimport)
         {
-            using (FileStream fs = new FileStream(file, FileMode.Open))
+            if (eeoimport)
             {
-                Level lvl = Level.Open(fs);
-                Frame f = new Frame(lvl.Width, lvl.Height);
-                f.levelname = lvl.WorldName;
-                f.nickname = lvl.OwnerName;
-                if (lvl.BackgroundColor != 0)
+                string eeojson = $"{Directory.GetCurrentDirectory()}\\eeo.json";
+                Rootobject data = new Rootobject();
+                if (File.Exists(eeojson))
                 {
-                    MainForm.userdata.useColor = true;
-                    MainForm.userdata.thisColor = UIntToColor(lvl.BackgroundColor);
+                    data = JsonConvert.DeserializeObject<Rootobject>(File.ReadAllText(eeojson));
                 }
-                else
+
+                using (FileStream fs = new FileStream(file, FileMode.Open))
                 {
-                    MainForm.userdata.useColor = false;
-                    MainForm.userdata.thisColor = Color.Transparent;
-                }
-                if (lvl.Width <= 637 && lvl.Height <= 460 || lvl.Width <= 460 && lvl.Height <= 637)
-                {
-                    for (int x = 0; x < lvl.Width; ++x)
+                    EELVL.Level lvl = Level.Open(fs);
+                    Frame f = new Frame(lvl.Width, lvl.Height);
+                    f.levelname = lvl.WorldName;
+                    f.nickname = lvl.OwnerName;
+                    if (lvl.BackgroundColor != 0)
                     {
-                        for (int y = 0; y < lvl.Height; ++y)
+                        MainForm.userdata.useColor = true;
+                        MainForm.userdata.thisColor = UIntToColor(lvl.BackgroundColor);
+                    }
+                    else
+                    {
+                        MainForm.userdata.useColor = false;
+                        MainForm.userdata.thisColor = Color.Transparent;
+                    }
+                    if (lvl.Width <= 637 && lvl.Height <= 460 || lvl.Width <= 460 && lvl.Height <= 637)
+                    {
+                        for (int x = 0; x < lvl.Width; ++x)
                         {
-                            if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Normal))
+                            for (int y = 0; y < lvl.Height; ++y)
                             {
-                                f.Foreground[y, x] = lvl[0, x, y].BlockID;
-                            }
-                            if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Rotatable) || Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.RotatableButNotReally))
-                            {
-                                f.Foreground[y, x] = lvl[0, x, y].BlockID;
-                                f.BlockData[y, x] = ((Blocks.RotatableBlock)lvl[0, x, y]).Rotation;
-                            }
-                            if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.NPC))
-                            {
+                                if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Normal))
+                                {
+                                    f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                }
+                                if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Rotatable) || Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.RotatableButNotReally))
+                                {
+                                    f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                    f.BlockData[y, x] = ((Blocks.RotatableBlock)lvl[0, x, y]).Rotation;
+                                }
+                                if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Sign))
+                                {
+                                    f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                    f.BlockData3[y, x] = ((Blocks.SignBlock)lvl[0, x, y]).Text;
+                                    f.BlockData[y, x] = ((Blocks.SignBlock)lvl[0, x, y]).Morph;
+                                }
+                                if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Portal))
+                                {
+                                    f.Foreground[y, x] = lvl[0, x, y].BlockID;
 
-                                f.Foreground[y, x] = lvl[0, x, y].BlockID;
-                                f.BlockData3[y, x] = ((Blocks.NPCBlock)lvl[0, x, y]).Name;
-                                f.BlockData4[y, x] = ((Blocks.NPCBlock)lvl[0, x, y]).Message1;
-                                f.BlockData5[y, x] = ((Blocks.NPCBlock)lvl[0, x, y]).Message2;
-                                f.BlockData6[y, x] = ((Blocks.NPCBlock)lvl[0, x, y]).Message3;
-                            }
-                            if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Sign))
-                            {
-                                f.Foreground[y, x] = lvl[0, x, y].BlockID;
-                                f.BlockData3[y, x] = ((Blocks.SignBlock)lvl[0, x, y]).Text;
-                                f.BlockData[y, x] = ((Blocks.SignBlock)lvl[0, x, y]).Morph;
-                            }
-                            if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Portal))
-                            {
-                                f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                    f.BlockData[y, x] = ((Blocks.PortalBlock)lvl[0, x, y]).Rotation;
+                                    f.BlockData1[y, x] = ((Blocks.PortalBlock)lvl[0, x, y]).ID;
+                                    f.BlockData2[y, x] = ((Blocks.PortalBlock)lvl[0, x, y]).Target;
+                                }
+                                if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Morphable))
+                                {
+                                    f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                    f.BlockData[y, x] = ((Blocks.MorphableBlock)lvl[0, x, y]).Morph;
 
-                                f.BlockData[y, x] = ((Blocks.PortalBlock)lvl[0, x, y]).Rotation;
-                                f.BlockData1[y, x] = ((Blocks.PortalBlock)lvl[0, x, y]).ID;
-                                f.BlockData2[y, x] = ((Blocks.PortalBlock)lvl[0, x, y]).Target;
-                            }
-                            if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Morphable))
-                            {
-                                f.Foreground[y, x] = lvl[0, x, y].BlockID;
-                                f.BlockData[y, x] = ((Blocks.MorphableBlock)lvl[0, x, y]).Morph;
-                            }
-                            if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Number))
-                            {
-                                f.Foreground[y, x] = lvl[0, x, y].BlockID;
-                                f.BlockData[y, x] = ((Blocks.NumberBlock)lvl[0, x, y]).Number;
-                            }
-                            if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Enumerable))
-                            {
-                                f.Foreground[y, x] = lvl[0, x, y].BlockID;
-                                f.BlockData[y, x] = ((Blocks.EnumerableBlock)lvl[0, x, y]).Variant;
-                            }
-                            if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.WorldPortal))
-                            {
-                                f.Foreground[y, x] = lvl[0, x, y].BlockID;
-                                f.BlockData[y, x] = ((Blocks.WorldPortalBlock)lvl[0, x, y]).Spawn;
-                                f.BlockData3[y, x] = ((Blocks.WorldPortalBlock)lvl[0, x, y]).Target;
-                            }
-                            if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Music))
-                            {
-                                f.Foreground[y, x] = lvl[0, x, y].BlockID;
-                                int temp = ((Blocks.MusicBlock)lvl[0, x, y]).Note;
-                                f.BlockData[y, x] = temp;
-                            }
-                            if (Blocks.IsType(lvl[1, x, y].BlockID, Blocks.BlockType.Normal))
-                            {
-                                f.Background[y, x] = lvl[1, x, y].BlockID;
-                            }
-                            if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Label))
-                            {
-                                f.Foreground[y, x] = lvl[0, x, y].BlockID;
-                                f.BlockData[y, x] = ((Blocks.LabelBlock)lvl[0, x, y]).Wrap;
-                                f.BlockData3[y, x] = ((Blocks.LabelBlock)lvl[0, x, y]).Text;
-                                f.BlockData4[y, x] = ((Blocks.LabelBlock)lvl[0, x, y]).Color;
-                            }
+                                }
+                                if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Number))
+                                {
+                                    f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                    f.BlockData[y, x] = ((Blocks.NumberBlock)lvl[0, x, y]).Number;
+                                }
+                                if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Enumerable))
+                                {
+                                    f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                    f.BlockData[y, x] = ((Blocks.EnumerableBlock)lvl[0, x, y]).Variant;
+                                }
+                                if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.WorldPortal))
+                                {
+                                    f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                    f.BlockData3[y, x] = ((Blocks.WorldPortalBlock)lvl[0, x, y]).Target;
+                                }
+                                if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Music))
+                                {
+                                    f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                    int temp = ((Blocks.MusicBlock)lvl[0, x, y]).Note;
+                                    f.BlockData[y, x] = temp;
+                                }
+                                if (Blocks.IsType(lvl[1, x, y].BlockID, Blocks.BlockType.Normal))
+                                {
+                                    f.Background[y, x] = lvl[1, x, y].BlockID;
+                                }
+                                if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Label))
+                                {
+                                    f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                    f.BlockData[y, x] = ((Blocks.LabelBlock)lvl[0, x, y]).Wrap;
+                                    f.BlockData3[y, x] = ((Blocks.LabelBlock)lvl[0, x, y]).Text;
+                                    f.BlockData4[y, x] = ((Blocks.LabelBlock)lvl[0, x, y]).Color;
+                                }
 
+                            }
                         }
+
+
+                        f.toobig = false;
+                    }
+                    else
+                    {
+                        f.toobig = true;
                     }
 
-                    f.toobig = false;
+                    return f;
                 }
-                else
+            }
+            else
+            {
+                using (FileStream fs = new FileStream(file, FileMode.Open))
                 {
-                    f.toobig = true;
+                    EELVL.Level lvl = Level.Open(fs);
+                    Frame f = new Frame(lvl.Width, lvl.Height);
+                    f.levelname = lvl.WorldName;
+                    f.nickname = lvl.OwnerName;
+                    if (lvl.BackgroundColor != 0)
+                    {
+                        MainForm.userdata.useColor = true;
+                        MainForm.userdata.thisColor = UIntToColor(lvl.BackgroundColor);
+                    }
+                    else
+                    {
+                        MainForm.userdata.useColor = false;
+                        MainForm.userdata.thisColor = Color.Transparent;
+                    }
+                    if (lvl.Width <= 637 && lvl.Height <= 460 || lvl.Width <= 460 && lvl.Height <= 637)
+                    {
+                        for (int x = 0; x < lvl.Width; ++x)
+                        {
+                            for (int y = 0; y < lvl.Height; ++y)
+                            {
+                                if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Normal))
+                                {
+                                    f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                }
+                                if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Rotatable) || Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.RotatableButNotReally))
+                                {
+                                    f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                    f.BlockData[y, x] = ((Blocks.RotatableBlock)lvl[0, x, y]).Rotation;
+                                }
+                                if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Sign))
+                                {
+                                    f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                    f.BlockData3[y, x] = ((Blocks.SignBlock)lvl[0, x, y]).Text;
+                                    f.BlockData[y, x] = ((Blocks.SignBlock)lvl[0, x, y]).Morph;
+                                }
+                                if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Portal))
+                                {
+                                    f.Foreground[y, x] = lvl[0, x, y].BlockID;
+
+                                    f.BlockData[y, x] = ((Blocks.PortalBlock)lvl[0, x, y]).Rotation;
+                                    f.BlockData1[y, x] = ((Blocks.PortalBlock)lvl[0, x, y]).ID;
+                                    f.BlockData2[y, x] = ((Blocks.PortalBlock)lvl[0, x, y]).Target;
+                                }
+                                if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Morphable))
+                                {
+                                    f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                    f.BlockData[y, x] = ((Blocks.MorphableBlock)lvl[0, x, y]).Morph;
+
+
+                                }
+                                if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Number))
+                                {
+                                    f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                    f.BlockData[y, x] = ((Blocks.NumberBlock)lvl[0, x, y]).Number;
+                                }
+                                if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Enumerable))
+                                {
+                                    f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                    f.BlockData[y, x] = ((Blocks.EnumerableBlock)lvl[0, x, y]).Variant;
+                                }
+                                if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.WorldPortal))
+                                {
+                                    f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                    f.BlockData3[y, x] = ((Blocks.WorldPortalBlock)lvl[0, x, y]).Target;
+                                }
+                                if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Music))
+                                {
+                                    f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                    int temp = ((Blocks.MusicBlock)lvl[0, x, y]).Note;
+                                    f.BlockData[y, x] = temp;
+                                }
+                                if (Blocks.IsType(lvl[1, x, y].BlockID, Blocks.BlockType.Normal))
+                                {
+                                    f.Background[y, x] = lvl[1, x, y].BlockID;
+                                }
+                                if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Label))
+                                {
+                                    f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                    f.BlockData[y, x] = ((Blocks.LabelBlock)lvl[0, x, y]).Wrap;
+                                    f.BlockData3[y, x] = ((Blocks.LabelBlock)lvl[0, x, y]).Text;
+                                    f.BlockData4[y, x] = ((Blocks.LabelBlock)lvl[0, x, y]).Color;
+                                }
+
+                            }
+                        }
+
+
+                        f.toobig = false;
+                    }
+                    else
+                    {
+                        f.toobig = true;
+                    }
+
+                    return f;
                 }
-                return f;
+
             }
         }
+
 
         private uint ColorToUInt(Color color)
         {
@@ -1701,6 +1809,12 @@ namespace EEditor
                 { 75, 233 }, { 76, 234 }, { 77, 235 }, { 78, 236 }, { 79, 237 }, { 80, 238 }, { 81, 239 }, { 82, 240 },
         };
     }
+
+    public class Rootobject
+    {
+        public Dictionary<string, int> Morphable { get; set; }
+    }
+
 
 
     /*public class blockData : IEquatable<blockData>
