@@ -102,7 +102,7 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
                 {
                     //MainForm.SetDummy();
                     string filename = files[0];
-                    Frame frame = Frame.LoadFromEELVL(filename);
+                    Frame frame = Frame.LoadFromEELVL(filename,false);
                     if (frame.toobig)
                     {
                         MessageBox.Show("Can't load this world. It's too big. Max size: 637x460 or 460x637", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -345,7 +345,7 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
 
         public void Init(Frame frame, bool frme)
         {
-            //started = true;
+            started = true;
             BlockHeight = frame.Height;
             BlockWidth = frame.Width;
             Frames.Clear();
@@ -374,10 +374,17 @@ IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
 
         protected void PaintCurFrame()
         {
-            Graphics g = Graphics.FromImage(Back);
-            for (int x = 0; x < BlockWidth; ++x)
-                for (int y = 0; y < BlockHeight; ++y)
-                    Draw(x, y, g, Color.Transparent);
+            using (Graphics g = Graphics.FromImage(Back))
+            {
+                for (int x = 0; x < BlockWidth; ++x)
+                {
+                    for (int y = 0; y < BlockHeight; ++y)
+                    {
+                        Draw(x, y, g, Color.Transparent);
+                        this.Invalidate();
+                    }
+                }
+            }
         }
 
         /*public void Draw(int x, int y, Graphics g)
