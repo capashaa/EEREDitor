@@ -536,7 +536,31 @@ namespace EEditor
                                 editArea.mouseDown = false;
                             }
                         }
-                        else if (bid == 374 || bid == 385)
+                        else if (bid == 374)
+                        {
+                            if (button)
+                            {
+                                using (Text co = new Text())
+                                {
+                                    co.textbox.Text = editArea.CurFrame.BlockData3[y, x];
+                                    co.id1 = bid;
+                                    if (co.ShowDialog() == DialogResult.OK)
+                                    {
+                                        if (text.ContainsKey(bid)) { text[bid] = co.textbox.Text; }
+                                        else { text.Add(bid, co.textbox.Text); }
+                                        editArea.CurFrame.BlockData3[y, x] = co.textbox.Text;
+
+                                    }
+                                }
+                                editArea.mouseDown = false;
+                            }
+                            else
+                            {
+                                if (text.ContainsKey(bid)) { editArea.CurFrame.BlockData3[y, x] = text[bid]; }
+                                else { editArea.CurFrame.BlockData3[y, x] = "Unknown"; }
+                            }
+                        }
+                        else if (bid == 385)
                         {
                             if (button)
                             {
