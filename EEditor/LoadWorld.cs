@@ -65,7 +65,7 @@ namespace EEditor
                                     }
                                 }
                                 if (bid == 242 || bid == 381) frame.BlockData2[pos.Y, pos.X] = Convert.ToInt32(item.Target);
-                                if (bid == 374) frame.BlockData3[pos.Y, pos.X] = Convert.ToString(item.Target);
+                                if (bid == 374) frame.BlockData3[pos.Y, pos.X] = Convert.ToString(item.Target) == null ? "PW01" : Convert.ToString(item.Target);
                                 if (bid == 1000)
                                 {
                                     if (item.Text != null)
