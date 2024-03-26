@@ -79,8 +79,8 @@ namespace EEditor
                 usernamePictureBox.Visible = false;
                 newLinePictureBox.Visible = false;
                 this.Height = 200;
-                SpawnIDLabel.Visible = true;
-                SpawnIDNumericUpDown.Visible = true;
+                SpawnIDLabel.Visible = false;
+                SpawnIDNumericUpDown.Visible = false;
                 SpawnIDNumericUpDown.Value = this.cm1;
             }
             textBox1.ForeColor = MainForm.themecolors.foreground;
