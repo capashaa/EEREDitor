@@ -502,7 +502,7 @@ namespace EEditor
 
                             if (MainForm.userdata.oldmark)
                             {
-                                frame.Foreground[yy, xx] = Convert.ToInt32(Front[y, x]);
+                                if (Convert.ToInt32(Front[y, x]) != 0) frame.Foreground[yy, xx] = Convert.ToInt32(Front[y, x]);
 
                                 if (frame.Background[yy, xx] == 0) frame.Background[yy, xx] = Convert.ToInt32(Back[y, x]);
                                 else if (Convert.ToInt32(Back[y, x]) != 0) frame.Background[yy, xx] = Convert.ToInt32(Back[y, x]);
