@@ -240,7 +240,7 @@ namespace EEditor
                                 {
                                     frame.Foreground[pos.Y, pos.X] = Convert.ToInt32(chunk.Type);
                                     frame.BlockData[pos.Y, pos.X] = Convert.ToInt32(chunk.Args[0]);
-                                    frame.BlockData3[pos.Y, pos.X] = chunk.Args[0].ToString();
+                                    frame.BlockData3[pos.Y, pos.X] = chunk.Args[1].ToString();
                                     frame.BlockData4[pos.Y, pos.X] = chunk.Args[2].ToString();
                                 }
 
@@ -746,7 +746,7 @@ namespace EEditor
                     }
                     if (Blocks.IsType(fid, Blocks.BlockType.WorldPortal))
                     {
-                        savelvl[0, x, y] = new Blocks.WorldPortalBlock(fid, BlockData3[y, x]);
+                        savelvl[0, x, y] = new Blocks.WorldPortalBlock(fid, BlockData3[y, x],0);
                     }
                     if (Blocks.IsType(fid, Blocks.BlockType.Music))
                     {
