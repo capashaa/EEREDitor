@@ -1341,7 +1341,11 @@ namespace EEditor
             if (ihavethese.ContainsKey("brickcowboy")) { AddToolStrip(foregroundBMD, 0, new int[] { 99, 100, 101, 102, 103, 104 }, null, false, "Wild West", 0, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 99, 100, 101, 102, 103, 104 }, null, false, "Wild West", 0, 2, false); }
 
             //Plastic blocks
-            if (ihavethese.ContainsKey("brickplastic")) { AddToolStrip(foregroundBMD, 0, new int[] { 105, 106, 107, 108, 109, 110, 111, 112 }, new uint[] { 0x93EB10, 0xD53725, 0xDFCF19, 0x72C5EB, 0x2B43CF, 0xDA28D8, 0x2DAC10, 0xE5821F }, false, "Plastic", 0, 1, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 105, 106, 107, 108, 109, 110, 111, 112 }, new uint[] { 0x93EB10, 0xD53725, 0xDFCF19, 0x72C5EB, 0x2B43CF, 0xDA28D8, 0x2DAC10, 0xE5821F }, false, "Plastic", 0, 1, false); }
+            if (ihavethese.ContainsKey("brickplastic")) { 
+                AddToolStrip(foregroundBMD, 0, new int[] { 105, 106, 107, 108, 109, 110, 111, 112 }, 
+                    new uint[] { 0x93EB10, 0xD53725, 0xDFCF19, 0x72C5EB, 0x2B43CF, 0xDA28D8, 0x2DAC10, 0xE5821F }, false, 
+                    "Plastic", 0, 1, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 105, 106, 107, 108, 109, 110, 111, 112 }, 
+                        new uint[] { 0x93EB10, 0xD53725, 0xDFCF19, 0x72C5EB, 0x2B43CF, 0xDA28D8, 0x2DAC10, 0xE5821F }, false, "Plastic", 0, 1, false); }
 
             //Sand blocks
             if (ihavethese.ContainsKey("bricksand")) { AddToolStrip(foregroundBMD, 0, new int[] { 114, 115, 116, 117, 118, 119 }, new uint[] { 0xE0D5B1, 0xA29D88, 0xE4D98D, 0xD8B65A, 0xAF9468, 0x795A35 }, false, "Sand", 0, 1, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 114, 115, 116, 117, 118, 119 }, new uint[] { 0xE0D5B1, 0xA29D88, 0xE4D98D, 0xD8B65A, 0xAF9468, 0x795A35 }, false, "Sand", 0, 1, false); }
@@ -1481,10 +1485,10 @@ namespace EEditor
                 332, 333, 334, 335, 336, 337, 338,
                 339,340
             }, new uint[] {
- 0xffffff,0x808080,0x5a5a5a,0x000000,
-0xff0000,0xff6a00,0xffd400,
-0xc0ff00,0x56ff00,0x00ff7e,0x00ffe8,0x00acff,
-0x1300ff,0x7d00ff,0xe700ff,0xff00ad,
+                0xffffff,0x808080,0x5a5a5a,0x000000,
+                0xff0000,0xff6a00,0xffd400,
+                0xc0ff00,0x56ff00,0x00ff7e,0x00ffe8,0x00acff,
+                0x1300ff,0x7d00ff,0xe700ff,0xff00ad,
             }, false, "Solid", 0, 2, true);
 
             //Toxic blocks (Doesn't exist)
@@ -2357,8 +2361,14 @@ namespace EEditor
                         }
                         if (colors != null)
                         {
-                            Console.WriteLine(ids[j]);
-                            Minimap.Colors[ids[j]] = (0xffu << 24) | colors[j];
+                            if (Convert.ToInt32(colors[j]) == 0)
+                            {
+                                Minimap.Colors[ids[j]] = GetBlockColor(brick);
+                            }
+                            else
+                            {
+                                Minimap.Colors[ids[j]] = (0xffu << 24) | colors[j];
+                            }
                             /*using (StreamWriter sw = new StreamWriter("output.txt",true))
                             {
                                 sw.WriteLine($"{ids[j]},{(0xffu << 24) | colors[j]}");
@@ -2480,7 +2490,30 @@ namespace EEditor
                 }
             }
         }
+        private static uint GetBlockColor(Bitmap bmd)
+        {
+            uint r = 0, g = 0, b = 0;
 
+            for (int x = 0; x < bmd.Height; x++)
+            {
+                for (int y = 0; y < bmd.Width; y++)
+                {
+                    uint color = ColorToUInt(bmd.GetPixel(x, y));
+
+                    r += (color & 0xff0000) >> 16;
+                    g += (color & 0x00ff00) >> 8;
+                    b += (color & 0x0000ff);
+                }
+            }
+
+            r /= (uint)(bmd.Width * bmd.Height); //256
+            g /= (uint)(bmd.Width * bmd.Height); //256
+            b /= (uint)(bmd.Width * bmd.Height); //256
+
+            return 0xff000000 | (r << 16) | (g << 8) | (b << 0);
+        }
+
+        private static uint ColorToUInt(Color color) => (uint)((color.A << 24) | (color.R << 16) | (color.G << 8) | (color.B << 0));
         public class BrickButton : ToolStripButton
         {
             public MainForm MainForm { get; set; }
