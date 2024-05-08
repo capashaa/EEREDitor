@@ -1,5 +1,6 @@
 ## Beta 4 (0.0.4)
-* Fixed: World Portal
+* Fixed: World Portal.  
+* Fixed: Label.  
 * Added: All new blocks.
 
 
