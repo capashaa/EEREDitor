@@ -21,6 +21,8 @@ namespace EEditor
         public bool RealTime { get; }
         public bool notsaved { get; set; }
 
+        private int incr { get; set; }
+
         public bool usebg { get; set; }
         public Connection Connection { get; set; }
         public MainForm MainForm { get; set; }
@@ -425,9 +427,9 @@ namespace EEditor
                                         }
                                     }
                                 }
-                                
+
                             }
-                            
+
                         }
                         else if (datas == 2)
                         {
@@ -593,13 +595,14 @@ namespace EEditor
         }
         public void OnMessage(object sender, PlayerIOClient.Message e)
         {
+
             if (e.Type == "init")
             {
+
                 MapFrame = Frame.FromMessage(e);
                 if (MapFrame != null)
                 {
-                    Console.WriteLine(e);
-                    if (e.GetUInt(21) == 0) EEditor.MainForm.userdata.thisColor = Color.Transparent; 
+                    if (e.GetUInt(21) == 0) EEditor.MainForm.userdata.thisColor = Color.Transparent;
                     else
                     {
                         EEditor.MainForm.userdata.useColor = true;
@@ -610,11 +613,13 @@ namespace EEditor
                     MainForm.Text = $"({e[1]}) [{owner}] ({e[18]}x{e[19]}) - EERditor {bdata.programVersion}";
                     SizeWidth = MapFrame.Width;
                     SizeHeight = MapFrame.Height;
-                    Connection.Disconnect();
+                    
                     Connection.OnMessage -= OnMessage;
+                    Connection.Disconnect();
                     s.Release();
                     DialogResult = System.Windows.Forms.DialogResult.OK;
                     Close();
+
                 }
                 else
                 {
