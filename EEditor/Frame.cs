@@ -243,7 +243,11 @@ namespace EEditor
                                     frame.BlockData3[pos.Y, pos.X] = chunk.Args[1].ToString();
                                     frame.BlockData4[pos.Y, pos.X] = chunk.Args[2].ToString();
                                 }
-
+                                else if ((int)chunk.Type == 374)
+                                {
+                                    frame.Foreground[pos.Y, pos.X] = Convert.ToInt32(chunk.Type);
+                                    frame.BlockData3[pos.Y, pos.X] = chunk.Args[0].ToString();
+                                }
                                 if ((int)chunk.Type != 385)
                                 {
                                     if ((int)chunk.Layer == 1)
@@ -304,6 +308,10 @@ namespace EEditor
                                     Console.WriteLine(chunk.Args[0]);
                                 }
                             }
+                            else if ((int)chunk.Type == 374)
+                            {
+                                frame.BlockData3[pos.Y,pos.X] = chunk.Args[0].ToString();
+                            }
                         }
                     }
                     //if (chunk.Args.Length == 2 && (int)chunk.Type == 1000) { Chunk.Args[0] Chunk.Args[1] (Colored Text) }
@@ -328,14 +336,14 @@ namespace EEditor
                                 frame.BlockData3[pos.Y, pos.X] = Convert.ToString(chunk.Args[0]);
                             }
                         }
-                        else if ((int)chunk.Type == 374)
+                        /*else if ((int)chunk.Type == 374)
                         {
                             if (Convert.ToString(chunk.Args[0]) != "we")
                             {
                                 frame.Foreground[pos.Y, pos.X] = Convert.ToInt32(chunk.Type);
                                 frame.BlockData3[pos.Y, pos.X] = Convert.ToString(chunk.Args[0]);
                             }
-                        }
+                        }*/
                         else if (chunk.Type == 1000)
                         {
                             if (Convert.ToString(chunk.Args[0]) != "we" && Convert.ToString(chunk.Args[1]) != "we")
@@ -746,7 +754,7 @@ namespace EEditor
                     }
                     if (Blocks.IsType(fid, Blocks.BlockType.WorldPortal))
                     {
-                        savelvl[0, x, y] = new Blocks.WorldPortalBlock(fid, BlockData3[y, x],0);
+                        if (!string.IsNullOrEmpty(BlockData3[y,x])) savelvl[0, x, y] = new Blocks.WorldPortalBlock(fid, BlockData3[y, x],0);
                     }
                     if (Blocks.IsType(fid, Blocks.BlockType.Music))
                     {
