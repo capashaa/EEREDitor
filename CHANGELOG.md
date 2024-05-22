@@ -1,3 +1,9 @@
+## Beta 5 (0.0.5)  
+* Fixed: Integer Overflow.  
+* Fixed: All free blocks.  
+* Fixed: World portals.  
+* Added: Some new blocks (not all).
+
 ## Beta 4 (0.0.4)
 * Fixed: World Portal.  
 * Fixed: Label.  
