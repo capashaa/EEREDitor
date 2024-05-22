@@ -615,8 +615,8 @@
     <None Include="Resources\bullets.png" />
     <None Include="Resources\blueprint.png" />
     <None Include="Resources\BLOCKS_back.png" />
-    <None Include="Resources\BLOCKS_deco.png" />
     <None Include="Resources\BLOCKS_front.png" />
+    <None Include="Resources\BLOCKS_deco.png" />
     <Content Include="Resources\copy.png" />
     <None Include="Resources\eeditor_bgIgnore.png" />
     <None Include="Resources\eeditor_bgIgnore.ico" />
