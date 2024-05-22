@@ -235,7 +235,7 @@
             this.toolStripSeparator1,
             this.hideBlocksButton,
             this.minimapButton});
-            this.viewToolStrip.Location = new System.Drawing.Point(618, 0);
+            this.viewToolStrip.Location = new System.Drawing.Point(631, 0);
             this.viewToolStrip.Name = "viewToolStrip";
             this.viewToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.viewToolStrip.Size = new System.Drawing.Size(180, 27);
@@ -856,6 +856,7 @@
             this.refreshButton.Size = new System.Drawing.Size(24, 24);
             this.refreshButton.Text = "Refresh";
             this.refreshButton.ToolTipText = "Left click: load current level (F5)\r\nRight click: load saved level ";
+            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click_1);
             this.refreshButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.refreshButton_MouseUp);
             // 
             // codeTextbox
@@ -1050,7 +1051,7 @@
             this.statusToolStrip.Location = new System.Drawing.Point(0, 0);
             this.statusToolStrip.Name = "statusToolStrip";
             this.statusToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.statusToolStrip.Size = new System.Drawing.Size(286, 25);
+            this.statusToolStrip.Size = new System.Drawing.Size(231, 25);
             this.statusToolStrip.TabIndex = 2;
             this.statusToolStrip.Text = "toolStrip1";
             // 
@@ -1124,7 +1125,7 @@
             this.filterTextBox,
             this.pickerButton,
             this.toolStripSeparator10});
-            this.findToolStrip.Location = new System.Drawing.Point(218, 0);
+            this.findToolStrip.Location = new System.Drawing.Point(231, 0);
             this.findToolStrip.Name = "findToolStrip";
             this.findToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.findToolStrip.Size = new System.Drawing.Size(138, 27);
@@ -1172,7 +1173,7 @@
             this.BlockPicker9,
             this.BlockPicker10,
             this.toolStripSeparator9});
-            this.BlockPickerToolStrip.Location = new System.Drawing.Point(356, 0);
+            this.BlockPickerToolStrip.Location = new System.Drawing.Point(369, 0);
             this.BlockPickerToolStrip.Name = "BlockPickerToolStrip";
             this.BlockPickerToolStrip.Size = new System.Drawing.Size(262, 25);
             this.BlockPickerToolStrip.TabIndex = 4;
@@ -1293,7 +1294,7 @@
             this.lastUsedBlockButton2,
             this.lastUsedBlockButton3,
             this.lastUsedBlockButton4});
-            this.lastUsedToolStrip.Location = new System.Drawing.Point(798, 0);
+            this.lastUsedToolStrip.Location = new System.Drawing.Point(811, 0);
             this.lastUsedToolStrip.Name = "lastUsedToolStrip";
             this.lastUsedToolStrip.Size = new System.Drawing.Size(118, 25);
             this.lastUsedToolStrip.TabIndex = 3;
