@@ -9,7 +9,7 @@ Welcome to the EEREditor GitHub page! Here we host sourcecode and latest version
 ## **About EEREditor**
 
 EEOditor is an offline Everybody Edits level editor, made to simplify level creation and manipulation.  
-Originally built by Cyph1e, then continued by capasha and robotkotkoer.  
+Originally built by Cyph1e, then continued by capasha and robotkoer.  
 
 ## **Installation/Download**
 You can Download this tool at [Releases](https://github.com/capashaa/EEREDitor/releases).  
