@@ -1,5 +1,9 @@
 ## EEREditor - Everybody Edits Offline Editor
-   
+
+> [!WARNING]  
+> This tool is not going to work as expected with EERv2.
+
+
 Welcome to the EEREditor GitHub page! Here we host sourcecode and latest version of EEREditor.  
 
 ## **About EEREditor**
