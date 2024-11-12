@@ -1,3 +1,7 @@
+## Beta 6 (0.0.6)
+Fixed login issues for eerv2.  
+Removed saving of background color for EEditor save files.  
+
 ## Beta 5 (0.0.5)  
 * Fixed: Integer Overflow.  
 * Fixed: All free blocks.  

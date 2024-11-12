@@ -389,7 +389,7 @@
             this.fileToolStrip.Location = new System.Drawing.Point(0, 0);
             this.fileToolStrip.Name = "fileToolStrip";
             this.fileToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.fileToolStrip.Size = new System.Drawing.Size(96, 27);
+            this.fileToolStrip.Size = new System.Drawing.Size(127, 27);
             this.fileToolStrip.TabIndex = 7;
             // 
             // newWorldButton
@@ -437,6 +437,7 @@
             // 
             // eELVLToolStripMenuItem
             // 
+            this.eELVLToolStripMenuItem.Enabled = false;
             this.eELVLToolStripMenuItem.Name = "eELVLToolStripMenuItem";
             this.eELVLToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.eELVLToolStripMenuItem.Text = "EE Offline Level";
@@ -583,7 +584,7 @@
             this.insertDropButton,
             this.toolStripSeparator8,
             this.replaceButton});
-            this.toolToolStrip.Location = new System.Drawing.Point(96, 0);
+            this.toolToolStrip.Location = new System.Drawing.Point(127, 0);
             this.toolToolStrip.Name = "toolToolStrip";
             this.toolToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.toolToolStrip.Size = new System.Drawing.Size(204, 27);
@@ -831,10 +832,10 @@
             this.refreshButton,
             this.codeTextbox,
             this.uploadButton});
-            this.uploadToolStrip.Location = new System.Drawing.Point(402, 0);
+            this.uploadToolStrip.Location = new System.Drawing.Point(433, 0);
             this.uploadToolStrip.Name = "uploadToolStrip";
             this.uploadToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.uploadToolStrip.Size = new System.Drawing.Size(241, 27);
+            this.uploadToolStrip.Size = new System.Drawing.Size(210, 27);
             this.uploadToolStrip.TabIndex = 6;
             // 
             // levelTextbox
@@ -905,7 +906,7 @@
             this.redoButton,
             this.historyButton,
             this.StatisticButton});
-            this.historyToolStrip.Location = new System.Drawing.Point(300, 0);
+            this.historyToolStrip.Location = new System.Drawing.Point(331, 0);
             this.historyToolStrip.Name = "historyToolStrip";
             this.historyToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.historyToolStrip.Size = new System.Drawing.Size(102, 27);

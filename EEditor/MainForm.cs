@@ -5385,6 +5385,8 @@ namespace EEditor
                     Frame frame = LoadWorld.LoadData(form.selectedworld, form.loaddb);
                     if (frame != null)
                     {
+                        var nick = frame.nickname == null ? "Unknown" : frame.nickname;
+                        this.Text = $"({frame.levelname}) [{nick}] ({frame.Width}x{frame.Height}) - EERditor: {bdata.programVersion}";
                         editArea.Init(frame, false);
                     }
                     /*if (form.MapFrame != null)

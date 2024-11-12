@@ -25,11 +25,10 @@ namespace EEditor
         private Semaphore s1 = new Semaphore(0, 1);
         private Semaphore s2 = new Semaphore(0, 1);
         private List<string> rooms = new List<string>();
-        public static myWorlds myworlds = new myWorlds();
+        public myWorlds myworlds = new myWorlds();
         //public Frame MapFrame { get; private set; }
         public string selectedworld = null;
         public bool loaddb = false;
-        private Client client_, cl;
         public Dictionary<string, myWorlds> worlds = new Dictionary<string, myWorlds>();
         private ListViewColumnSorter listviewsorter;
 
@@ -196,37 +195,66 @@ namespace EEditor
         }
         private void loginToWorlds(Client client)
         {
-            //client_ = client;
-            int version = bdata.forceversion ? bdata.version : Convert.ToInt32(client.BigDB.Load("config", "config")["version"]);
-            client.Multiplayer.CreateJoinRoom(client.ConnectUserId, $"Lobby{version}", false, null, null, lobbyConnected, lobbyError);
+            tryLobbyConnect($"{client.ConnectUserId}_{RandomString(5)}", client);
 
     }
-    private void lobbyError(PlayerIOError value)
+
+        public void tryLobbyConnect(string id, Client client)
+        {
+            if (client != null)
+            {
+                int version = bdata.forceversion ? bdata.version : Convert.ToInt32(client.BigDB.Load("config", "config")["version"]);
+                client.Multiplayer.CreateJoinRoom(id, $"Lobby{version}", true, null, null,
+                    (Connection con) =>
+                    {
+                        Console.WriteLine(con.Connected);
+                        lobbyConnected(con, client);
+                    },
+                    (PlayerIOError error) =>
+                    {
+                        tryLobbyConnect(id, client);
+                    });
+
+            }
+        }
+        private void lobbyError(PlayerIOError value)
     {
         Console.WriteLine(value.ToString());
     }
 
-    private void lobbyConnected(Connection con)
+    public void lobbyConnected(Connection con,Client client)
         {
             Dictionary<string, myWorlds> datta = new Dictionary<string, myWorlds>();
             datta.Clear();
+           
             con.OnMessage += (s, m) =>
             {
                 switch (m.Type)
                 {
-
+                    case "LobbyTo":
+                        /*
+                           Message 1 is the current id that get generated for you.
+                           It will look like UserID_RandomString.
+                           You need to join the lobby 1 more time with the generated id for you.
+                           Before you can send connection messages to lobby.
+                        */
+                        tryLobbyConnect(m.GetString(0), client);
+                        break;
                     //When connected to lobby you get this message.
                     case "connectioncomplete":
                         con.Send("getMySimplePlayerObject");
                         break;
                     case "getMySimplePlayerObject":
-                        string owner = "Unknown";
-                        int total = 0;
-                        int incr = 0, incr1 = 0, total1 = 0;
-                        owner = m[(uint)total].ToString();
-                        if (m[(UInt32)17].ToString() == "worldhome")
+                        int total = bdata.extractPlayerObjectsMessage(m) + 1;
+                        for(int i = total;i < m.Count - total;i++)
                         {
-                            worlds.Add(m[(UInt32)18].ToString(), new myWorlds() { name = m[(UInt32)19].ToString(), size = "25x25" });
+                            //Console.WriteLine(m[(uint)i] + " " + i);
+                        }
+                        string owner = "Unknown";
+                        owner = m[(uint)total].ToString();
+                        if (m[(UInt32)total + 17].ToString() == "worldhome")
+                        {
+                            worlds.Add(m[(UInt32)total + 18].ToString(), new myWorlds() { name = m[(UInt32)total + 19].ToString(), size = "world0x0" });
                         }
                         else if (m[(UInt32)17].ToString().Contains((char)0x1399) && m[(UInt32)18].ToString().Contains((char)0x1399) && m[(UInt32)19].ToString().Contains((char)0x1399))
                         {
@@ -248,14 +276,11 @@ namespace EEditor
                         s1.Release();
                         LoadWorld();
                         break;
-
-
-
                 }
             };
         }
 
-        private void LoadWorld()
+        public void LoadWorld()
         {
             s1.WaitOne();
             int incr = 0;

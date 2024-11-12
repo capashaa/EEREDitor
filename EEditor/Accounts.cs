@@ -146,22 +146,17 @@ namespace EEditor
                     {
                         if (property.Value["payvault"] != null)
                         {
-                            if (property.Value["login"].ToString() != "guest" && property.Value["password"].ToString() != "guest" && property.Value["login"] != null && property.Value["password"] != null && property.Value["loginMethod"] != null)
+                            if (property.Value["login"].ToString() != "guest" && property.Value["password"].ToString() != "guest" && property.Value["login"] != null && property.Value["password"] != null)
                             {
                                 try
                                 {
                                     Dictionary<string, int> values = JsonConvert.DeserializeObject<Dictionary<string, int>>(property.Value["payvault"].ToString());
-                                    MainForm.accs.Add(property.Key, new accounts() { login = property.Value["login"].ToString(), password = property.Value["password"].ToString(), loginMethod = (int)property.Value["loginMethod"],admin = (bool)property.Value["admin"], moderator = (bool)property.Value["moderator"], payvault = values });
+                                    MainForm.accs.Add(property.Key, new accounts() { login = property.Value["login"].ToString(), password = property.Value["password"].ToString(),admin = (bool)property.Value["admin"], moderator = (bool)property.Value["moderator"], payvault = values });
                                     mf.cb.Items.Add(property.Key);
                                 }
                                 catch (Exception)
                                 {
-                                    switch (Convert.ToInt32(property.Value["loginMethod"]))
-                                    {
-                                        case 0:
-                                            PlayerIO.QuickConnect.SimpleConnect(bdata.gameID, property.Value["login"].ToString(), property.Value["password"].ToString(), null, (Client client) => successLogin2(client, property.Value["login"].ToString().ToString(), property.Value["password"].ToString(), Convert.ToInt32(property.Value["loginMethod"])), failLogin1);
-                                            break;
-                                    }
+                                    PlayerIO.QuickConnect.SimpleConnect(bdata.gameID, property.Value["login"].ToString(), property.Value["password"].ToString(), null, (Client client) => successLogin2(client, property.Value["login"].ToString().ToString(), property.Value["password"].ToString()), failLogin1);
                                     mf.cb.Items.Add(property.Key);
                                 }
                             }
@@ -174,7 +169,7 @@ namespace EEditor
                 }
                 if (!accs.ContainsKey("guest"))
                 {
-                    MainForm.accs.Add("guest", new accounts() { login = "guest", password = "guest", loginMethod = 0, payvault = new Dictionary<string, int>() });
+                    MainForm.accs.Add("guest", new accounts() { login = "guest", password = "guest", payvault = new Dictionary<string, int>() });
                     mf.cb.Items.Add("guest");
                     File.WriteAllText(acccs, JsonConvert.SerializeObject(MainForm.accs, Formatting.Indented));
                 }
@@ -183,7 +178,7 @@ namespace EEditor
             {
                 if (!accs.ContainsKey("guest"))
                 {
-                    MainForm.accs.Add("guest", new accounts() { login = "guest", password = "guest", loginMethod = 0, payvault = new Dictionary<string, int>() });
+                    MainForm.accs.Add("guest", new accounts() { login = "guest", password = "guest", payvault = new Dictionary<string, int>() });
                     mf.cb.Items.Add("guest");
                     File.WriteAllText(acccs, JsonConvert.SerializeObject(MainForm.accs, Formatting.Indented));
                 }
@@ -198,7 +193,7 @@ namespace EEditor
                 if (!string.IsNullOrWhiteSpace(loginField2.Text))
                 {
 
-                    PlayerIO.QuickConnect.SimpleConnect(bdata.gameID, loginField1.Text, loginField2.Text, null, (Client client) => successLogin(client, loginField1.Text, loginField2.Text, 0), failLogin);
+                    PlayerIO.QuickConnect.SimpleConnect(bdata.gameID, loginField1.Text, loginField2.Text, null, (Client client) => successLogin(client, loginField1.Text, loginField2.Text), failLogin);
                     
                 }
                 else { MessageBox.Show("Your login details aren't added", "Login error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
@@ -213,7 +208,7 @@ namespace EEditor
                 if (!string.IsNullOrWhiteSpace(loginField2.Text))
                 {
 
-                        PlayerIO.QuickConnect.SimpleConnect(bdata.gameID, loginField1.Text, loginField2.Text, null, (Client client) => successLogin1(client, loginField1.Text, loginField2.Text, 0), failLogin);
+                        PlayerIO.QuickConnect.SimpleConnect(bdata.gameID, loginField1.Text, loginField2.Text, null, (Client client) => successLogin1(client, loginField1.Text, loginField2.Text), failLogin);
                         accountOption = 0;
                     
                 }
@@ -237,7 +232,7 @@ namespace EEditor
             return new string(Enumerable.Repeat(chars, length).Select(s => s[new Random().Next(s.Length)]).ToArray());
         }
 
-        public static void tryLobbyConnect(string id, Client client, string login, string password, int loginmethod)
+        public static void tryLobbyConnect(string id, Client client, string login, string password)
         {
             if (client != null)
             {
@@ -245,20 +240,22 @@ namespace EEditor
                 client.Multiplayer.CreateJoinRoom(id, $"Lobby{version}", true, null, null,
                     (Connection con) =>
                     {
-                        lobbyConnected(con, client, login, password, loginmethod);
+                        Console.WriteLine(con.Connected);
+                        lobbyConnected(con, client, login, password);
                     },
                     (PlayerIOError error) =>
                     {
-                        tryLobbyConnect(id, client, login, password, loginmethod);
+                        tryLobbyConnect(id, client, login, password);
                     });
 
             }
         }
-        public static void lobbyConnected(Connection con, Client client, string login, string pass, int loginmethod)
+        public static void lobbyConnected(Connection con, Client client, string login, string pass)
         {
-
+            
             con.OnMessage += (s, m) =>
             {
+                Console.WriteLine(m);
                 switch (m.Type)
                 {
                     
@@ -269,14 +266,15 @@ namespace EEditor
                            You need to join the lobby 1 more time with the generated id for you.
                            Before you can send connection messages to lobby.
                         */
-                        tryLobbyConnect(m.GetString(0), client, login, pass, loginmethod);
+                        tryLobbyConnect(m.GetString(0), client, login, pass);
                         break;
                     case "connectioncomplete":
                         con.Send("getMySimplePlayerObject");
                         break;
                     case "getMySimplePlayerObject":
+                        
                         Dictionary<string, int> pv = new Dictionary<string, int>();
-                        int total = 0;
+                        int total = bdata.extractPlayerObjectsMessage(m) + 1;
                         string nickname = m[(uint)total].ToString();
                         int goldmember = total + 9;
                         int isadmin = total + 7;
@@ -295,11 +293,12 @@ namespace EEditor
                                 {
                                     incr += 1;
                                     var brick = client.PayVault.Items[a].ItemKey;
-                                    if (brick.StartsWith("brick") || brick.StartsWith("block") || brick == "mixednewyear2010")
+                                    if (brick.StartsWith("brick") || brick.StartsWith("npc") || brick.StartsWith("block") || brick == "mixednewyear2010")
                                     {
                                         if (!pv.ContainsKey(brick))
                                         {
-                                            pv.Add(brick, 0);
+                                            if (brick.StartsWith("npc")) pv.Add(brick, 1);
+                                            else pv.Add(brick, 0);
                                         }
                                         else
                                         {
@@ -320,7 +319,7 @@ namespace EEditor
                                 MainForm.userdata.username = nickname;
                                 if (!MainForm.accs.ContainsKey(nickname))
                                 {
-                                    MainForm.accs.Add(nickname, new accounts() { login = login, password = pass, loginMethod = loginmethod, admin = admin_, moderator = moderator_, payvault = pv });
+                                    MainForm.accs.Add(nickname, new accounts() { login = login, password = pass, admin = admin_, moderator = moderator_, payvault = pv });
                                     if (Accounts.listb.InvokeRequired)
                                     {
                                         Accounts.listb.Invoke((MethodInvoker)delegate
@@ -333,7 +332,7 @@ namespace EEditor
                                 }
                                 else if (MainForm.accs.ContainsKey(nickname))
                                 {
-                                    MainForm.accs[nickname] = new accounts() { login = login, password = pass, loginMethod = loginmethod, admin = admin_, moderator = moderator_,payvault = pv };
+                                    MainForm.accs[nickname] = new accounts() { login = login, password = pass, admin = admin_, moderator = moderator_,payvault = pv };
                                     File.WriteAllText(Directory.GetCurrentDirectory() + accss, JsonConvert.SerializeObject(MainForm.accs, Formatting.Indented));
                                 }
                                 if (Accounts.listb.InvokeRequired)
@@ -352,7 +351,7 @@ namespace EEditor
                                 if (!MainForm.accs.ContainsKey(nickname))
                                 {
                                     MainForm.userdata.username = nickname;
-                                    MainForm.accs.Add(nickname, new accounts() { login = login, password = pass, loginMethod = loginmethod, admin = admin_, moderator = moderator_, payvault = pv });
+                                    MainForm.accs.Add(nickname, new accounts() { login = login, password = pass, admin = admin_, moderator = moderator_, payvault = pv });
                                     if (Accounts.listb.InvokeRequired)
                                     {
                                         Accounts.listb.Invoke((MethodInvoker)delegate
@@ -390,22 +389,22 @@ namespace EEditor
                 Console.WriteLine(reason);
             };
         }
-        public static void successLogin2(Client client, string login, string password, int loginmethod) //login for save
+        public static void successLogin2(Client client, string login, string password) //login for save
         {
             client_ = client;
-            tryLobbyConnect($"{client.ConnectUserId}_{RandomString(5)}", client, login, password, loginmethod);
+            tryLobbyConnect($"{client.ConnectUserId}_{RandomString(5)}", client, login, password);
 
         }
-        private void successLogin(Client client, string login, string password, int loginmethod) //login for save
+        private void successLogin(Client client, string login, string password) //login for save
         {
             client_ = client;
-            tryLobbyConnect($"{client.ConnectUserId}", client, login, password, loginmethod);
+            tryLobbyConnect($"{client.ConnectUserId}_{RandomString(5)}", client, login, password);
         }
 
-        private void successLogin1(Client client, string login, string password, int loginmethod) //login for reload
+        private void successLogin1(Client client, string login, string password) //login for reload
         {
             client_ = client;
-            tryLobbyConnect($"{client.ConnectUserId}", client, login, password, loginmethod);
+            tryLobbyConnect($"{client.ConnectUserId}_{RandomString(5)}", client, login, password);
         }
 
 
@@ -488,9 +487,9 @@ namespace EEditor
     }
     public class SpecialFunctions
     {
-        public static void successLogin(Client client, string login, string password, int loginmethod)
+        public static void successLogin(Client client, string login, string password)
         {
-            Accounts.tryLobbyConnect($"{client.ConnectUserId}_{Accounts.RandomString(5)}", client, login, password, loginmethod);
+            Accounts.tryLobbyConnect($"{client.ConnectUserId}_{Accounts.RandomString(5)}", client, login, password);
         }
     }
 }
