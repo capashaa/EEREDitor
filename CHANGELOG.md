@@ -1,6 +1,11 @@
+## Beta 7 (0.0.7)
+* Added: json files for npc and more will come.  
+* Fixed: text of NPC was duplicated.
+
+
 ## Beta 6 (0.0.6)
-Fixed login issues for eerv2.  
-Removed saving of background color for EEditor save files.  
+* Fixed login issues for eerv2.  
+* Removed saving of background color for EEditor save files.  
 
 ## Beta 5 (0.0.5)  
 * Fixed: Integer Overflow.  

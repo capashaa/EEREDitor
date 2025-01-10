@@ -36,27 +36,27 @@ namespace EEditor
             listView1.MultiSelect = false;
 
             var payvault = MainForm.accs[MainForm.userdata.username].payvault;
-            if (payvault.ContainsKey("npcsmile") || MainForm.debug) { addNPC("smile", 1550, list); }
-            if (payvault.ContainsKey("npcsad") || MainForm.debug) { addNPC("sad", 1551, list); }
-            if (payvault.ContainsKey("npcold") || MainForm.debug) { addNPC("old", 1552, list); }
-            if (payvault.ContainsKey("npcangry") || MainForm.debug) { addNPC("angry", 1553, list); }
-            if (payvault.ContainsKey("npcslime") || MainForm.debug) { addNPC("slime", 1554, list); }
-            if (payvault.ContainsKey("npcrobot") || MainForm.debug) { addNPC("robot", 1555, list); }
-            if (payvault.ContainsKey("npcknight") || MainForm.debug) { addNPC("knight", 1556, list); }
-            if (payvault.ContainsKey("npcmeh") || MainForm.debug) { addNPC("meh", 1557, list); }
-            if (payvault.ContainsKey("npccow") || MainForm.debug) { addNPC("cow", 1558, list); }
-            if (payvault.ContainsKey("npcfrog") || MainForm.debug) { addNPC("frog", 1559, list); }
-            if (payvault.ContainsKey("npcbruce") || MainForm.debug) { addNPC("bruce", 1570, list); }
-            if (payvault.ContainsKey("npcstarfish") || MainForm.debug) { addNPC("starfish", 1569, list); }
-            if (payvault.ContainsKey("npcdt") || MainForm.debug) { addNPC("computer", 1571, list); }
-            if (payvault.ContainsKey("npcskeleton") || MainForm.debug) { addNPC("skeleton", 1572, list); }
-            if (payvault.ContainsKey("npczombie") || MainForm.debug) { addNPC("zombie", 1573, list); }
-            if (payvault.ContainsKey("npcghost") || MainForm.debug) { addNPC("ghost", 1574, list); }
-            if (payvault.ContainsKey("npcastronaut") || MainForm.debug) { addNPC("astronaut", 1575, list); }
-            if (payvault.ContainsKey("npcsanta") || MainForm.debug) { addNPC("santa", 1576, list); }
-            if (payvault.ContainsKey("npcsnowman") || MainForm.debug) { addNPC("snowman", 1577, list); }
-            if (payvault.ContainsKey("npcwalrus") || MainForm.debug) { addNPC("walrus", 1578, list); }
-            if (payvault.ContainsKey("npccrab") || MainForm.debug) { addNPC("crab", 1579, list); }
+            if (payvault.ContainsKey("npcsmile") || MainForm.debug) { addNPC("smile", 1592, list); }
+            if (payvault.ContainsKey("npcsad") || MainForm.debug) { addNPC("sad", 1593, list); }
+            if (payvault.ContainsKey("npcold") || MainForm.debug) { addNPC("old", 1594, list); }
+            if (payvault.ContainsKey("npcangry") || MainForm.debug) { addNPC("angry", 1595, list); }
+            if (payvault.ContainsKey("npcslime") || MainForm.debug) { addNPC("slime", 1596, list); }
+            if (payvault.ContainsKey("npcrobot") || MainForm.debug) { addNPC("robot", 1597, list); }
+            if (payvault.ContainsKey("npcknight") || MainForm.debug) { addNPC("knight", 1598, list); }
+            if (payvault.ContainsKey("npcmeh") || MainForm.debug) { addNPC("meh", 1599, list); }
+            if (payvault.ContainsKey("npccow") || MainForm.debug) { addNPC("cow", 1600, list); }
+            if (payvault.ContainsKey("npcfrog") || MainForm.debug) { addNPC("frog", 1601, list); }
+            if (payvault.ContainsKey("npcbruce") || MainForm.debug) { addNPC("bruce", 1602, list); }
+            if (payvault.ContainsKey("npcstarfish") || MainForm.debug) { addNPC("starfish", 1603, list); }
+            if (payvault.ContainsKey("npcdt") || MainForm.debug) { addNPC("computer", 1604, list); }
+            if (payvault.ContainsKey("npcskeleton") || MainForm.debug) { addNPC("skeleton", 1605, list); }
+            if (payvault.ContainsKey("npczombie") || MainForm.debug) { addNPC("zombie", 1606, list); }
+            if (payvault.ContainsKey("npcghost") || MainForm.debug) { addNPC("ghost", 1607, list); }
+            if (payvault.ContainsKey("npcastronaut") || MainForm.debug) { addNPC("astronaut", 1608, list); }
+            if (payvault.ContainsKey("npcsanta") || MainForm.debug) { addNPC("santa", 1609, list); }
+            if (payvault.ContainsKey("npcsnowman") || MainForm.debug) { addNPC("snowman", 1610, list); }
+            if (payvault.ContainsKey("npcwalrus") || MainForm.debug) { addNPC("walrus", 1651, list); }
+            if (payvault.ContainsKey("npccrab") || MainForm.debug) { addNPC("crab", 1652, list); }
 
             //NicknameTextBox.Text = MainForm.userdata.username;
             listView1.ForeColor = MainForm.themecolors.foreground;

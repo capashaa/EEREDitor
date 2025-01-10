@@ -419,33 +419,319 @@ namespace EEditor
             #region Misc
 
             miscInit = new int[,] {
-                { 119, 0 },{ 300, 1 },{ 337, 2 },{ 113, 3 },{ 185, 4 },{ 184, 5 },{ 157, 6 },{ 156, 7 },{ 121, 8 },{ 50, 9 },{ 243, 10 }, { 136, 16 },
-                { 201, 12 },{ 200, 13 },{ 361, 24 }, { 360, 27 }, { 368, 28 }, { 369, 29 }, { 370, 30 }, { 207, 31 }, { 206, 32 }, { 397, 53 }, { 411, 70 }, { 412, 71 },  { 413, 72 }, { 414, 73 }, { 416, 107 },
-                { 100, 174 }, { 101, 175 }, { 1001, 55 }, { 1002, 63}, { 1003, 59 }, { 1004, 67 }, { 417, 74}, { 418, 75}, {419, 76}, { 420, 77}, { 421, 78}, { 422, 79 }, { 423, 80 }, { 1028, 100}, { 1027, 93 },
-                { 374, 33}, { 381, 112 }, { 242, 108 }, { 385, 255}, { 241, 221 }, { 453, 176 }, { 375, 35 }, { 376, 39 }, { 377, 41 }, { 378, 45 }, { 379, 47 } , { 380, 51 }, { 438, 161 }, { 439, 167 },
-                { 300, 1}, { 440, 169 }, { 275 , 117 }, { 329 , 129 }, { 273 , 125 }, { 328 , 157 }, { 327 , 121 },
-                { 338,119 }, {339,120 }, { 327,121 }, { 370,30 }, { 456, 215 }, { 457,217 }, { 458,219 }, { 338,137}, { 339,133}, { 340 ,153 },
-                { 370, 30}, {1041, 203}, {1042, 207}, {1043, 211 }, { 456, 215} ,{ 457, 217},{ 458, 219}, {447, 179},{ 448, 183},{449, 187}, {450, 191},{451, 195},{ 452, 199}, { 464, 201 }, { 465, 202 }, { 460, 222 },
-                { 461, 252}, { 1064, 251}, {1052, 224 }, {1053, 228 }, { 1054 ,232 }, { 1055, 236 }, { 1056, 240 }, { 464, 244 }, { 465, 248 },
-                { 467, 259} , {1080, 261}, { 1079, 262 }, { 1081, 263 }, { 1075, 264 }, { 1076, 268}, { 1077, 272}, { 1078, 276 }, { 471, 279 },
-                { 475, 283 }, { 476, 286 }, { 477, 289 }, { 481, 292}, { 482, 298 }, { 483, 304}, { 1092, 308 },
-                { 497, 311 }, { 498, 317 },
-                { 492, 319 }, { 493, 323 }, { 494, 327 }, { 499, 331 },
-                { 1094, 341 }, { 1095, 340 }, { 1506, 348 }, { 1507, 343 }, { 1510, 352 },
-                { 1517, 355 }, { 1519, 360 }, { 1116, 362 }, { 1117, 366 }, { 1118, 370 }, { 1119, 374 },
-                { 1120, 378 },{ 1121, 382 },{ 1122, 386 },{ 1123, 390 },{ 1124, 394 },{ 1125, 398 },{ 1135, 404 },{ 1134, 406 },{ 1536, 409 },{ 1537, 411 },{ 1538, 415 },
-                { 1140, 426 },{ 1141, 430 }, { 1535, 402 }, /*{ 1550, 433 },*/ { 1551, 434 }, { 1552, 435 }, { 1553, 436 }, { 1554, 437 }, { 1555, 438 },
-                { 1556, 439 },{ 1557, 440 },{ 1558, 441 },{ 1559, 442 },{ 1570, 443 },
-                { 1569, 444 }, { 1571, 445 }, {1580, 446}, { 1581, 448 }, { 1153, 454}, {1152, 455 },
-                {1592, 470 },{1593, 474 }, {1594, 481 },{1595, 486 },{1597, 490 },
-                { 1572, 500 }, { 1573, 501}, {1574, 502}, { 1575, 503 }, { 1596, 505 }, { 1605, 508 }, { 1606, 512 }, {1607, 514}, { 1608, 518},
-                {1609,519 }, { 1610, 523 }, { 1611, 527 },{ 1612, 529 }, { 1613, 533 }, { 1614, 534 }, {1615, 538 }, { 1616, 542 }, { 1617, 546 },
-                {1576, 551 }, {1577, 552 }, {1578, 553 }, /*{1618, 550},*/ { 1619, 554}, { 1620, 555},
-                {1579, 556 }, { 1625, 558 }, { 1626, 561 }, { 1627, 563 }, { 1628, 566 },
-                {1629, 568 }, { 1630, 571 }, { 1631, 573 }, { 1632, 576 }, { 1633, 578 },
-                { 1634,581 }, { 1635, 583 }, {1636, 586 },
-                //Reset effect
-                { 1550, 550 }
+                //Water
+                { 119, 0 },{ 300, 1 },
+                //Cake
+                { 337, 2 },
+                //Switch
+                { 113, 3 },{ 185, 4 },{ 184, 5 },
+                //Timed door/gate
+                { 157, 6 },{ 156, 7 },
+                //Trophy
+                { 121, 8 },
+                //Secret blocks
+                { 50, 9 },{ 243, 10 }, { 136, 16 },
+
+                //Gold blocks
+                { 201, 12 },{ 200, 13 },
+                
+                //Original spikes
+                { 361, 24 }, 
+                
+                //Checkpoint
+                { 360, 27 }, 
+                //Fire
+                { 368, 28 }, 
+                //Mud
+                { 369, 29 }, { 370, 30 }, 
+                
+                //Death door/gate
+                { 207, 31 }, { 206, 32 }, 
+                
+                //World portal
+                { 397, 53 }, 
+                
+                //Invisible gravity
+                { 411, 70 }, { 412, 71 },  { 413, 72 }, { 414, 73 }, 
+                
+                //Lava
+                { 416, 107 },
+
+                //Yellow coin
+                { 100, 174 },
+                //Blue coin
+                { 101, 175 }, 
+                
+
+                //Effect: High jump
+                { 417, 74}, 
+                //Effect: Elevation
+                { 418, 75}, 
+                //Effect: Speed
+                {419, 76}, 
+                //Effect: Health
+                { 420, 77}, 
+                //Effect: Poison
+                { 421, 78}, 
+                //Effect: Zombie
+                { 422, 79 }, 
+                //Effect: MULTIJUMP
+                { 461, 252},
+                //Effect: Low gravity
+                { 453, 176 },
+                //Effect: Gravity
+                { 1517, 355 }, 
+                //Effect: Team
+                { 423, 80 }, 
+                //Team Door/gate
+                { 1028, 100}, { 1027, 93 },
+
+                //World portal
+                { 374, 33}, 
+                
+                //Invisible portal
+                { 381, 112 }, 
+                //Portal
+                { 242, 108 }, 
+                //Sign: Normal
+                { 385, 255}, 
+                //Diamond
+                { 241, 221 }, 
+ 
+                //Scifi blue
+                { 375, 35 }, { 376, 39 }, 
+                //Scifi orange
+                { 377, 41 }, { 378, 45 }, 
+                //Scifi green
+                { 379, 47 } , { 380, 51 }, 
+                //Scifi red
+                { 438, 161 }, { 439, 167 },
+
+                //MEDIEVAL timber
+                { 440, 169 }, 
+                //MEDIEVAL Axe
+                { 275 , 117 }, 
+                //MEDIEVAL Sword
+                { 329 , 129 }, 
+                //MEDIEVAL Shield
+                { 273 , 125 }, 
+                //MEDIEVAL COATOFARMS
+                { 328 , 157 }, 
+                //MEDIEVAL flags
+                { 327 , 121 },
+
+                //Monster: Tooth big
+                { 338,137 }, 
+                //Monster: Tooth small
+                {339,133 }, 
+                //Monster: Tooth triple
+                {340,153 },
+
+                //Halloween Window rect
+                { 456, 215 }, 
+                //Halloween window circle
+                { 457,217 }, 
+                //Halloween lamp
+                { 458,219 }, 
+                
+                //Domestic halfblock yellow
+                {1041, 203}, 
+                //Domestic halfblock brown
+                {1042, 207}, 
+                //Domestic halfblock white
+                {1043, 211 }, 
+                
+                //Domestic light bulb
+                {447, 179},
+                //domestic tap 
+                { 448, 183},
+                //domestic painting
+                {449, 187}, 
+                //domestic vase
+                {450, 191},
+                //domestic tv
+                {451, 195},
+                //domestic window
+                { 452, 199}, 
+                
+                //New year baloon
+                { 464, 244 }, 
+                //new year streamer
+                { 465, 248 }, 
+                //gravity slow dot
+                { 460, 222 },
+
+
+                //Ice
+                { 1064, 251}, 
+
+                //One-way rotateable blue
+                { 1001, 55 }, 
+                //One-way rotateable orange
+                { 1002, 63}, 
+                //One-way rotateable yellow
+                { 1003, 59 }, 
+                //One-way rotateable pink
+                { 1004, 67 }, 
+                //One-way rotateable gray
+                {1052, 224 }, 
+                //One-way rotateable dark blue
+                {1053, 228 }, 
+                //One-way rotateable red
+                { 1054 ,232 }, 
+                //One-way rotateable green
+                { 1055, 236 }, 
+                //One-way rotateable black
+                { 1056, 240 }, 
+                //One-way rotateable white
+                { 1092, 308 },
+                
+                //Switch orange
+                { 467, 259} , 
+                //switch orange door/gate
+                {1080, 261}, { 1079, 262 }, 
+
+                //Fairytale half-block orange 
+                { 1075, 264 }, 
+                //Fairytale half-block green
+                { 1076, 268}, 
+                //Fairytale half-block blue 
+                { 1077, 272}, 
+                //Fairytale half-block pink 
+                { 1078, 276 }, 
+                
+                //Fairytale flowers
+                { 471, 280 },
+
+                //Spring daisy
+                { 475, 283 }, 
+                //Spring tulip
+                { 476, 286 }, 
+                //Spring dafoddil
+                { 477, 289 }, 
+                
+                //Summer flag
+                { 481, 292}, 
+                //Summer awning
+                { 482, 298 }, 
+                //Summer icecream
+                { 483, 304}, 
+
+
+                //Cave crystal
+                { 497, 312 }, 
+                //Cave torch
+                { 498, 317 },
+
+                //Resturant cup
+                { 492, 319 }, 
+                //resturant plate
+                { 493, 323 }, 
+                //resturant bowl
+                { 494, 327 }, 
+                
+                //Halloween rotateable
+                { 499, 331 },
+
+                //Crown door/gate
+                { 1094, 341 }, { 1095, 340 }, 
+                
+                //Christmas light up
+                { 1506, 348 }, 
+                //Christmas llight down
+                { 1507, 343 }, 
+                
+                //Christmas candle
+                { 1510, 352 },
+
+
+                //Invisible Gravity down
+                { 1519, 360 }, 
+                
+                //Half-block white, gray, black, red, orange, yellow, green, cyan, blue, purple
+                { 1116, 362 }, { 1117, 366 }, { 1118, 370 }, { 1119, 374 },
+                { 1120, 378 },{ 1121, 382 },{ 1122, 386 },{ 1123, 390 },{ 1124, 394 },{ 1125, 398 },
+                
+                //Industrial Pipe thick
+                { 1135, 404 },
+                //Industrial pipe table
+                { 1134, 406 },
+                //Industrial pipe thin
+                { 1535, 402 },
+
+                //Domestic pipe straight
+                { 1536, 409 },
+                //Domestic pipe T
+                { 1537, 411 },
+                //Domestic frame border
+                { 1538, 415 },
+
+                //Half-block winter Snow
+                { 1140, 426 },
+                //Half-block winter Ice
+                { 1141, 430 }, 
+
+
+                //NPC's
+                { 1592, 433 },
+                { 1593, 434 },
+                { 1594, 435 },
+                { 1595, 436 },
+                { 1596, 437 },
+                { 1597, 438 },
+                { 1598, 439 },
+                { 1599, 440 },
+                { 1600, 441 },
+                { 1601, 442 },
+                { 1602, 443 },
+                { 1603, 444 },
+                { 1604, 445 },
+
+                { 1605, 500},
+                { 1606, 501},
+                { 1607, 502},
+                { 1608, 503},
+                { 1609, 551},
+                { 1610, 552},
+                { 1651, 553},
+                { 1652, 556},
+                //NPC's End
+
+
+                //Crown door/gate
+                { 1094, 454}, {1095, 455 },
+               
+                //Spike silver rotation
+                { 1653, 558 }, 
+                //Spike silver center
+                { 1655, 561 }, 
+                //Spike black
+                { 1655, 563 },
+                //Spike black center
+                { 1656, 566 }, 
+                //Spike red
+                {1657, 568 }, 
+                //Spike red center
+                { 1658, 571 }, 
+                //Spike yellow
+                { 1659, 573 }, 
+                //Spike yellow center
+                { 1660, 576 }, 
+                //Spike green
+                { 1661, 578 },
+                //Spike green center
+                { 1662,581 }, 
+                //Spike blue
+                { 1663, 583 }, 
+                //Spike blue center
+                { 1664, 586 },
+                //Effect: Reset effect
+                { 1550, 550 },
+
+                //Orange switches reset
+                {1666,555 },
+                //Purple switches reset
+                 {1665,554 },
             };
             for (int i = 0; i < miscInit.Length / 2; i++)
             {
@@ -1315,9 +1601,9 @@ namespace EEditor
             AddToolStrip(foregroundBMD, 0, new int[] { 44 }, new uint[] { 0x000000 }, false, "Secrets", 0, 0, true);
             if (!OpenWorld) AddToolStrip(miscBMD, 1, new int[] { 9, 10, 16 }, null, false, "Secrets", 0, 0, true);
             //Glass blocks
-            AddToolStrip(foregroundBMD, 0, new int[] { 51, 52, 53, 54, 55, 56, 57, 58,343,344,345 }, new uint[] { 0xF89299, 0xE98BF6, 0xA789F6, 0x7E99F6, 0x95DCF6, 0x92FBAA, 0xF8DA8C, 0xF6BA94,0, 0x808080,0 }, false, "Glass", 0, 0, true);
+            AddToolStrip(foregroundBMD, 0, new int[] { 51, 52, 53, 54, 55, 56, 57, 58, 343, 344, 345 }, new uint[] { 0xF89299, 0xE98BF6, 0xA789F6, 0x7E99F6, 0x95DCF6, 0x92FBAA, 0xF8DA8C, 0xF6BA94, 0, 0x808080, 0 }, false, "Glass", 0, 0, true);
             //Mineral Blocks
-            AddToolStrip(foregroundBMD, 0, new int[] { 70, 71, 72, 73, 74, 75, 76,346,347,348 }, new uint[] { 0xEE0000, 0xEE00EE, 0x0000EE, 0x00EEEE, 0x00EE00, 0xEEEE00, 0xEE7700,0,0,0 }, false, "Minerals", 0, 0, true);
+            AddToolStrip(foregroundBMD, 0, new int[] { 70, 71, 72, 73, 74, 75, 76, 346, 347, 348 }, new uint[] { 0xEE0000, 0xEE00EE, 0x0000EE, 0x00EEEE, 0x00EE00, 0xEEEE00, 0xEE7700, 0, 0, 0 }, false, "Minerals", 0, 0, true);
 
 
 
@@ -1350,13 +1636,13 @@ namespace EEditor
             if (ihavethese.ContainsKey("brickcowboy")) { AddToolStrip(foregroundBMD, 0, new int[] { 99, 100, 101, 102, 103, 104 }, null, false, "Wild West", 0, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 99, 100, 101, 102, 103, 104 }, null, false, "Wild West", 0, 2, false); }
 
             //Plastic blocks
-                AddToolStrip(foregroundBMD, 0, new int[] { 105, 106, 107, 108, 109, 110, 111, 112 }, 
-                    new uint[] { 0x93EB10, 0xD53725, 0xDFCF19, 0x72C5EB, 0x2B43CF, 
-                        0xDA28D8, 0x2DAC10, 0xE5821F }, false, 
-                    "Plastic", 0, 1, true); 
+            AddToolStrip(foregroundBMD, 0, new int[] { 105, 106, 107, 108, 109, 110, 111, 112 },
+                new uint[] { 0x93EB10, 0xD53725, 0xDFCF19, 0x72C5EB, 0x2B43CF,
+                        0xDA28D8, 0x2DAC10, 0xE5821F }, false,
+                "Plastic", 0, 1, true);
 
             //Sand blocks
-            AddToolStrip(foregroundBMD, 0, new int[] { 114, 115, 116, 117, 118, 119 }, new uint[] { 0xE0D5B1, 0xA29D88, 0xE4D98D, 0xD8B65A, 0xAF9468, 0x795A35 }, false, "Sand", 0, 1, true); 
+            AddToolStrip(foregroundBMD, 0, new int[] { 114, 115, 116, 117, 118, 119 }, new uint[] { 0xE0D5B1, 0xA29D88, 0xE4D98D, 0xD8B65A, 0xAF9468, 0x795A35 }, false, "Sand", 0, 1, true);
 
             //Cloud blocks
             AddToolStrip(foregroundBMD, 0, new int[] { 120, 287 }, new uint[] { 0xF6FCFF, 0x7A7A7B }, false, "Cloud", 0, 1, true);
@@ -1470,7 +1756,7 @@ namespace EEditor
             AddToolStrip(foregroundBMD, 0, new int[] { 275, 276, 277, 278, 279, 280, 281, 282, 283, 284 }, new uint[] { 0xB3B09B, 0x959386, 0x716F60, 0xAD7373, 0xA97C67, 0xA59069, 0x7E9575, 0x7EA194, 0x7C8B9D, 0x857A99 }, false, "Tiles", 0, 2, true);
 
             //Half blocks
-            AddToolStrip(miscBMD, 1, new int[] { 362, 366, 370, 374, 378, 382, 386, 390, 394, 398 }, new uint[] { 0x5D5D5D, 0x2E2E2E, 0x151515, 0x59030D, 0x591D03, 0x4E3C02, 0x0E3E10, 0x034143, 0x032643, 0x4F0359 }, false, "Half Blocks", 0, 2, true); 
+            AddToolStrip(miscBMD, 1, new int[] { 362, 366, 370, 374, 378, 382, 386, 390, 394, 398 }, new uint[] { 0x5D5D5D, 0x2E2E2E, 0x151515, 0x59030D, 0x591D03, 0x4E3C02, 0x0E3E10, 0x034143, 0x032643, 0x4F0359 }, false, "Half Blocks", 0, 2, true);
 
             //Winter 2018 blocks
             if (ihavethese.ContainsKey("brickwinter2018"))
@@ -1881,9 +2167,9 @@ namespace EEditor
             if (ihavethese.ContainsKey("brickgarden")) { AddToolStrip(foregroundBMD, 0, new int[] { 303, 307 }, null, false, "Climbable", 1, 0, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 303, 307 }, null, false, "Climbable", 1, 0, false); }
 
             //Purple switches action
-            if (ihavethese.ContainsKey("brickswitchpurple")) { AddToolStrip(miscBMD, 1, new int[] { 3, 4, 5 }, null, false, "Purple Switches", 1, 0, true); } else { AddToolStrip(miscBMD, 1, new int[] { 3, 4, 5 }, null, false, "Purple Switches", 1, 0, false); }
+            if (ihavethese.ContainsKey("brickswitchpurple")) { AddToolStrip(miscBMD, 1, new int[] { 3, 4, 5 }, null, false, "Purple Switches", 1, 0, true); } else { AddToolStrip(miscBMD, 1, new int[] { 3, 4, 5,554 }, null, false, "Purple Switches", 1, 0, false); }
             //Orange switches action
-            if (ihavethese.ContainsKey("brickswitchorange")) { AddToolStrip(miscBMD, 1, new int[] { 259, 261, 262 }, null, false, "Orange Switches", 1, 0, true); } else { AddToolStrip(miscBMD, 1, new int[] { 259, 261, 262 }, null, false, "Orange Switches", 1, 0, false); }
+            if (ihavethese.ContainsKey("brickswitchorange")) { AddToolStrip(miscBMD, 1, new int[] { 259, 261, 262 }, null, false, "Orange Switches", 1, 0, true); } else { AddToolStrip(miscBMD, 1, new int[] { 259, 261, 262,555 }, null, false, "Orange Switches", 1, 0, false); }
 
             //Death doors/gates action
             if (ihavethese.ContainsKey("brickdeathdoor")) { AddToolStrip(foregroundBMD, 0, new int[] { 198, 199 }, new uint[] { 0xA9A9A9, 0xA9A9A9 }, false, "Death", 1, 0, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 198, 199 }, new uint[] { 0xA9A9A9, 0xA9A9A9 }, false, "Death", 1, 0, false); }
@@ -1959,36 +2245,34 @@ namespace EEditor
 
             //Ice block action
             AddToolStrip(miscBMD, 1, new int[] { 251 }, new uint[] { 0x409EB1 }, false, "Ice", 1, 2, true);
-            
-            
+
+
             //Dirt action block
             AddToolStrip(foregroundBMD, 0, new int[] { 341 }, null, false, "Sand", 1, 2, true);
 
-            /*if (MainForm.userdata.username != "guest" && ihavethese.Any(x => x.Key.StartsWith("npc")) || debug) AddToolStrip(miscBMD, 1, new int[] { 433 }, null, false, "NPC", 1, 2, true);
-            if (ihavethese.ContainsKey("npcsmile") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 433 }, null, false, "NPC Smile", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 433 }, null, false, "NPC Smile", 1, 2, false); }
-            if (ihavethese.ContainsKey("npcsad") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 434 }, null, false, "NPC Sad", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 434 }, null, false, "NPC Sad", 1, 2, false); }
-            if (ihavethese.ContainsKey("npcold") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 435 }, null, false, "NPC Old", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 435 }, null, false, "NPC Old", 1, 2, false); }
-            if (ihavethese.ContainsKey("npcangry") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 436 }, null, false, "NPC Angry", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 436 }, null, false, "NPC Angry", 1, 2, false); }
-            if (ihavethese.ContainsKey("npcslime") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 437 }, null, false, "NPC Slime", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 437 }, null, false, "NPC Slime", 1, 2, false); }
-            if (ihavethese.ContainsKey("npcrobot") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 438 }, null, false, "NPC Robot", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 438 }, null, false, "NPC Robot", 1, 2, false); }
-            if (ihavethese.ContainsKey("npcknight") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 439 }, null, false, "NPC Knight", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 439 }, null, false, "NPC Knight", 1, 2, false); }
-            if (ihavethese.ContainsKey("npcmeh") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 440 }, null, false, "NPC Meh", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 440 }, null, false, "NPC Meh", 1, 2, false); }
-            if (ihavethese.ContainsKey("npccow") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 441 }, null, false, "NPC Cow", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 441 }, null, false, "NPC Cow", 1, 2, false); }
-            if (ihavethese.ContainsKey("npcfrog") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 442 }, null, false, "NPC Frog", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 442 }, null, false, "NPC Frog", 1, 2, false); }
-            if (ihavethese.ContainsKey("npcbruce") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 443 }, null, false, "NPC Bruce", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 443 }, null, false, "NPC Bruce", 1, 2, false); }
-            if (ihavethese.ContainsKey("npcstarfish") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 444 }, null, false, "NPC Starfish", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 444 }, null, false, "NPC Starfish", 1, 2, false); }
-            if (ihavethese.ContainsKey("npcdt") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 445 }, null, false, "NPC Computer", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 445 }, null, false, "NPC Computer", 1, 2, false); }
-            if (ihavethese.ContainsKey("npcskeleton") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 500 }, null, false, "NPC Skeleton", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 500 }, null, false, "NPC Skeleton", 1, 2, false); }
-            if (ihavethese.ContainsKey("npczombie") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 501 }, null, false, "NPC Zombie", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 501 }, null, false, "NPC Zombie", 1, 2, false); }
-            if (ihavethese.ContainsKey("npcghost") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 502 }, null, false, "NPC Ghost", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 502 }, null, false, "NPC Ghost", 1, 2, false); }
-            if (ihavethese.ContainsKey("npcastronaut") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 503 }, null, false, "NPC Astronaut", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 503 }, null, false, "NPC Astronaut", 1, 2, false); }
-            if (ihavethese.ContainsKey("npcsanta") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 551 }, null, false, "NPC Santa", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 551 }, null, false, "NPC Santa", 1, 2, false); }
-            if (ihavethese.ContainsKey("npcsnowman") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 552 }, null, false, "NPC Snowman", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 552 }, null, false, "NPC Snowman", 1, 2, false); }
-            if (ihavethese.ContainsKey("npcwalrus") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 553 }, null, false, "NPC Walrus", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 553 }, null, false, "NPC Walrus", 1, 2, false); }
-            if (ihavethese.ContainsKey("npccrab") || accs[userdata.username].admin) { AddToolStrip(miscBMD, 1, new int[] { 556 }, null, false, "NPC Crab", 1, 2, false); } else { AddToolStrip(miscBMD, 1, new int[] { 556 }, null, false, "NPC Crab", 1, 2, false); }
-            */
-            #endregion Action
+            if (MainForm.userdata.username != "guest" && ihavethese.Any(x => x.Key.StartsWith("npc")) || debug || accs[userdata.username].admin) AddToolStrip(miscBMD, 1, new int[] { 433 }, null, false, "NPC", 1, 2, true);
+            AddToolStrip(miscBMD, 1, new int[] { 434 }, null, false, "NPC Sad", 1, 2, false);
+            AddToolStrip(miscBMD, 1, new int[] { 435 }, null, false, "NPC Old", 1, 2, false);
+            AddToolStrip(miscBMD, 1, new int[] { 436 }, null, false, "NPC Angry", 1, 2, false);
+            AddToolStrip(miscBMD, 1, new int[] { 437 }, null, false, "NPC Slime", 1, 2, false);
+            AddToolStrip(miscBMD, 1, new int[] { 438 }, null, false, "NPC Robot", 1, 2, false);
+            AddToolStrip(miscBMD, 1, new int[] { 439 }, null, false, "NPC Knight", 1, 2, false);
+            AddToolStrip(miscBMD, 1, new int[] { 440 }, null, false, "NPC Meh", 1, 2, false);
+            AddToolStrip(miscBMD, 1, new int[] { 441 }, null, false, "NPC Cow", 1, 2, false);
+            AddToolStrip(miscBMD, 1, new int[] { 442 }, null, false, "NPC Frog", 1, 2, false);
+            AddToolStrip(miscBMD, 1, new int[] { 443 }, null, false, "NPC Bruce", 1, 2, false);
+            AddToolStrip(miscBMD, 1, new int[] { 444 }, null, false, "NPC Starfish", 1, 2, false);
+            AddToolStrip(miscBMD, 1, new int[] { 445 }, null, false, "NPC Computer", 1, 2, false);
+            AddToolStrip(miscBMD, 1, new int[] { 500 }, null, false, "NPC Skeleton", 1, 2, false);
+            AddToolStrip(miscBMD, 1, new int[] { 501 }, null, false, "NPC Zombie", 1, 2, false);
+            AddToolStrip(miscBMD, 1, new int[] { 502 }, null, false, "NPC Ghost", 1, 2, false);
+            AddToolStrip(miscBMD, 1, new int[] { 503 }, null, false, "NPC Astronaut", 1, 2, false);
+            AddToolStrip(miscBMD, 1, new int[] { 551 }, null, false, "NPC Santa", 1, 2, false);
+            AddToolStrip(miscBMD, 1, new int[] { 552 }, null, false, "NPC Snowman", 1, 2, false);
+            AddToolStrip(miscBMD, 1, new int[] { 553 }, null, false, "NPC Walrus", 1, 2, false);
+            AddToolStrip(miscBMD, 1, new int[] { 556 }, null, false, "NPC Crab", 1, 2, false);
 
+            #endregion Action
             #region Background
 
             //Backgrounds
@@ -2000,10 +2284,10 @@ namespace EEditor
             AddToolStrip(backgroundBMD, 3, new int[] { 211, 110, 111, 112, 113, 114, 115, 116, 147, 148 }, new uint[] { 0x747474, 0x434343, 0x233A61, 0x5E386E, 0x6C1029, 0x5D6123, 0x2E5F24, 0x2B716E, 0x8C5323, 0x202020 }, false, "Normal", 3, 0, true);
 
             //Pastel background
-            AddToolStrip(backgroundBMD, 3, new int[] { 
-                259, 272, 258, 32, 170, 27, 29, 28, 30, 31, 171 
-            }, new uint[] { 
-                0xFFFFFF, 0x9C9C9C, 0x000000, 0xFF9B9B, 0xFFC19B, 0xFCECA8, 0xD8FCA8, 0xB0FCA8, 0xA8FBFC, 0xA8C0FC, 0xD2A4FF 
+            AddToolStrip(backgroundBMD, 3, new int[] {
+                259, 272, 258, 32, 170, 27, 29, 28, 30, 31, 171
+            }, new uint[] {
+                0xFFFFFF, 0x9C9C9C, 0x000000, 0xFF9B9B, 0xFFC19B, 0xFCECA8, 0xD8FCA8, 0xB0FCA8, 0xA8FBFC, 0xA8C0FC, 0xD2A4FF
             }, false, "Pastel", 3, 0, true);
 
             //Canvas background
@@ -2042,7 +2326,7 @@ namespace EEditor
             AddToolStrip(backgroundBMD, 3, new int[] { 74, 75, 76, 77, 78 }, new uint[] { 0x75DAE7, 0x75DAE7, 0x75DAE7, 0x75DAE7, 0x75DAE7 }, false, "Water", 3, 1, true);
 
             //Sand background
-            AddToolStrip(backgroundBMD, 3, new int[] { 79, 80, 81, 82, 83, 84 }, new uint[] { 0xD0C49C, 0xAFA78A, 0xD8CA64, 0xD1A338, 0xCEAD7D, 0x7C5E3C }, false, "Sand", 3, 1, true); 
+            AddToolStrip(backgroundBMD, 3, new int[] { 79, 80, 81, 82, 83, 84 }, new uint[] { 0xD0C49C, 0xAFA78A, 0xD8CA64, 0xD1A338, 0xCEAD7D, 0x7C5E3C }, false, "Sand", 3, 1, true);
 
             //Industrial background
             if (ihavethese.ContainsKey("brickindustrial")) { AddToolStrip(backgroundBMD, 3, new int[] { 85, 86, 87, 88, 89 }, new uint[] { 0x333333, 0x575757, 0x296381, 0x4F6639, 0x695319 }, false, "Industrial", 3, 1, true); } else { AddToolStrip(backgroundBMD, 3, new int[] { 85, 86, 87, 88, 89 }, new uint[] { 0x333333, 0x575757, 0x296381, 0x4F6639, 0x695319 }, false, "Industrial", 3, 1, false); }
@@ -2061,7 +2345,7 @@ namespace EEditor
             AddToolStrip(backgroundBMD, 3, new int[] { 193, 194, 195 }, new uint[] { 0x824500, 0x824700, 0x7F4602 }, false, "Desert", 3, 1, true);
 
             //Neon background
-            AddToolStrip(backgroundBMD, 3, new int[] { 105, 167, 168, 169, 191, 192 }, new uint[] { 0x041E75, 0xAA3E1C, 0x3C6B00, 0xAB003E, 0xA8A800, 0x0DA874 }, false, "Neon", 3, 1, true); 
+            AddToolStrip(backgroundBMD, 3, new int[] { 105, 167, 168, 169, 191, 192 }, new uint[] { 0x041E75, 0xAA3E1C, 0x3C6B00, 0xAB003E, 0xA8A800, 0x0DA874 }, false, "Neon", 3, 1, true);
 
             //Monster background
             if (ihavethese.ContainsKey("brickmonster")) { AddToolStrip(backgroundBMD, 3, new int[] { 108, 109, 157, 158, 159, 160 }, new uint[] { 0xA0A061, 0x707044, 0x80353C, 0x631C25, 0x65236B, 0x421746 }, false, "Monster", 3, 1, true); } else { AddToolStrip(backgroundBMD, 3, new int[] { 108, 109, 157, 158, 159, 160 }, new uint[] { 0xA0A061, 0x707044, 0x80353C, 0x631C25, 0x65236B, 0x421746 }, false, "Monster", 3, 1, false); }
@@ -2085,7 +2369,7 @@ namespace EEditor
             if (ihavethese.ContainsKey("brickautumn2014")) { AddToolStrip(backgroundBMD, 3, new int[] { 135, 136, 137 }, new uint[] { 0x695102, 0x692602, 0x690503 }, false, "Autumn 2014", 3, 2, true); } else { AddToolStrip(backgroundBMD, 3, new int[] { 135, 136, 137 }, new uint[] { 0x695102, 0x692602, 0x690503 }, false, "Autumn 2014", 3, 2, false); }
 
             //Cave background
-                AddToolStrip(backgroundBMD, 3, new int[] { 269, 270, 271, 149, 150, 151, 152, 153, 154, 155, 156 }, new uint[] { 0x222222, 0x191919, 0x0b0b0b, 0x200426, 0x041E20, 0x030C1F, 0x2C051A, 0x081602, 0x240D05, 0x321A08, 0x330909 }, false, "Cave", 3, 2, true);
+            AddToolStrip(backgroundBMD, 3, new int[] { 269, 270, 271, 149, 150, 151, 152, 153, 154, 155, 156 }, new uint[] { 0x222222, 0x191919, 0x0b0b0b, 0x200426, 0x041E20, 0x030C1F, 0x2C051A, 0x081602, 0x240D05, 0x321A08, 0x330909 }, false, "Cave", 3, 2, true);
 
             //Enviroment background
             AddToolStrip(backgroundBMD, 3, new int[] { 172, 173, 174, 175, 176 }, new uint[] { 0x571802, 0x245100, 0x754705, 0x2C3244, 0x551A08 }, false, "Environment", 3, 2, true);
@@ -2112,7 +2396,7 @@ namespace EEditor
             if (ihavethese.ContainsKey("brickmine")) { AddToolStrip(backgroundBMD, 3, new int[] { 219 }, new uint[] { 0x511000 }, false, "Mine", 3, 2, true); } else { AddToolStrip(backgroundBMD, 3, new int[] { 219 }, new uint[] { 0x511000 }, false, "Mine", 3, 2, false); }
 
             //Textile background
-            AddToolStrip(backgroundBMD, 3, new int[] { 214, 215, 216, 217, 218 }, new uint[] { 0x87A884, 0x7D92A7, 0xB395AC, 0xA29E72, 0xA47E7E }, false, "Textile", 3, 2, true); 
+            AddToolStrip(backgroundBMD, 3, new int[] { 214, 215, 216, 217, 218 }, new uint[] { 0x87A884, 0x7D92A7, 0xB395AC, 0xA29E72, 0xA47E7E }, false, "Textile", 3, 2, true);
 
             //Halloween 2016 background
             if (ihavethese.ContainsKey("brickhalloween2016")) { AddToolStrip(backgroundBMD, 3, new int[] { 220, 221 }, new uint[] { 0x201E1A, 0x2E1A37 }, false, "Halloween 2016", 3, 2, true); } else { AddToolStrip(backgroundBMD, 3, new int[] { 220, 221 }, new uint[] { 0x201E1A, 0x2E1A37 }, false, "Halloween 2016", 3, 2, false); }
@@ -2121,7 +2405,7 @@ namespace EEditor
             AddToolStrip(backgroundBMD, 3, new int[] { 222, 223, 224, 225, 226, 247, 248, 249, 250 }, new uint[] { 0x8A5E2B, 0x515151, 0x7C6241, 0x852310, 0x852210, 0x852310, 0x852310, 0x852311, 0x852311 }, false, "Construction", 3, 2, true);
 
             //Tiles background
-            AddToolStrip(backgroundBMD, 3, new int[] { 227, 228, 229, 230, 231, 232, 233, 234, 235, 236 }, new uint[] { 0x646049, 0x575448, 0x4B493A, 0x783E3E, 0x734530, 0x634E27, 0x455C3C, 0x3E6054, 0x445365, 0x534766 }, false, "Tiles", 3, 2, true); 
+            AddToolStrip(backgroundBMD, 3, new int[] { 227, 228, 229, 230, 231, 232, 233, 234, 235, 236 }, new uint[] { 0x646049, 0x575448, 0x4B493A, 0x783E3E, 0x734530, 0x634E27, 0x455C3C, 0x3E6054, 0x445365, 0x534766 }, false, "Tiles", 3, 2, true);
 
             //Winter 2018 background
             if (ihavethese.ContainsKey("brickwinter2018")) { AddToolStrip(backgroundBMD, 3, new int[] { 251, 252, 253, 254 }, new uint[] { 0x3C5E69, 0x406A76, 0x586E6C, 0x485157 }, false, "Winter 2018", 3, 2, true); } else { AddToolStrip(backgroundBMD, 3, new int[] { 251, 252, 253, 254 }, new uint[] { 0x3C5E69, 0x406A76, 0x586E6C, 0x485157 }, false, "Winter 2018", 3, 2, false); }
@@ -2158,7 +2442,7 @@ namespace EEditor
             if (ihavethese.ContainsKey("brickmagic9")) { AddToolStrip(backgroundBMD, 3, new int[] { 268 }, new uint[] { 0x343434 }, false, "Magic", 3, 2, true); } else { AddToolStrip(backgroundBMD, 3, new int[] { 268 }, new uint[] { 0x343434 }, false, "Magic", 3, 2, false); }
 
             //Solid backgrounds
-            AddToolStrip(backgroundBMD, 3, new int[] { 
+            AddToolStrip(backgroundBMD, 3, new int[] {
                 273,274,275,276,277,278,279,280,
                 281,282,283,284,285,286,287,288
             }, new uint[] {
@@ -2230,6 +2514,7 @@ namespace EEditor
             }
             else
             {
+                int id = 0;
                 if (!unknown)
                 {
                     if (doihave || accs[selectedAcc].admin && !debug)
@@ -2356,6 +2641,7 @@ namespace EEditor
                         items[j] = new BrickButton(brick, this, SetBrick, ids[j], bid, true, mode, desc);
 
                         //else items[j] = new BrickButton(brick, this, SetBrick, ids[j], bid, false, mode, desc);
+                        id = ids[j];
                         items[j].MainForm = this;
                         if (ids[j] == 9 && setFirst)
                         {
@@ -2406,6 +2692,10 @@ namespace EEditor
                     if (doihave || accs[selectedAcc].admin)
                     {
 
+                        if (bdata.isNPCNew(id) && id != 1592)
+                        {
+                            return;
+                        }
                         ToolStrip strip = new ToolStrip();
 
                         if (searched != null && items[0].blockInfo.ToLower().Contains(searched) || filterTextBox.Text == string.Empty)
@@ -2414,12 +2704,15 @@ namespace EEditor
                         }
                         if (strip.Items.Count > 0)
                         {
-                            foreach (int id in ids)
+                            foreach (int id1 in ids)
                             {
-                                if (!tps.ContainsKey(id.ToString()))
+
+                                if (!tps.ContainsKey(id1.ToString()))
                                 {
-                                    tps.Add(id.ToString(), strip);
+                                    tps.Add(id1.ToString(), strip);
                                 }
+
+
                             }
                             strip.AutoSize = true;
                             strip.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -2450,8 +2743,8 @@ namespace EEditor
                                     break;
                             }
                         }
-                    }
 
+                    }
                 }
                 else
                 {
@@ -2481,11 +2774,11 @@ namespace EEditor
                     if (userdata.darkTheme) strip1.Renderer = new DarkTheme();
                     if (!userdata.darkTheme) strip1.Renderer = new LightTheme();
                     strip1.BackColor = themecolors.accent;
-                    foreach (int id in ids)
+                    foreach (int id1 in ids)
                     {
-                        if (!tps.ContainsKey(id.ToString()))
+                        if (!tps.ContainsKey(id1.ToString()))
                         {
-                            tps.Add(id.ToString(), strip1);
+                            tps.Add(id1.ToString(), strip1);
                         }
                     }
                     //ToolTip tip = new ToolTip();
@@ -3002,7 +3295,7 @@ namespace EEditor
                         cm.Items.Add(toolStripMenuCreator(cur.ID, "Blue", 3, 3, true));
                         cm.Items.Add(toolStripMenuCreator(cur.ID, "Green", 4, 4, true));
                     }
-                    else if (bid == 1592)
+                    /*else if (bid == 1592)
                     {
                         //dungeon pillar bottom
                         cm.Items.Add(new ToolStripSeparator());
@@ -3010,7 +3303,7 @@ namespace EEditor
                         cm.Items.Add(toolStripMenuCreator(cur.ID, "Purple", 0, 0, true));
                         cm.Items.Add(toolStripMenuCreator(cur.ID, "Green", 2, 2, true));
                         cm.Items.Add(toolStripMenuCreator(cur.ID, "Blue", 3, 3, true));
-                    }
+                    }*/
                     else if (bid == 1593)
                     {
                         //dungeon pillar
@@ -3164,7 +3457,7 @@ namespace EEditor
                             if (MainForm.pressed == 0)
                             {
                                 lastSelectedBlocksUpdate(cur);
-                                /* if (cur.ID == 1550)
+                                if (cur.ID == 1592)
                                  {
                                      using (NPC co = new NPC())
                                      {
@@ -3183,7 +3476,7 @@ namespace EEditor
 
                                              }
                                      }
-                                 }*/
+                                 }
                             }
                         }
                         MainForm.pressed += 1;
@@ -5496,7 +5789,7 @@ namespace EEditor
 
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    Frame frame = Frame.LoadFromEELVL(ofd.FileName, false);
+                    Frame frame = Frame.LoadFromEELVL(ofd.FileName, true);
                     if (frame.toobig)
                     {
                         MessageBox.Show("Can't load this world. It's too big. Max size: 637x460 or 460x637", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

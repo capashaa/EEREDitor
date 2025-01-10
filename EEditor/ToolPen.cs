@@ -397,7 +397,7 @@ namespace EEditor
                             }
                             
                         }
-                        else if (bdata.isNPC(bid))
+                        else if (bdata.isNPCNew(bid))
                         {
                             if (button)
                             {
@@ -420,7 +420,7 @@ namespace EEditor
                                     {
                                         if (editArea.Tool.NPCtempMessage1 != null) { editArea.CurFrame.BlockData4[y, x] = editArea.Tool.NPCtempMessage1; }
                                         else { editArea.CurFrame.BlockData4[y, x] = "Welcome"; }
-                                        if (editArea.Tool.NPCtempMessage2 != null) { editArea.CurFrame.BlockData5[y, x] = editArea.Tool.NPCtempMessage3; }
+                                        if (editArea.Tool.NPCtempMessage2 != null) { editArea.CurFrame.BlockData5[y, x] = editArea.Tool.NPCtempMessage2; }
                                         else { editArea.CurFrame.BlockData5[y, x] = "To"; }
                                         if (editArea.Tool.NPCtempMessage3 != null) { editArea.CurFrame.BlockData6[y, x] = editArea.Tool.NPCtempMessage3; }
                                         else { editArea.CurFrame.BlockData6[y, x] = "My World!"; }
@@ -434,7 +434,7 @@ namespace EEditor
                             {
                                 if (editArea.Tool.NPCtempMessage1 != null) { editArea.CurFrame.BlockData4[y, x] = editArea.Tool.NPCtempMessage1; }
                                 else { editArea.CurFrame.BlockData4[y, x] = "Welcome"; }
-                                if (editArea.Tool.NPCtempMessage2 != null) { editArea.CurFrame.BlockData5[y, x] = editArea.Tool.NPCtempMessage3; }
+                                if (editArea.Tool.NPCtempMessage2 != null) { editArea.CurFrame.BlockData5[y, x] = editArea.Tool.NPCtempMessage2; }
                                 else { editArea.CurFrame.BlockData5[y, x] = "To"; }
                                 if (editArea.Tool.NPCtempMessage3 != null) { editArea.CurFrame.BlockData6[y, x] = editArea.Tool.NPCtempMessage3; }
                                 else { editArea.CurFrame.BlockData6[y, x] = "My World!"; }
