@@ -806,6 +806,7 @@ namespace EEditor
                     }
                     if (t == 374)
                     {
+                        writer.Write((short)BlockData[y, x]);
                         writer.Write(BlockData3[y, x]);
                     }
                     if (bdata.portals.Contains(t))
@@ -1128,11 +1129,11 @@ namespace EEditor
         {
             if (eeoimport)
             {
-                Dictionary<string,int> npcValues = new Dictionary<string,int>();
-                string npcJson = $"{Directory.GetCurrentDirectory()}\\npceeo.json";
-                if (File.Exists(npcJson))
+                Dictionary<string, int> blockValues = new Dictionary<string, int>();
+                string importBlocks = $"{Directory.GetCurrentDirectory()}\\blocks.json";
+                if (File.Exists(importBlocks))
                 {
-                    npcValues = JsonConvert.DeserializeObject<Dictionary<string, int>>(File.ReadAllText(npcJson));
+                    blockValues = JsonConvert.DeserializeObject<Dictionary<string, int>>(File.ReadAllText(importBlocks));
                 }
                 using (FileStream fs = new FileStream(file, FileMode.Open))
                 {
@@ -1160,11 +1161,32 @@ namespace EEditor
                             {
                                 if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Normal))
                                 {
-                                    f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                    if (blockValues.Count > 0)
+                                    {
+                                        if (blockValues.ContainsKey(lvl[0, x, y].BlockID.ToString()))
+                                        {
+                                            f.Foreground[y, x] = blockValues[lvl[0, x, y].BlockID.ToString()];
+                                        }
+                                        else
+                                        {
+                                            f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                        }
+                                    }
+
                                 }
                                 if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Rotatable) || Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.RotatableButNotReally))
                                 {
-                                    f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                    if (blockValues.Count > 0)
+                                    {
+                                        if (blockValues.ContainsKey(lvl[0, x, y].BlockID.ToString()))
+                                        {
+                                            f.Foreground[y, x] = blockValues[lvl[0, x, y].BlockID.ToString()];
+                                        }
+                                        else
+                                        {
+                                            f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                        }
+                                    }
                                     f.BlockData[y, x] = ((Blocks.RotatableBlock)lvl[0, x, y]).Rotation;
                                 }
                                 if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Sign))
@@ -1183,18 +1205,48 @@ namespace EEditor
                                 }
                                 if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Morphable))
                                 {
-                                    f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                    if (blockValues.Count > 0)
+                                    {
+                                        if (blockValues.ContainsKey(lvl[0, x, y].BlockID.ToString()))
+                                        {
+                                            f.Foreground[y, x] = blockValues[lvl[0, x, y].BlockID.ToString()];
+                                        }
+                                        else
+                                        {
+                                            f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                        }
+                                    }
                                     f.BlockData[y, x] = ((Blocks.MorphableBlock)lvl[0, x, y]).Morph;
 
                                 }
                                 if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Number))
                                 {
-                                    f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                    if (blockValues.Count > 0)
+                                    {
+                                        if (blockValues.ContainsKey(lvl[0, x, y].BlockID.ToString()))
+                                        {
+                                            f.Foreground[y, x] = blockValues[lvl[0, x, y].BlockID.ToString()];
+                                        }
+                                        else
+                                        {
+                                            f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                        }
+                                    }
                                     f.BlockData[y, x] = ((Blocks.NumberBlock)lvl[0, x, y]).Number;
                                 }
                                 if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Enumerable))
                                 {
-                                    f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                    if (blockValues.Count > 0)
+                                    {
+                                        if (blockValues.ContainsKey(lvl[0, x, y].BlockID.ToString()))
+                                        {
+                                            f.Foreground[y, x] = blockValues[lvl[0, x, y].BlockID.ToString()];
+                                        }
+                                        else
+                                        {
+                                            f.Foreground[y, x] = lvl[0, x, y].BlockID;
+                                        }
+                                    }
                                     f.BlockData[y, x] = ((Blocks.EnumerableBlock)lvl[0, x, y]).Variant;
                                 }
                                 if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.WorldPortal))
@@ -1210,22 +1262,37 @@ namespace EEditor
                                 }
                                 if (Blocks.IsType(lvl[1, x, y].BlockID, Blocks.BlockType.Normal))
                                 {
-                                    f.Background[y, x] = lvl[1, x, y].BlockID;
+                                    if (blockValues.Count > 0)
+                                    {
+                                        if (blockValues.ContainsKey(lvl[1, x, y].BlockID.ToString()))
+                                        {
+                                            f.Background[y, x] = blockValues[lvl[1, x, y].BlockID.ToString()];
+                                        }
+                                        else
+                                        {
+                                            f.Background[y, x] = lvl[1, x, y].BlockID;
+                                        }
+                                    }
                                 }
                                 if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.NPC))
                                 {
-                                    
-                                    if (npcValues.Count > 0)
+                                    if (blockValues.Count > 0)
                                     {
-                                        if (npcValues.ContainsKey(lvl[0, x, y].BlockID.ToString()))
+                                        if (blockValues.ContainsKey(lvl[0, x, y].BlockID.ToString()))
                                         {
-                                            f.Foreground[y, x] = npcValues[lvl[0, x, y].BlockID.ToString()];
-                                            f.BlockData3[y, x] = ((Blocks.NPCBlock)lvl[0, x, y]).Name;
-                                            f.BlockData4[y, x] = ((Blocks.NPCBlock)lvl[0, x, y]).Message1;
-                                            f.BlockData5[y, x] = ((Blocks.NPCBlock)lvl[0, x, y]).Message2;
-                                            f.BlockData6[y, x] = ((Blocks.NPCBlock)lvl[0, x, y]).Message3;
+                                            f.Foreground[y, x] = blockValues[lvl[0, x, y].BlockID.ToString()];
+                                        }
+                                        else
+                                        {
+                                            f.Foreground[y, x] = lvl[0, x, y].BlockID;
                                         }
                                     }
+                                    f.BlockData3[y, x] = ((Blocks.NPCBlock)lvl[0, x, y]).Name;
+                                    f.BlockData4[y, x] = ((Blocks.NPCBlock)lvl[0, x, y]).Message1;
+                                    f.BlockData5[y, x] = ((Blocks.NPCBlock)lvl[0, x, y]).Message2;
+                                    f.BlockData6[y, x] = ((Blocks.NPCBlock)lvl[0, x, y]).Message3;
+
+
                                 }
                                 if (Blocks.IsType(lvl[0, x, y].BlockID, Blocks.BlockType.Label))
                                 {
@@ -1259,9 +1326,9 @@ namespace EEditor
             }
 
 
-        
 
-    
+
+
         }
 
 
@@ -1286,7 +1353,7 @@ namespace EEditor
             }
             Console.WriteLine(missed + " " + got);
             */
-            if (num == 8)
+            if (num == 7)
             {
                 int width = reader.ReadInt32();
                 int height = reader.ReadInt32();
@@ -1310,8 +1377,8 @@ namespace EEditor
                         }
                         if (t == 374)
                         {
-                            f.BlockData3[y, x] = reader.ReadString();
                             f.BlockData[y, x] = Convert.ToInt32(reader.ReadInt16());
+                            f.BlockData3[y, x] = reader.ReadString();
                         }
                         if (bdata.portals.Contains(t))
                         {
@@ -1319,7 +1386,7 @@ namespace EEditor
                             f.BlockData1[y, x] = reader.ReadInt32();
                             f.BlockData2[y, x] = reader.ReadInt32();
                         }
-                        if (bdata.isNPCOld(t))
+                        if (bdata.isNPCNew(t))
                         {
                             f.BlockData3[y, x] = reader.ReadString();
                             f.BlockData4[y, x] = reader.ReadString();

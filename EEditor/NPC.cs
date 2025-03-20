@@ -36,9 +36,9 @@ namespace EEditor
             listView1.MultiSelect = false;
 
             var payvault = MainForm.accs[MainForm.userdata.username].payvault;
-            if (payvault.ContainsKey("npcsmile") || MainForm.debug) { addNPC("smile", 1592, list); }
-            if (payvault.ContainsKey("npcsad") || MainForm.debug) { addNPC("sad", 1593, list); }
-            if (payvault.ContainsKey("npcold") || MainForm.debug) { addNPC("old", 1594, list); }
+            if (payvault.ContainsKey("npcsmile") || MainForm.debug || MainForm.accs[MainForm.userdata.username].admin) { addNPC("smile", 1592, list); }
+            if (payvault.ContainsKey("npcsad") || MainForm.debug || MainForm.accs[MainForm.userdata.username].admin) { addNPC("sad", 1593, list); }
+            if (payvault.ContainsKey("npcold") || MainForm.debug || MainForm.accs[MainForm.userdata.username].admin) { addNPC("old", 1594, list); }
             if (payvault.ContainsKey("npcangry") || MainForm.debug) { addNPC("angry", 1595, list); }
             if (payvault.ContainsKey("npcslime") || MainForm.debug) { addNPC("slime", 1596, list); }
             if (payvault.ContainsKey("npcrobot") || MainForm.debug) { addNPC("robot", 1597, list); }
@@ -79,7 +79,7 @@ namespace EEditor
         {
             if (listView1.SelectedIndices.Count != 0)
             {
-                if (MainForm.userdata.username != "guest" || MainForm.ihavethese.Any(x => x.Key.StartsWith("npc")))
+                if (MainForm.userdata.username != "guest" || MainForm.ihavethese.Any(x => x.Key.StartsWith("npc")) || MainForm.debug || MainForm.accs[MainForm.userdata.username].admin)
                 {
                     blockID = Convert.ToInt32(listView1.Items[listView1.SelectedIndices[0]].Name);
                 }
@@ -98,7 +98,7 @@ namespace EEditor
             if (!MainForm.debug && MainForm.userdata.username != "guest" && MainForm.ihavethese.Any(x => x.Key.StartsWith("npc")))
             {
 
-                lvi.SubItems.Add(MainForm.accs[MainForm.userdata.username].payvault[name == "computer" ? "npcdt" : $"npc{name}"].ToString());
+                lvi.SubItems.Add($"npc{name}");
 
             }
             else

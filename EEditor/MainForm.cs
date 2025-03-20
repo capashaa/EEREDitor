@@ -272,6 +272,8 @@ namespace EEditor
             #region Background
 
             bgInit = new int[,] {
+
+                //Basic bgs
                 { 500,0}, { 501,1}, { 502,2}, { 503,3}, { 504,4}, { 505,5}, { 506,6}, { 507,7}, { 508,8}, { 509,9}, { 510,10},
                 { 511,11}, { 512,12}, { 513,13}, { 514,14}, { 515,15}, { 516,16}, { 517,17}, { 518,18}, { 519,19}, { 520,20},
                 { 521,21}, { 522,22}, { 523,23}, { 524,24}, { 525,25}, { 526,26}, { 527,27}, { 528,28}, { 529,29}, { 530,30},
@@ -323,7 +325,12 @@ namespace EEditor
                 //Solid
                 { 791,273 },{ 792,274 },{ 793,275 },{ 794,276 },{ 795,277 },{ 796,278 },
                 { 797,279 },{ 798,280 },{ 799,281 },{ 800,282 },{ 801,283 },{ 802,284 },
-                { 803,285 },{ 804,286 },{ 805,287 },{ 806,288 }
+                { 803,285 },{ 804,286 },{ 805,287 },{ 806,288 },
+
+                //Beta
+                { 743, 237 },{ 744,238 },{ 745,239 },
+                { 746,240 },{ 747,241 },{ 748,242 },
+                { 749,243 },{ 750,244 },{ 751,245 },{ 752,246 },
 
         };
             for (int i = 0; i < bgInit.Length / 2; i++)
@@ -423,8 +430,15 @@ namespace EEditor
                 { 119, 0 },{ 300, 1 },
                 //Cake
                 { 337, 2 },
-                //Switch
-                { 113, 3 },{ 185, 4 },{ 184, 5 },
+                //hologram
+                { 397, 53 },
+                //Switch purple
+                { 113, 3 },{ 185, 4 },{ 184, 5 }, { 1665, 554 },
+
+                //Switch orange
+                { 467, 259} , {1080, 261}, { 1079, 262 },
+                { 1666, 555},
+
                 //Timed door/gate
                 { 157, 6 },{ 156, 7 },
                 //Trophy
@@ -435,27 +449,40 @@ namespace EEditor
                 //Gold blocks
                 { 201, 12 },{ 200, 13 },
                 
-                //Original spikes
-                { 361, 24 }, 
+                //spikes
+                { 361, 24 }, { 1643, 446 }, //Default
+                { 1653, 558 }, { 1654, 561}, //Silver
+                { 1655, 563 }, { 1656, 566}, //Black
+                { 1657, 568 }, { 1658, 571}, //Red
+                { 1659, 573 }, { 1660, 576}, //Gold
+                { 1661, 578 }, { 1662, 581}, //Green
+                { 1663, 583 }, { 1664, 586}, //Blue
                 
                 //Checkpoint
                 { 360, 27 }, 
                 //Fire
                 { 368, 28 }, 
+                //Lava
+                { 416, 107 },
                 //Mud
                 { 369, 29 }, { 370, 30 }, 
+                //Toxic
+                { 1641, 456 }, { 1642, 457 },
                 
                 //Death door/gate
                 { 207, 31 }, { 206, 32 }, 
                 
-                //World portal
-                { 397, 53 }, 
-                
+         
+
+                //Portals
+                { 242, 108 }, //Normal portal
+                { 381, 112}, //Invisible portal
+
                 //Invisible gravity
                 { 411, 70 }, { 412, 71 },  { 413, 72 }, { 414, 73 }, 
-                
-                //Lava
-                { 416, 107 },
+                { 1519, 360 }, { 460, 222 },
+
+
 
                 //Yellow coin
                 { 100, 174 },
@@ -471,8 +498,10 @@ namespace EEditor
                 {419, 76}, 
                 //Effect: Health
                 { 420, 77}, 
+                //Effect: Curse
+                { 421, 78},
                 //Effect: Poison
-                { 421, 78}, 
+                { 1646, 497 },
                 //Effect: Zombie
                 { 422, 79 }, 
                 //Effect: MULTIJUMP
@@ -586,10 +615,7 @@ namespace EEditor
                 //One-way rotateable white
                 { 1092, 308 },
                 
-                //Switch orange
-                { 467, 259} , 
-                //switch orange door/gate
-                {1080, 261}, { 1079, 262 }, 
+ 
 
                 //Fairytale half-block orange 
                 { 1075, 264 }, 
@@ -633,20 +659,21 @@ namespace EEditor
                 //Halloween rotateable
                 { 499, 331 },
 
+                //Halloween Pumpkin
+                {1500, 335 },
+
+                //Halloween eyes
+                {1502,337 },
                 //Crown door/gate
                 { 1094, 341 }, { 1095, 340 }, 
                 
                 //Christmas light up
                 { 1506, 348 }, 
-                //Christmas llight down
+                //Christmas light down
                 { 1507, 343 }, 
                 
                 //Christmas candle
                 { 1510, 352 },
-
-
-                //Invisible Gravity down
-                { 1519, 360 }, 
                 
                 //Half-block white, gray, black, red, orange, yellow, green, cyan, blue, purple
                 { 1116, 362 }, { 1117, 366 }, { 1118, 370 }, { 1119, 374 },
@@ -698,40 +725,37 @@ namespace EEditor
                 //NPC's End
 
 
-                //Crown door/gate
+                //Silver Crown door/gate
                 { 1094, 454}, {1095, 455 },
                
-                //Spike silver rotation
-                { 1653, 558 }, 
-                //Spike silver center
-                { 1655, 561 }, 
-                //Spike black
-                { 1655, 563 },
-                //Spike black center
-                { 1656, 566 }, 
-                //Spike red
-                {1657, 568 }, 
-                //Spike red center
-                { 1658, 571 }, 
-                //Spike yellow
-                { 1659, 573 }, 
-                //Spike yellow center
-                { 1660, 576 }, 
-                //Spike green
-                { 1661, 578 },
-                //Spike green center
-                { 1662,581 }, 
-                //Spike blue
-                { 1663, 583 }, 
-                //Spike blue center
-                { 1664, 586 },
                 //Effect: Reset effect
                 { 1550, 550 },
 
-                //Orange switches reset
-                {1666,555 },
-                //Purple switches reset
-                 {1665,554 },
+                //Fireworks
+                {1640,  448},
+
+                //Toxic barrel
+                {1638,459 },
+
+                //Toxic sewer pipe
+                { 1637,  461},
+
+                //Toxic metal platform
+                { 1200, 466 },
+
+                //DUNGEON_PILLAR_BOTTOM
+                { 1634, 470 },
+                //DUNGEON_PILLAR_MIDDLE
+                { 1633, 474 },
+                //DUNGEON_PILLAR_TOP
+                { 1645, 478},
+
+                //DUNGEON_ARCH_LEFT
+                { 1647, 486 },
+                //DUNGEON_ARCH_RIGHT
+                { 1648, 482 },
+                //DUNGEON_TORCH
+                { 1627,  490},
             };
             for (int i = 0; i < miscInit.Length / 2; i++)
             {
@@ -2001,12 +2025,12 @@ namespace EEditor
             if (ihavethese.ContainsKey("brickfairytale"))
             {
                 AddToolStrip(decosBMD, 2, new int[] { 202, 203, 204, 265 }, null, false, "Fairytale", 2, 2, true);
-                AddToolStrip(miscBMD, 1, new int[] { 279 }, null, false, "Fairytale", 2, 2, true);
+                AddToolStrip(miscBMD, 1, new int[] { 280 }, null, false, "Fairytale", 2, 2, true);
             }
             else
             {
                 AddToolStrip(decosBMD, 2, new int[] { 202, 203, 204, 265 }, null, false, "Fairytale", 2, 2, false);
-                AddToolStrip(miscBMD, 1, new int[] { 279 }, null, false, "Fairytale", 2, 2, false);
+                AddToolStrip(miscBMD, 1, new int[] { 280 }, null, false, "Fairytale", 2, 2, false);
             }
 
             //Spring 2016 decorations
@@ -2025,16 +2049,8 @@ namespace EEditor
             if (ihavethese.ContainsKey("bricksummer2016")) { AddToolStrip(miscBMD, 1, new int[] { 292, 298, 304 }, null, false, "Summer 2016", 2, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 292, 298, 304 }, null, false, "Summer 2016", 2, 2, false); }
 
             //Mine decorations
-            if (ihavethese.ContainsKey("brickmine"))
-            {
-                AddToolStrip(decosBMD, 2, new int[] { 218, 219 }, null, false, "Mine", 2, 2, true);
-                AddToolStrip(miscBMD, 1, new int[] { 311, 317 }, null, false, "Mine", 2, 2, true);
-            }
-            else
-            {
-                AddToolStrip(decosBMD, 2, new int[] { 218, 219 }, null, false, "Mine", 2, 2, false);
-                AddToolStrip(miscBMD, 1, new int[] { 311, 317 }, null, false, "Mine", 2, 2, false);
-            }
+            AddToolStrip(decosBMD, 2, new int[] { 218, 219 }, null, false, "Mine", 2, 2, true);
+            AddToolStrip(miscBMD, 1, new int[] { 312, 317 }, null, false, "Mine", 2, 2, true);
 
             //Restaurant decorations
             if (ihavethese.ContainsKey("brickrestaurant"))
@@ -2052,12 +2068,12 @@ namespace EEditor
             if (ihavethese.ContainsKey("brickhalloween2016"))
             {
                 AddToolStrip(decosBMD, 2, new int[] { 220 }, null, false, "Halloween 2016", 2, 2, true);
-                AddToolStrip(miscBMD, 1, new int[] { 331, 335, 338 }, null, false, "Halloween 2016", 2, 2, true);
+                AddToolStrip(miscBMD, 1, new int[] { 331, 335, 337 }, null, false, "Halloween 2016", 2, 2, true);
             }
             else
             {
                 AddToolStrip(decosBMD, 2, new int[] { 220 }, null, false, "Halloween 2016", 2, 2, false);
-                AddToolStrip(miscBMD, 1, new int[] { 331, 335, 338 }, null, false, "Halloween 2016", 2, 2, false);
+                AddToolStrip(miscBMD, 1, new int[] { 331, 335, 337 }, null, false, "Halloween 2016", 2, 2, false);
             }
             //Construction decorations
             AddToolStrip(decosBMD, 2, new int[] { 221, 282, 222, 223, 244, 245 }, null, false, "Construction", 2, 2, true);
@@ -2188,8 +2204,13 @@ namespace EEditor
             if (ihavethese.ContainsKey("brickguitar")) { AddToolStrip(foregroundBMD, 0, new int[] { 286 }, null, false, "Music", 1, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 286 }, null, false, "Music", 1, 2, false); }
 
             //Spike action
-            if (ihavethese.ContainsKey("brickspike")) { AddToolStrip(miscBMD, 1, new int[] { 24 }, null, false, "Spikes", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 24 }, null, false, "Spikes", 1, 2, false); }
-            //AddToolStrip(miscBMD, 1, new int[] { 446, 561, 566, 571, 576, 581, 586 }, null, false, "Spikes", 1, 2, true);
+            if (ihavethese.ContainsKey("brickspike")) { AddToolStrip(miscBMD, 1, new int[] { 24,446 }, null, false, "Spikes", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 24, 446}, null, false, "Spikes", 1, 2, false); }
+            if (ihavethese.ContainsKey("brickspikesilver")) { AddToolStrip(miscBMD, 1, new int[] { 558,561 }, null, false, "Spikes", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 558, 561 }, null, false, "Spikes", 1, 2, false); }
+            if (ihavethese.ContainsKey("brickspikeblack")) { AddToolStrip(miscBMD, 1, new int[] { 563, 566 }, null, false, "Spikes", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 563, 566 }, null, false, "Spikes", 1, 2, false); }
+            if (ihavethese.ContainsKey("brickspikered")) { AddToolStrip(miscBMD, 1, new int[] { 568, 571 }, null, false, "Spikes", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 568, 571 }, null, false, "Spikes", 1, 2, false); }
+            if (ihavethese.ContainsKey("brickspikegold")) { AddToolStrip(miscBMD, 1, new int[] { 573,576 }, null, false, "Spikes", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 573, 576 }, null, false, "Spikes", 1, 2, false); }
+            if (ihavethese.ContainsKey("brickspikegreen")) { AddToolStrip(miscBMD, 1, new int[] { 578, 581 }, null, false, "Spikes", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 578, 581 }, null, false, "Spikes", 1, 2, false); }
+            if (ihavethese.ContainsKey("brickspikeblue")) { AddToolStrip(miscBMD, 1, new int[] { 583, 586 }, null, false, "Spikes", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 583, 586 }, null, false, "Spikes", 1, 2, false); }
 
             //Text block action
             if (accs[userdata.username].admin) { AddToolStrip(decosBMD, 2, new int[] { 176 }, null, false, "Label", 1, 0, true); } else { AddToolStrip(decosBMD, 2, new int[] { 176 }, null, false, "Label", 1, 0, false); }
@@ -2237,6 +2258,8 @@ namespace EEditor
             if (ihavethese.ContainsKey("brickeffectmultijump")) { AddToolStrip(miscBMD, 1, new int[] { 252 }, null, false, "Effects", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 252 }, null, false, "Effects", 1, 2, false); }
             //Effect gravity action
             if (ihavethese.ContainsKey("brickeffectgravity")) { AddToolStrip(miscBMD, 1, new int[] { 355 }, null, false, "Effects", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 355 }, null, false, "Effects", 1, 2, false); }
+            //Effect poison action
+            if (ihavethese.ContainsKey("brickeffectpoison")) { AddToolStrip(miscBMD, 1, new int[] { 497 }, null, false, "Effects", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 497 }, null, false, "Effects", 1, 2, false); }
             //Effect reset action
             if (ihavethese.ContainsKey("brickeffectreset")) { AddToolStrip(miscBMD, 1, new int[] { 550 }, null, false, "Effects", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 550 }, null, false, "Effects", 1, 2, false); }
 
@@ -2251,6 +2274,7 @@ namespace EEditor
             AddToolStrip(foregroundBMD, 0, new int[] { 341 }, null, false, "Sand", 1, 2, true);
 
             if (MainForm.userdata.username != "guest" && ihavethese.Any(x => x.Key.StartsWith("npc")) || debug || accs[userdata.username].admin) AddToolStrip(miscBMD, 1, new int[] { 433 }, null, false, "NPC", 1, 2, true);
+            AddToolStrip(miscBMD, 1, new int[] { 433 }, null, false, "NPC Happy", 1, 2, false);
             AddToolStrip(miscBMD, 1, new int[] { 434 }, null, false, "NPC Sad", 1, 2, false);
             AddToolStrip(miscBMD, 1, new int[] { 435 }, null, false, "NPC Old", 1, 2, false);
             AddToolStrip(miscBMD, 1, new int[] { 436 }, null, false, "NPC Angry", 1, 2, false);
@@ -2277,7 +2301,7 @@ namespace EEditor
 
             //Backgrounds
             AddToolStrip(backgroundBMD, 3, new int[] { 209, 0, 1, 2, 3, 4, 5, 6, 138, 139 }, new uint[] { 0x707070, 0x343434, 0x1A2955, 0x4A1751, 0x551A2A, 0x465217, 0x1E5218, 0x174F53, 0x6F370B, 0x050505 }, false, "Basic", 3, 0, true);
-            if (ihavethese.ContainsKey("beta") || accs[userdata.username].admin) { AddToolStrip(backgroundBMD, 3, new int[] { 237, 238, 239, 240, 241, 242, 243, 244, 245, 246 }, new uint[] { 0x3F3F3F, 0x292928, 0x181818, 0x491912, 0x472510, 0x45320D, 0x0F461B, 0x0E4245, 0x13254B, 0x461247 }, false, "Beta", 3, 0, true); } else { AddToolStrip(backgroundBMD, 3, new int[] { 237, 238, 239, 240, 241, 242, 243, 244, 245, 246 }, new uint[] { 0x3F3F3F, 0x292928, 0x181818, 0x491912, 0x472510, 0x45320D, 0x0F461B, 0x0E4245, 0x13254B, 0x461247 }, false, "Beta", 3, 0, false); }
+            if (ihavethese.ContainsKey("beta")) { AddToolStrip(backgroundBMD, 3, new int[] { 237, 238, 239, 240, 241, 242, 243, 244, 245, 246 }, new uint[] { 0x3F3F3F, 0x292928, 0x181818, 0x491912, 0x472510, 0x45320D, 0x0F461B, 0x0E4245, 0x13254B, 0x461247 }, false, "Beta", 3, 0, true); } else { AddToolStrip(backgroundBMD, 3, new int[] { 237, 238, 239, 240, 241, 242, 243, 244, 245, 246 }, new uint[] { 0x3F3F3F, 0x292928, 0x181818, 0x491912, 0x472510, 0x45320D, 0x0F461B, 0x0E4245, 0x13254B, 0x461247 }, false, "Beta", 3, 0, false); }
             AddToolStrip(backgroundBMD, 3, new int[] { 210, 8, 9, 10, 11, 12, 140, 141, 142, 7 }, new uint[] { 0x5B5B5B, 0x113726, 0x251136, 0x214108, 0x371214, 0x372E12, 0x282828, 0x051132, 0x0F0F0F, 0x441D04 }, false, "Brick", 3, 0, true);
             AddToolStrip(backgroundBMD, 3, new int[] { 212, 13, 14, 15, 16, 17, 18, 19, 143, 144 }, new uint[] { 0x6B6B6B, 0x3C3C3C, 0x1F365F, 0x552860, 0x5E0E23, 0x525A1D, 0x25591E, 0x236764, 0x834A1A, 0x191919 }, false, "Checker", 3, 0, true);
             AddToolStrip(backgroundBMD, 3, new int[] { 213, 20, 21, 22, 23, 24, 25, 26, 145, 146 }, new uint[] { 0x636363, 0x353535, 0x1C325D, 0x4C1853, 4283501598, 0x485318, 0x1D5318, 0x1C5D5B, 0x7A4111, 0x121212 }, false, "Dark", 3, 0, true);
@@ -2689,9 +2713,8 @@ namespace EEditor
                         }
                     }
 
-                    if (doihave || accs[selectedAcc].admin)
+                    if (doihave || accs[userdata.username].admin)
                     {
-
                         if (bdata.isNPCNew(id) && id != 1592)
                         {
                             return;
@@ -4243,7 +4266,7 @@ namespace EEditor
                 {
                     Title = "Select a file to save to",
                     DefaultExt = "eelevel",
-                    Filter = "EverybodyEdits level (*.eelevel)|*.eelevel",
+                    Filter = "EverybodyEdits Rewritten level (*.eerlevel)|*.eerlevel",
                     AddExtension = true,
                     RestoreDirectory = true
                 };
@@ -6012,6 +6035,41 @@ namespace EEditor
         {
 
         }
+
+        private void eERditor10ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try { 
+            OpenFileDialog ofd = new OpenFileDialog()
+            {
+                Title = "Select a level to load from",
+                DefaultExt = ".eerlevel",
+                Filter = "EverybodyEdits Rewritten level (*.eerlevel)|*.eerlevel",
+                FilterIndex = 1,
+                AddExtension = true,
+                RestoreDirectory = true,
+                CheckFileExists = true
+            };
+            if (ofd.ShowDialog() != DialogResult.OK) return;
+            string path = ofd.FileName;
+            FileStream fs = new FileStream(path, FileMode.Open);
+            BinaryReader reader = new BinaryReader(fs);
+            Frame frame = Frame.Load(reader, 7);
+            reader.Close();
+            fs.Close();
+            if (frame != null)
+            {
+
+                this.Text = $"({Path.GetFileName(ofd.FileName)}) [Unknown] ({frame.Width}x{frame.Height}) - EERditor {bdata.programVersion}";
+                ExecuteInitFrame(frame, false);
+            }
+            else MessageBox.Show("The selected EELevel is either invalid or corrupt.", "Invalid EELevel", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            ofd.Dispose();
+        }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error has occured: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+}
     }
 
     public class ownedBlocks

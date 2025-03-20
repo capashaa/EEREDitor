@@ -1,6 +1,8 @@
 ## Beta 7 (0.0.7)
-* Added: json files for npc and more will come.  
 * Fixed: text of NPC was duplicated.
+* Fixed: A lot of blocks.  
+* Fixed: json file of eelvl blocks, that converts automatic into eer blocks.
+* Fixed: NPC placing as debug/owner/administrator.    
 
 
 ## Beta 6 (0.0.6)

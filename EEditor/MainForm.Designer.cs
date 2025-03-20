@@ -50,6 +50,7 @@
             this.fileToolStrip = new System.Windows.Forms.ToolStrip();
             this.newWorldButton = new System.Windows.Forms.ToolStripButton();
             this.openWorldDropButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.eERditor10ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eEditor38ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eELVLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
@@ -407,6 +408,7 @@
             // 
             this.openWorldDropButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.openWorldDropButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.eERditor10ToolStripMenuItem,
             this.eEditor38ToolStripMenuItem,
             this.eELVLToolStripMenuItem,
             this.toolStripSeparator5,
@@ -427,6 +429,13 @@
             this.openWorldDropButton.Size = new System.Drawing.Size(33, 24);
             this.openWorldDropButton.Text = "Open";
             this.openWorldDropButton.ToolTipText = "Open a locally saved level (Ctrl+O)";
+            // 
+            // eERditor10ToolStripMenuItem
+            // 
+            this.eERditor10ToolStripMenuItem.Name = "eERditor10ToolStripMenuItem";
+            this.eERditor10ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.eERditor10ToolStripMenuItem.Text = "EERditor 1.0";
+            this.eERditor10ToolStripMenuItem.Click += new System.EventHandler(this.eERditor10ToolStripMenuItem_Click);
             // 
             // eEditor38ToolStripMenuItem
             // 
@@ -540,7 +549,7 @@
             // 
             this.saveWorldToolStripMenuItem.Name = "saveWorldToolStripMenuItem";
             this.saveWorldToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.saveWorldToolStripMenuItem.Text = "EEditor World";
+            this.saveWorldToolStripMenuItem.Text = "EERditor World";
             this.saveWorldToolStripMenuItem.Click += new System.EventHandler(this.saveWorldToolStripMenuItem_Click);
             // 
             // eelvlToolStripMenuItem1
@@ -664,7 +673,7 @@
             this.rectangleButton.Image = global::EEditor.Properties.Resources.rectangle;
             this.rectangleButton.Name = "rectangleButton";
             this.rectangleButton.ShortcutKeyDisplayString = ",";
-            this.rectangleButton.Size = new System.Drawing.Size(205, 22);
+            this.rectangleButton.Size = new System.Drawing.Size(206, 22);
             this.rectangleButton.Text = "Rectangle";
             this.rectangleButton.Click += new System.EventHandler(this.rectangleButton_Click);
             // 
@@ -673,7 +682,7 @@
             this.filledRectangleButton.Image = global::EEditor.Properties.Resources.rectanglefill;
             this.filledRectangleButton.Name = "filledRectangleButton";
             this.filledRectangleButton.ShortcutKeyDisplayString = "CTRL + ,";
-            this.filledRectangleButton.Size = new System.Drawing.Size(205, 22);
+            this.filledRectangleButton.Size = new System.Drawing.Size(206, 22);
             this.filledRectangleButton.Text = "Filled rectangle";
             this.filledRectangleButton.Click += new System.EventHandler(this.filledRectangleButton_Click);
             // 
@@ -682,7 +691,7 @@
             this.circleButton.Image = global::EEditor.Properties.Resources.circle;
             this.circleButton.Name = "circleButton";
             this.circleButton.ShortcutKeyDisplayString = ".";
-            this.circleButton.Size = new System.Drawing.Size(205, 22);
+            this.circleButton.Size = new System.Drawing.Size(206, 22);
             this.circleButton.Text = "Circle";
             this.circleButton.Click += new System.EventHandler(this.circleButton_Click);
             // 
@@ -691,7 +700,7 @@
             this.filledCircleButton.Image = global::EEditor.Properties.Resources.circlefill;
             this.filledCircleButton.Name = "filledCircleButton";
             this.filledCircleButton.ShortcutKeyDisplayString = "CTRL + .";
-            this.filledCircleButton.Size = new System.Drawing.Size(205, 22);
+            this.filledCircleButton.Size = new System.Drawing.Size(206, 22);
             this.filledCircleButton.Text = "Filled circle";
             this.filledCircleButton.Click += new System.EventHandler(this.filledCircleButton_Click);
             // 
@@ -700,7 +709,7 @@
             this.lineButton.Image = global::EEditor.Properties.Resources.line;
             this.lineButton.Name = "lineButton";
             this.lineButton.ShortcutKeyDisplayString = "-";
-            this.lineButton.Size = new System.Drawing.Size(205, 22);
+            this.lineButton.Size = new System.Drawing.Size(206, 22);
             this.lineButton.Text = "Line";
             this.lineButton.Click += new System.EventHandler(this.lineButton_Click);
             // 
@@ -708,7 +717,7 @@
             // 
             this.mazeGeneratorToolStripMenuItem.Image = global::EEditor.Properties.Resources.maze;
             this.mazeGeneratorToolStripMenuItem.Name = "mazeGeneratorToolStripMenuItem";
-            this.mazeGeneratorToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.mazeGeneratorToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
             this.mazeGeneratorToolStripMenuItem.Text = "Maze Generator";
             this.mazeGeneratorToolStripMenuItem.Visible = false;
             // 
@@ -731,7 +740,7 @@
             this.imageButton.Image = global::EEditor.Properties.Resources.image;
             this.imageButton.Name = "imageButton";
             this.imageButton.ShortcutKeyDisplayString = "CTRL + I";
-            this.imageButton.Size = new System.Drawing.Size(158, 22);
+            this.imageButton.Size = new System.Drawing.Size(159, 22);
             this.imageButton.Text = "Image";
             this.imageButton.Click += new System.EventHandler(this.imageButton_Click);
             // 
@@ -740,7 +749,7 @@
             this.textButton.Image = global::EEditor.Properties.Resources.text;
             this.textButton.Name = "textButton";
             this.textButton.ShortcutKeyDisplayString = "CTRL + T";
-            this.textButton.Size = new System.Drawing.Size(158, 22);
+            this.textButton.Size = new System.Drawing.Size(159, 22);
             this.textButton.Text = "Text";
             this.textButton.Click += new System.EventHandler(this.textButton_Click);
             // 
@@ -748,7 +757,7 @@
             // 
             this.bluePrintToolStripMenuItem.Image = global::EEditor.Properties.Resources.blueprint;
             this.bluePrintToolStripMenuItem.Name = "bluePrintToolStripMenuItem";
-            this.bluePrintToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.bluePrintToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.bluePrintToolStripMenuItem.Text = "Blue Print";
             this.bluePrintToolStripMenuItem.Click += new System.EventHandler(this.bluePrintToolStripMenuItem_Click);
             // 
@@ -1522,6 +1531,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
         private System.Windows.Forms.ToolStripButton BlockPicker10;
+        private System.Windows.Forms.ToolStripMenuItem eERditor10ToolStripMenuItem;
     }
 }
 
