@@ -274,29 +274,83 @@ namespace EEditor
             bgInit = new int[,] {
 
                 //Basic bgs
-                { 500,0}, { 501,1}, { 502,2}, { 503,3}, { 504,4}, { 505,5}, { 506,6}, { 507,7}, { 508,8}, { 509,9}, { 510,10},
-                { 511,11}, { 512,12}, { 513,13}, { 514,14}, { 515,15}, { 516,16}, { 517,17}, { 518,18}, { 519,19}, { 520,20},
-                { 521,21}, { 522,22}, { 523,23}, { 524,24}, { 525,25}, { 526,26}, { 527,27}, { 528,28}, { 529,29}, { 530,30},
-                { 531,31}, { 532,32}, { 533,33}, { 534,34}, { 535,35}, { 536,36}, { 537,37}, { 538,38}, { 539,39}, { 540,40},
-                { 541,41}, { 542,42}, { 543,43}, { 544,44}, { 545,45}, { 546,46}, { 547,47}, { 548,48}, { 549,49}, { 550,50},
-                { 551,51}, { 552,52}, { 553,53}, { 554,54}, { 555,55}, { 556,56}, { 557,57}, { 558,58}, { 559,59}, { 560,60},
-                { 561,61}, { 562,62}, { 563,63}, { 564,64}, { 565,65}, { 566,66}, { 567,67}, { 568,68}, { 569,69}, { 570,70},
-                { 571,71}, { 572,72}, { 573,73}, { 574,74}, { 575,75}, { 576,76}, { 577,77}, { 578,78}, { 579,79}, { 580,80},
-                { 581,81}, { 582,82}, { 583,83}, { 584,84}, { 585,85}, { 586,86}, { 587,87}, { 588,88}, { 589,89}, { 590,90},
-                { 591,91}, { 592,92}, { 593,93}, { 594,94}, { 595,95}, { 596,96}, { 597,97}, { 598,98}, { 599,99}, { 600,100},
-                { 601,101}, { 602,102}, { 603,103}, { 604,104}, { 605,105}, { 606,106}, { 607,107}, { 608,108}, { 609,109}, { 610,110},
+                { 500,0}, { 501,1}, { 502,2}, { 503,3}, { 504,4}, { 505,5}, { 506,6}, 
+                
+                //Brick bgs
+                { 507,7}, { 508,8}, { 509,9}, { 510,10}, { 511,11}, { 512,12}, 
+
+                //Checker bg
+                { 513,13}, { 514,14}, { 515,15}, { 516,16}, { 517,17}, { 518,18}, { 519,19}, 
+                
+                //Dark bg
+                { 520,20},{ 521,21}, { 522,22}, { 523,23}, { 524,24}, { 525,25}, { 526,26}, 
+
+                //Pastel bg
+                { 527,27}, { 528,28}, { 529,29}, { 530,30}, { 531,31}, { 532,32}, 
+
+                //Canvas bg
+                { 533,33}, { 534,34}, { 535,35}, { 536,36}, { 537,37}, { 538,38}, 
+                
+                //Candy bg
+                { 539,39}, { 540,40},
+
+                //Halloween 2012 bg
+                { 541,41}, { 542,42}, { 543,43}, { 544,44}, 
+                
+                //Carnival bg
+                { 545,45}, { 546,46}, { 547,47}, { 548,48}, { 549,49}, { 563,63},{ 605,105},{ 606,106}, { 671,165}, { 672,166},
+
+                //Prison bg
+                { 550,50}, { 551,51}, { 552,52}, { 553,53}, 
+                
+                //Pirate bg
+                { 554,54}, { 555,55}, { 559,59}, { 560,60},
+
+                //Stone bg
+                { 561,61}, { 562,62},{ 688,182 }, { 689,183 }, { 690,184 }, { 691,185 }, { 692,186 }, { 693,187 },
+
+                //Dojo bg
+                { 564,64}, { 565,65}, { 566,66}, { 567,67},  { 667,161}, { 668,162}, { 669,163}, { 670,164},
+
+                //Wild west bg
+                { 568,68}, { 569,69}, { 570,70}, { 571,71}, { 572,72}, { 573,73},
+
+                //Water bg
+                { 574,74}, { 575,75}, { 576,76}, { 577,77}, { 578,78},
+
+                //Sand
+                { 579,79}, { 580,80}, { 581,81}, { 582,82}, { 583,83}, { 584,84},
+
+                //Industrial bg
+                { 585,85}, { 586,86}, { 587,87}, { 588,88}, { 589,89},
+
+                //Clay bg
+                { 594,94}, { 595,95}, { 596,96}, { 597,97}, { 598,98 },
+
+                //Medieval bg
+                { 599,99}, { 600,100},{ 590,90}, { 591,91}, { 592,92}, { 593,93},
+
+                //Outer space bg
+                { 601,101}, { 602,102}, { 603,103}, { 604,104},
+
+                //Desert bg
+                { 699, 193}, { 700, 194 }, { 701, 195 },
+
+                { 598,98}, { 556,56}, { 557,57}, { 558,58}, 
+                        
+                   { 607,107}, { 608,108}, { 609,109}, { 610,110},
                 { 611,111}, { 612,112}, { 613,113}, { 614,114}, { 615,115}, { 616,116}, { 617,117}, { 618,118}, { 619,119}, { 620,120},
                 { 621,121}, { 622,122}, { 623,123}, { 624,124}, { 625,125}, { 626,126}, { 627,127}, { 628,128}, { 629,129}, { 630,130},
                 { 637,131}, { 638,132}, { 639,133}, { 640,134}, { 641,135}, { 642,136}, { 643,137}, { 644,138}, { 645,139}, { 646,140},
                 { 647,141}, { 648,142}, { 649,143}, { 650,144}, { 651,145}, { 652,146}, { 653,147}, { 654,148}, { 655,149}, { 656,150},
                 { 657,151}, { 658,152}, { 659,153}, { 660,154}, { 661,155}, { 662,156}, { 663,157}, { 664,158}, { 665,159}, { 666,160},
-                { 667,161}, { 668,162}, { 669,163}, { 670,164}, { 671,165}, { 672,166}, { 673,167}, { 674,168}, { 675,169}, { 676,170},
+                 { 673,167}, { 674,168}, { 675,169}, { 676,170},
                 { 677, 171 },{ 539, 39 }, { 540,40 },{ 637,131 },{ 550,50 }, { 551,51 }, { 552,52 }, { 553,53 },
-                { 554,54 }, { 555,55 }, { 559,59 }, { 560,60 },{ 561,61 }, { 562,62 }, { 688,182 }, { 689,183 }, { 690,184 }, { 691,185 }, { 692,186 }, { 693,187 },
+                { 554,54 }, { 555,55 }, { 559,59 }, { 560,60 },{ 561,61 }, { 562,62 }, 
                 { 564,64 }, { 565,65 }, { 566,66 }, { 567,67 }, { 667,161 }, { 668,162 }, { 669,163 }, { 670,164 },
                 { 568,68 }, { 569,69 }, { 570,70 }, { 571,71 }, { 572,72 }, { 573,73 },{ 574,74 }, { 575,75 }, { 576,76 }, { 577,77 }, { 578,78 },
                 { 579,79 }, { 580,80 }, { 581,81 }, { 582,82 }, { 583,83 }, { 584,84 },{ 585,85 }, { 586,86 }, { 587,87 }, { 588,88 }, { 589,89 },
-                { 594,94 }, { 595,95 }, { 596,96 }, { 597,97 }, { 598,98 },{ 599,99 }, { 600,100 }, { 590,90 }, { 591,91 }, { 592,92 }, { 556,56 }, { 593,93 },
+                { 594,94 }, { 595,95 }, { 596,96 }, { 597,97 },{ 599,99 }, { 600,100 }, { 590,90 }, { 591,91 }, { 592,92 }, { 556,56 }, { 593,93 },
                 { 601,101 }, { 602,102 }, { 603,103 }, { 604,104 },{ 605, 105 }, { 673, 167 }, { 674, 168 }, { 675, 169 },
                 { 608,108 }, { 609,109 }, { 663,157 }, { 664,158 }, { 665,159 }, { 666,160 },
                 { 617,117 }, { 618,118 }, { 619,119 }, { 620,120 }, { 621,121 }, { 622,122 }, { 623,123 },
@@ -304,7 +358,7 @@ namespace EEditor
                 { 557,57 }, { 630,130 },{ 638,132 }, { 639,133 }, { 640,134 },{ 641,135 }, { 642,136 }, { 643,137 },
                 { 655,149 }, { 656,150 }, { 657,151 }, { 658,152 }, { 659,153 }, { 660,154 }, { 661,155 }, { 662,156 }, { 663,157 }, { 664,158 }, { 665,159 }, { 666,160 },
                 { 678,172 }, { 679,173 }, { 680,174 }, { 681,175 }, { 682,176 }, { 683, 177 }, { 684, 178 }, {685, 179}, {686, 180}, { 687, 181 },
-                { 694,188 }, { 695,189 }, { 696,190 }, { 697, 191 }, { 698, 192}, { 699, 193}, { 700, 194 }, { 701, 195 }, { 702, 196 }, { 703, 197 }, { 709, 198 }, { 710, 199 }, { 711, 200 },
+                { 694,188 }, { 695,189 }, { 696,190 }, { 697, 191 }, { 698, 192},  { 702, 196 }, { 703, 197 }, { 709, 198 }, { 710, 199 }, { 711, 200 },
                 { 704, 201 }, { 705, 202 }, { 706, 203 }, { 707, 204 }, { 708, 205 }, { 712, 206 }, { 713, 207 }, { 714, 208 },
                 { 715, 209 },{ 716, 210 },{ 717, 211 },{ 718, 212 },{ 719, 213 }, { 720, 219 },
                 { 721, 214 }, { 722, 215 },{ 723, 216 },{ 724, 217 },{ 725, 218 }, { 726, 220 }, { 727, 221 },
@@ -313,12 +367,16 @@ namespace EEditor
                 { 743, 237 },{ 744, 238 },{ 745, 239 },{ 746, 240 },{ 747, 241 },{ 748, 242 },{ 749, 243 },{ 750, 244 },
                 { 751, 245 },{ 752, 246 },{ 753, 247 },{ 754, 248 },{ 755, 249 },{ 756, 250 },{ 757, 251 },{ 758, 252 },
                 { 759, 253 },{ 760, 254 },
+                
                 //Garden Pack
                 { 773, 255 },{ 774, 256 },{ 775, 257 },
+                
                 //Pastel
                 {776, 258 }, {777, 259}, { 787, 272},
+                
                 //Magic Bricks
                 { 778,  260},{ 779,  261},{ 780,  262},{ 781,  263},{ 782,  264},{ 783,  265},{ 784,  266},{ 785,  267},{ 786,  268},
+                
                 //cave
                 { 788,269 },{ 789,270 },{ 790,271 },
 
@@ -331,6 +389,9 @@ namespace EEditor
                 { 743, 237 },{ 744,238 },{ 745,239 },
                 { 746,240 },{ 747,241 },{ 748,242 },
                 { 749,243 },{ 750,244 },{ 751,245 },{ 752,246 },
+
+                //Toxic
+                { 812, 290 }
 
         };
             for (int i = 0; i < bgInit.Length / 2; i++)
@@ -486,7 +547,7 @@ namespace EEditor
                 { 381, 112}, //Invisible portal
 
                 //Invisible gravity
-                { 411, 70 }, { 412, 71 },  { 413, 72 }, { 414, 73 }, 
+                { 411, 70 }, { 412, 71 },  { 413, 72 }, { 414, 73 },
                 { 1519, 360 }, { 460, 222 },
 
 
@@ -742,7 +803,7 @@ namespace EEditor
                 {1640,  448},
 
                 //Toxic barrel
-                {1638,459 },
+                {1638, 459 },
 
                 //Toxic sewer pipe
                 { 1637,  461},
@@ -1816,8 +1877,8 @@ namespace EEditor
                 0x1300ff,0x7d00ff,0xe700ff,0xff00ad,
             }, false, "Solid", 0, 2, true);
 
-            //Toxic blocks (Doesn't exist)
-            //if (ihavethese.ContainsKey("bricktoxic")) { AddToolStrip(miscBMD, 1, new int[] { 466 }, null, false, "Toxic", 0, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 466 }, null, false, "Toxic", 0, 2, false); }
+
+
 
             //Dungeon blocks (Doesn't exist)
             /*if (ihavethese.ContainsKey("brickdungeon"))
@@ -2116,6 +2177,8 @@ namespace EEditor
             AddToolStrip(decosBMD, 2, new int[] { 286, 287, 288, 289, 290, 291, 292, 293, 294 }, null, false, "Towels", 2, 2, true);
             //Decorations 3
 
+            //toxic decorations
+            if (ihavethese.ContainsKey("bricktoxic")) { AddToolStrip(miscBMD, 1, new int[] { 457 }, null, false, "Toxic", 2, 0, true); } else { AddToolStrip(miscBMD, 1, new int[] { 457 }, null, false, "Toxic", 2, 0, false); }
             #endregion Decoration
 
             #region Action
@@ -2190,9 +2253,9 @@ namespace EEditor
             if (ihavethese.ContainsKey("brickgarden")) { AddToolStrip(foregroundBMD, 0, new int[] { 303, 307 }, null, false, "Climbable", 1, 0, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 303, 307 }, null, false, "Climbable", 1, 0, false); }
 
             //Purple switches action
-            if (ihavethese.ContainsKey("brickswitchpurple")) { AddToolStrip(miscBMD, 1, new int[] { 3, 4, 5 }, null, false, "Purple Switches", 1, 0, true); } else { AddToolStrip(miscBMD, 1, new int[] { 3, 4, 5,554 }, null, false, "Purple Switches", 1, 0, false); }
+            if (ihavethese.ContainsKey("brickswitchpurple")) { AddToolStrip(miscBMD, 1, new int[] { 3, 4, 5 }, null, false, "Purple Switches", 1, 0, true); } else { AddToolStrip(miscBMD, 1, new int[] { 3, 4, 5, 554 }, null, false, "Purple Switches", 1, 0, false); }
             //Orange switches action
-            if (ihavethese.ContainsKey("brickswitchorange")) { AddToolStrip(miscBMD, 1, new int[] { 259, 261, 262 }, null, false, "Orange Switches", 1, 0, true); } else { AddToolStrip(miscBMD, 1, new int[] { 259, 261, 262,555 }, null, false, "Orange Switches", 1, 0, false); }
+            if (ihavethese.ContainsKey("brickswitchorange")) { AddToolStrip(miscBMD, 1, new int[] { 259, 261, 262 }, null, false, "Orange Switches", 1, 0, true); } else { AddToolStrip(miscBMD, 1, new int[] { 259, 261, 262, 555 }, null, false, "Orange Switches", 1, 0, false); }
 
             //Death doors/gates action
             if (ihavethese.ContainsKey("brickdeathdoor")) { AddToolStrip(foregroundBMD, 0, new int[] { 198, 199 }, new uint[] { 0xA9A9A9, 0xA9A9A9 }, false, "Death", 1, 0, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 198, 199 }, new uint[] { 0xA9A9A9, 0xA9A9A9 }, false, "Death", 1, 0, false); }
@@ -2211,11 +2274,11 @@ namespace EEditor
             if (ihavethese.ContainsKey("brickguitar")) { AddToolStrip(foregroundBMD, 0, new int[] { 286 }, null, false, "Music", 1, 2, true); } else { AddToolStrip(foregroundBMD, 0, new int[] { 286 }, null, false, "Music", 1, 2, false); }
 
             //Spike action
-            if (ihavethese.ContainsKey("brickspike")) { AddToolStrip(miscBMD, 1, new int[] { 24,446 }, null, false, "Spikes", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 24, 446}, null, false, "Spikes", 1, 2, false); }
-            if (ihavethese.ContainsKey("brickspikesilver")) { AddToolStrip(miscBMD, 1, new int[] { 558,561 }, null, false, "Spikes", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 558, 561 }, null, false, "Spikes", 1, 2, false); }
+            if (ihavethese.ContainsKey("brickspike")) { AddToolStrip(miscBMD, 1, new int[] { 24, 446 }, null, false, "Spikes", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 24, 446 }, null, false, "Spikes", 1, 2, false); }
+            if (ihavethese.ContainsKey("brickspikesilver")) { AddToolStrip(miscBMD, 1, new int[] { 558, 561 }, null, false, "Spikes", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 558, 561 }, null, false, "Spikes", 1, 2, false); }
             if (ihavethese.ContainsKey("brickspikeblack")) { AddToolStrip(miscBMD, 1, new int[] { 563, 566 }, null, false, "Spikes", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 563, 566 }, null, false, "Spikes", 1, 2, false); }
             if (ihavethese.ContainsKey("brickspikered")) { AddToolStrip(miscBMD, 1, new int[] { 568, 571 }, null, false, "Spikes", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 568, 571 }, null, false, "Spikes", 1, 2, false); }
-            if (ihavethese.ContainsKey("brickspikegold")) { AddToolStrip(miscBMD, 1, new int[] { 573,576 }, null, false, "Spikes", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 573, 576 }, null, false, "Spikes", 1, 2, false); }
+            if (ihavethese.ContainsKey("brickspikegold")) { AddToolStrip(miscBMD, 1, new int[] { 573, 576 }, null, false, "Spikes", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 573, 576 }, null, false, "Spikes", 1, 2, false); }
             if (ihavethese.ContainsKey("brickspikegreen")) { AddToolStrip(miscBMD, 1, new int[] { 578, 581 }, null, false, "Spikes", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 578, 581 }, null, false, "Spikes", 1, 2, false); }
             if (ihavethese.ContainsKey("brickspikeblue")) { AddToolStrip(miscBMD, 1, new int[] { 583, 586 }, null, false, "Spikes", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 583, 586 }, null, false, "Spikes", 1, 2, false); }
 
@@ -2230,8 +2293,9 @@ namespace EEditor
 
             //Fire action
             if (ihavethese.ContainsKey("brickfire")) { AddToolStrip(miscBMD, 1, new int[] { 28 }, null, false, "Hazards", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 28 }, null, false, "Hazards", 1, 2, false); }
-            if (ihavethese.ContainsKey("brickbluefire")) { AddToolStrip(miscBMD, 1, new int[] { 587 }, null, false, "Hazards", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 587 }, null, false, "Hazards", 1, 2, false); }
             //Fire blue action
+            if (ihavethese.ContainsKey("brickbluefire")) { AddToolStrip(miscBMD, 1, new int[] { 587 }, null, false, "Hazards", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 587 }, null, false, "Hazards", 1, 2, false); }
+
 
             //water action
             AddToolStrip(miscBMD, 1, new int[] { 0 }, null, false, "Liquids", 1, 2, true);
@@ -2240,6 +2304,8 @@ namespace EEditor
             if (ihavethese.ContainsKey("bricklava")) { AddToolStrip(miscBMD, 1, new int[] { 107 }, null, false, "Liquids", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 107 }, null, false, "Liquids", 1, 2, false); }
             //Swamp liquid action
             if (ihavethese.ContainsKey("brickswamp")) { AddToolStrip(miscBMD, 1, new int[] { 29 }, null, false, "Liquids", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 29 }, null, false, "Liquids", 1, 2, false); }
+            //Toxic liquid action
+            if (ihavethese.ContainsKey("bricktoxic")) { AddToolStrip(miscBMD, 1, new int[] { 456 }, null, false, "Liquids", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 456 }, null, false, "Liquids", 1, 2, false); }
 
             //Portal Invisible action
             if (ihavethese.ContainsKey("brickinvisibleportal")) { AddToolStrip(miscBMD, 1, new int[] { 112 }, null, false, "Portals", 1, 2, true); } else { AddToolStrip(miscBMD, 1, new int[] { 112 }, null, false, "Portals", 1, 2, false); }
@@ -2459,7 +2525,6 @@ namespace EEditor
             //Magic purple background
             if (ihavethese.ContainsKey("brickmagic2")) { AddToolStrip(backgroundBMD, 3, new int[] { 261 }, new uint[] { 0x250a39 }, false, "Magic", 3, 2, true); } else { AddToolStrip(backgroundBMD, 3, new int[] { 261 }, new uint[] { 0x250a39 }, false, "Magic", 3, 2, false); }
 
-
             //Magic orange background
             if (ihavethese.ContainsKey("brickmagic3")) { AddToolStrip(backgroundBMD, 3, new int[] { 262 }, new uint[] { 0x4e300d }, false, "Magic", 3, 2, true); } else { AddToolStrip(backgroundBMD, 3, new int[] { 262 }, new uint[] { 0x4e300d }, false, "Magic", 3, 2, false); }
 
@@ -2491,8 +2556,10 @@ namespace EEditor
                 0x007f74,0x00567f,0x09007f,0x3e007f,0x73007f,0x7f0056
             }, false, "Solid", 3, 2, true);
 
-
-
+            //Toxic
+            if (ihavethese.ContainsKey("bricktoxic")) { AddToolStrip(backgroundBMD, 3, new int[] { 290 }, new uint[] { 0x1A401A }, false, "Toxic", 3, 2, true); } else { AddToolStrip(backgroundBMD, 3, new int[] { 290 }, new uint[] { 0x1A401A }, false, "Toxic", 3, 2, false); }
+            //Dungeons
+            if (ihavethese.ContainsKey("brickdungeon")) { AddToolStrip(backgroundBMD, 3, new int[] { 291, 292, 293, 294 }, new uint[] { 0x181313, 0x0C1610, 0x0F111B, 0x190D20 }, false, "Dungeon", 3, 2, true); } else { AddToolStrip(backgroundBMD, 3, new int[] { 291, 292, 293, 294 }, new uint[] { 0x181313, 0x0C1610, 0x0F111B, 0x190D20 }, false, "Dungeon", 3, 2, false); }
             #endregion Background
 
             if (userdata.newestBlocks.Count >= 1)
@@ -3497,25 +3564,25 @@ namespace EEditor
                             {
                                 lastSelectedBlocksUpdate(cur);
                                 if (cur.ID == 1592)
-                                 {
-                                     using (NPC co = new NPC())
-                                     {
-                                         if (editArea.Tool.NPCtempMessage1 != null) { co.message1.Text = editArea.Tool.NPCtempMessage1; }
-                                         if (editArea.Tool.NPCtempMessage2 != null) { co.message2.Text = editArea.Tool.NPCtempMessage2; }
-                                         if (editArea.Tool.NPCtempMessage3 != null) { co.message3.Text = editArea.Tool.NPCtempMessage3; }
-                                         if (editArea.Tool.NPCtempMessage4 != null) { co.nickname.Text = editArea.Tool.NPCtempMessage4; }
-                                         if (editArea.Tool.NPCId.ToString() != null)
-                                             if (co.ShowDialog() == DialogResult.OK)
-                                             {
-                                                 editArea.Tool.PenID = co.blockID;
-                                                 editArea.Tool.NPCtempMessage1 = co.message1.Text;
-                                                 editArea.Tool.NPCtempMessage2 = co.message2.Text;
-                                                 editArea.Tool.NPCtempMessage3 = co.message3.Text;
-                                                 editArea.Tool.NPCtempMessage4 = co.nickname.Text;
+                                {
+                                    using (NPC co = new NPC())
+                                    {
+                                        if (editArea.Tool.NPCtempMessage1 != null) { co.message1.Text = editArea.Tool.NPCtempMessage1; }
+                                        if (editArea.Tool.NPCtempMessage2 != null) { co.message2.Text = editArea.Tool.NPCtempMessage2; }
+                                        if (editArea.Tool.NPCtempMessage3 != null) { co.message3.Text = editArea.Tool.NPCtempMessage3; }
+                                        if (editArea.Tool.NPCtempMessage4 != null) { co.nickname.Text = editArea.Tool.NPCtempMessage4; }
+                                        if (editArea.Tool.NPCId.ToString() != null)
+                                            if (co.ShowDialog() == DialogResult.OK)
+                                            {
+                                                editArea.Tool.PenID = co.blockID;
+                                                editArea.Tool.NPCtempMessage1 = co.message1.Text;
+                                                editArea.Tool.NPCtempMessage2 = co.message2.Text;
+                                                editArea.Tool.NPCtempMessage3 = co.message3.Text;
+                                                editArea.Tool.NPCtempMessage4 = co.nickname.Text;
 
-                                             }
-                                     }
-                                 }
+                                            }
+                                    }
+                                }
                             }
                         }
                         MainForm.pressed += 1;
@@ -6054,38 +6121,39 @@ namespace EEditor
 
         private void eERditor10ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try { 
-            OpenFileDialog ofd = new OpenFileDialog()
+            try
             {
-                Title = "Select a level to load from",
-                DefaultExt = ".eerlevel",
-                Filter = "EverybodyEdits Rewritten level (*.eerlevel)|*.eerlevel",
-                FilterIndex = 1,
-                AddExtension = true,
-                RestoreDirectory = true,
-                CheckFileExists = true
-            };
-            if (ofd.ShowDialog() != DialogResult.OK) return;
-            string path = ofd.FileName;
-            FileStream fs = new FileStream(path, FileMode.Open);
-            BinaryReader reader = new BinaryReader(fs);
-            Frame frame = Frame.Load(reader, 7);
-            reader.Close();
-            fs.Close();
-            if (frame != null)
-            {
+                OpenFileDialog ofd = new OpenFileDialog()
+                {
+                    Title = "Select a level to load from",
+                    DefaultExt = ".eerlevel",
+                    Filter = "EverybodyEdits Rewritten level (*.eerlevel)|*.eerlevel",
+                    FilterIndex = 1,
+                    AddExtension = true,
+                    RestoreDirectory = true,
+                    CheckFileExists = true
+                };
+                if (ofd.ShowDialog() != DialogResult.OK) return;
+                string path = ofd.FileName;
+                FileStream fs = new FileStream(path, FileMode.Open);
+                BinaryReader reader = new BinaryReader(fs);
+                Frame frame = Frame.Load(reader, 7);
+                reader.Close();
+                fs.Close();
+                if (frame != null)
+                {
 
-                this.Text = $"({Path.GetFileName(ofd.FileName)}) [Unknown] ({frame.Width}x{frame.Height}) - EERditor {bdata.programVersion}";
-                ExecuteInitFrame(frame, false);
+                    this.Text = $"({Path.GetFileName(ofd.FileName)}) [Unknown] ({frame.Width}x{frame.Height}) - EERditor {bdata.programVersion}";
+                    ExecuteInitFrame(frame, false);
+                }
+                else MessageBox.Show("The selected EELevel is either invalid or corrupt.", "Invalid EELevel", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ofd.Dispose();
             }
-            else MessageBox.Show("The selected EELevel is either invalid or corrupt.", "Invalid EELevel", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            ofd.Dispose();
-        }
             catch (Exception ex)
             {
                 MessageBox.Show("An error has occured: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-}
+        }
     }
 
     public class ownedBlocks
