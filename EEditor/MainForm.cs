@@ -134,6 +134,7 @@ namespace EEditor
                     if (userdata.SaveXBlocks.ToString() == null) userdata.SaveXBlocks = 500;
                     if (userdata.HotkeyBar.ToString() == null) userdata.HotkeyBar = false;
                     if (userdata.oldmark.ToString() == null) userdata.oldmark = true;
+                    if (userdata.username.ToString() == null) userdata.username = "guest";
                 }
                 else
                 {
@@ -390,8 +391,11 @@ namespace EEditor
                 { 746,240 },{ 747,241 },{ 748,242 },
                 { 749,243 },{ 750,244 },{ 751,245 },{ 752,246 },
 
+                //Dungeon
+                { 808, 291 }, { 809, 292 }, { 810, 293 }, { 811, 294},
+
                 //Toxic
-                { 812, 290 }
+                { 812, 290 },
 
         };
             for (int i = 0; i < bgInit.Length / 2; i++)
