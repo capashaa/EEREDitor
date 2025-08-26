@@ -63,7 +63,7 @@
             // lukemLinkLabel
             // 
             this.lukemLinkLabel.AutoSize = true;
-            this.lukemLinkLabel.Location = new System.Drawing.Point(143, 274);
+            this.lukemLinkLabel.Location = new System.Drawing.Point(139, 274);
             this.lukemLinkLabel.Name = "lukemLinkLabel";
             this.lukemLinkLabel.Size = new System.Drawing.Size(106, 13);
             this.lukemLinkLabel.TabIndex = 23;
@@ -121,7 +121,7 @@
             // ZIPLinkLabel
             // 
             this.ZIPLinkLabel.AutoSize = true;
-            this.ZIPLinkLabel.Location = new System.Drawing.Point(10, 274);
+            this.ZIPLinkLabel.Location = new System.Drawing.Point(6, 274);
             this.ZIPLinkLabel.Name = "ZIPLinkLabel";
             this.ZIPLinkLabel.Size = new System.Drawing.Size(127, 13);
             this.ZIPLinkLabel.TabIndex = 21;
@@ -187,7 +187,7 @@
             // JSONLinkLabel
             // 
             this.JSONLinkLabel.AutoSize = true;
-            this.JSONLinkLabel.Location = new System.Drawing.Point(7, 252);
+            this.JSONLinkLabel.Location = new System.Drawing.Point(6, 252);
             this.JSONLinkLabel.Name = "JSONLinkLabel";
             this.JSONLinkLabel.Size = new System.Drawing.Size(111, 13);
             this.JSONLinkLabel.TabIndex = 18;
