@@ -1,14 +1,12 @@
 ## EEREditor - Everybody Edits Offline Editor
 
-> [!WARNING]  
-> This tool is not going to work as expected with EERv2.
 
 
 Welcome to the EEREditor GitHub page! Here we host sourcecode and latest version of EEREditor.  
 
 ## **About EEREditor**
 
-EEOditor is an offline Everybody Edits level editor, made to simplify level creation and manipulation.  
+EERditor is an offline Everybody Edits level editor, made to simplify level creation and manipulation.  
 Originally built by Cyph1e, then continued by capasha and robotkoer.  
 
 ## **Installation/Download**
