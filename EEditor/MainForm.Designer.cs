@@ -50,7 +50,6 @@
             this.fileToolStrip = new System.Windows.Forms.ToolStrip();
             this.newWorldButton = new System.Windows.Forms.ToolStripButton();
             this.openWorldDropButton = new System.Windows.Forms.ToolStripDropDownButton();
-            this.eERditor10ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eEditor38ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eELVLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
@@ -147,6 +146,7 @@
             this.lastUsedBlockButton2 = new System.Windows.Forms.ToolStripButton();
             this.lastUsedBlockButton3 = new System.Windows.Forms.ToolStripButton();
             this.lastUsedBlockButton4 = new System.Windows.Forms.ToolStripButton();
+            this.eERLevelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.morphToolStrip.SuspendLayout();
             this.viewToolStrip.SuspendLayout();
             this.settingsToolStrip.SuspendLayout();
@@ -408,10 +408,10 @@
             // 
             this.openWorldDropButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.openWorldDropButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.eERditor10ToolStripMenuItem,
-            this.eEditor38ToolStripMenuItem,
+            this.eERLevelToolStripMenuItem,
             this.eELVLToolStripMenuItem,
             this.toolStripSeparator5,
+            this.eEditor38ToolStripMenuItem,
             this.eEditor37ToolStripMenuItem,
             this.new33ToolStripMenuItem,
             this.loadNewMenuItem,
@@ -429,13 +429,6 @@
             this.openWorldDropButton.Size = new System.Drawing.Size(33, 24);
             this.openWorldDropButton.Text = "Open";
             this.openWorldDropButton.ToolTipText = "Open a locally saved level (Ctrl+O)";
-            // 
-            // eERditor10ToolStripMenuItem
-            // 
-            this.eERditor10ToolStripMenuItem.Name = "eERditor10ToolStripMenuItem";
-            this.eERditor10ToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.eERditor10ToolStripMenuItem.Text = "EERditor 1.0";
-            this.eERditor10ToolStripMenuItem.Click += new System.EventHandler(this.eERditor10ToolStripMenuItem_Click);
             // 
             // eEditor38ToolStripMenuItem
             // 
@@ -549,11 +542,12 @@
             // 
             this.saveWorldToolStripMenuItem.Name = "saveWorldToolStripMenuItem";
             this.saveWorldToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.saveWorldToolStripMenuItem.Text = "EERditor World";
+            this.saveWorldToolStripMenuItem.Text = "EER Level";
             this.saveWorldToolStripMenuItem.Click += new System.EventHandler(this.saveWorldToolStripMenuItem_Click);
             // 
             // eelvlToolStripMenuItem1
             // 
+            this.eelvlToolStripMenuItem1.Enabled = false;
             this.eelvlToolStripMenuItem1.Name = "eelvlToolStripMenuItem1";
             this.eelvlToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.eelvlToolStripMenuItem1.Text = "EE Offline Level";
@@ -1359,6 +1353,12 @@
             this.lastUsedBlockButton4.Size = new System.Drawing.Size(23, 22);
             this.lastUsedBlockButton4.Click += new System.EventHandler(this.lastUsedBlockButton);
             // 
+            // eERLevelToolStripMenuItem
+            // 
+            this.eERLevelToolStripMenuItem.Name = "eERLevelToolStripMenuItem";
+            this.eERLevelToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.eERLevelToolStripMenuItem.Text = "EER Level";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1531,7 +1531,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
         private System.Windows.Forms.ToolStripButton BlockPicker10;
-        private System.Windows.Forms.ToolStripMenuItem eERditor10ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem eERLevelToolStripMenuItem;
     }
 }
 
